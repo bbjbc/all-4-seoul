@@ -1,5 +1,3 @@
-# all-4-seoul
-
 ## All-4-Seoul FE 깃 커밋 컨벤션
 - feat: 새로운 기능 추가
 - fix: 버그 수정
