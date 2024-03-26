@@ -1,22 +1,21 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
 import { IoHome } from 'react-icons/io5';
 
 function NavBar() {
   return (
-    <nav className="bg-blue-500 bg-opacity-75 p-4">
-      <ul className="mx-16 flex justify-between">
+    <nav className="absolute left-0 top-0 z-10 w-full rounded-b-3xl bg-gray-600 bg-opacity-30 p-4 text-lg font-semibold">
+      <ul className="mx-20 flex justify-between">
         <li className="flex items-center">
           <NavLink
             to="/"
             className={({ isActive }) =>
               isActive
                 ? 'flex items-center text-blue-950 hover:text-purple-950'
-                : 'flex items-center text-white hover:text-cyan-900'
+                : 'flex items-center text-black hover:text-cyan-900'
             }
           >
-            <IoHome className="mr-3 text-lg text-white" />
+            <IoHome className="mr-3 text-lg text-black" />
             Home
           </NavLink>
         </li>
@@ -26,7 +25,7 @@ function NavBar() {
             className={({ isActive }) =>
               isActive
                 ? 'flex items-center text-blue-950 hover:text-purple-950'
-                : 'flex items-center text-white hover:text-cyan-900'
+                : 'flex items-center text-black hover:text-cyan-900'
             }
           >
             List
@@ -36,7 +35,7 @@ function NavBar() {
             className={({ isActive }) =>
               isActive
                 ? 'flex items-center text-blue-950 hover:text-purple-950'
-                : 'flex items-center text-white hover:text-cyan-900'
+                : 'flex items-center text-black hover:text-cyan-900'
             }
           >
             Search
@@ -46,7 +45,7 @@ function NavBar() {
             className={({ isActive }) =>
               isActive
                 ? 'flex items-center text-blue-950 hover:text-purple-950'
-                : 'flex items-center text-white hover:text-cyan-900'
+                : 'flex items-center text-black hover:text-cyan-900'
             }
           >
             MyPage

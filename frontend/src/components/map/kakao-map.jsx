@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-function Map() {
+function KakaoMap() {
   useEffect(() => {
     const script = document.createElement('script');
     script.src =
@@ -25,4 +25,4 @@ function Map() {
   return <div id="map" style={{ width: '100%', height: '100vh' }}></div>;
 }
 
-export default Map;
+export default KakaoMap;
