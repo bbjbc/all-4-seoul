@@ -2,15 +2,15 @@ import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import KakaoMap from '../components/map/kakao-map';
 import NavBar from '../components/navigation/main-navigation';
+import TypePickButton from '../components/button/type-pick-button';
 
 function RootLayout() {
   return (
     <>
       <NavBar />
-      <KakaoMap />
-      <main className="m-[2rem] text-center">
+      <TypePickButton />
+      <main className="text-center">
         <Outlet />
       </main>
     </>
