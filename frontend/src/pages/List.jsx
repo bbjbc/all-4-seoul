@@ -20,7 +20,7 @@ function ListPage() {
       : DummyData.filter((item) => item.category === selectedCategory);
 
   return (
-    <div className="bg-green-50 px-14 py-32">
+    <div className="px-14 py-32">
       <CategoryBar
         categories={allCategories}
         selectedCategory={selectedCategory}
