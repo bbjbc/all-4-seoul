@@ -7,7 +7,7 @@ import { IoList } from 'react-icons/io5';
 
 function TypePickButton() {
   return (
-    <div className="absolute left-0 top-20 z-10 w-full text-center">
+    <div className="fixed left-0 top-20 z-10 w-full text-center">
       <div className="flex justify-center">
         <div className="grid grid-cols-2">
           <NavLink
