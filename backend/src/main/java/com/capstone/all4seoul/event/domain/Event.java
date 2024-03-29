@@ -15,14 +15,22 @@ public class Event {
     @Column(name = "event_id", nullable = false)
     private Long id;
 
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
-    private String duration;
+
+    @Column(name = "period", nullable = false)
+    private String period;
+
+    @Column(name = "price")
     private String price;
 
     @OneToOne
     @JoinColumn(name = "place_id")
     private Place location;
 
+    @Column(name = "x", nullable = false, length = 30)
     private String x;
+
+    @Column(name = "y", nullable = false, length = 30)
     private String y;
 }

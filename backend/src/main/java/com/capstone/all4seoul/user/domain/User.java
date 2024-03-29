@@ -17,15 +17,31 @@ import java.util.List;
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
-    private String id;
+    private Long id;
 
-    private String login_id;
-    private String login_password;
+    @Column(name = "login_id", nullable = false, unique = true, updatable = false, length = 30)
+    private String loginId;
+
+    @Column(name = "login_password", nullable = false, length = 100)
+    private String loginPassword;
+
+    @Column(name = "name", nullable = false, length = 30)
     private String name;
+
+    @Column(name = "birth", nullable = false)
     private LocalDate birth;
+
+    @Column(name = "mbti", nullable = false)
     private String mbti;
+
+    @Enumerated
+    @Column(name = "gender", nullable = false)
     private String gender;
+
+    @Column(name = "nickname", nullable = false, unique = true, length = 30)
     private String nickName;
+
+    @Column(name = "credit", nullable = false)
     private int credit;
 
 

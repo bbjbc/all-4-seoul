@@ -26,13 +26,20 @@ public class Place {
     private User user;
 
     // 장소이름
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
+
+    @Column(name = "phone_number", nullable = false, unique = true, length = 11)
     private String phoneNumber;
+
+    @Column(name = "x", nullable = false, length = 30)
     private String x;
+
+    @Column(name = "y", nullable = false, length = 30)
     private String y;
 
     /**
