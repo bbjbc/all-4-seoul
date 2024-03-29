@@ -38,6 +38,7 @@ function NavBar() {
             리스트
           </NavLink>
           <SearchButton />
+
           <NavLink
             to="/mypage"
             className={({ isActive }) =>
@@ -47,6 +48,16 @@ function NavBar() {
             }
           >
             마이페이지
+          </NavLink>
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              isActive
+                ? 'flex items-center rounded-lg bg-gray-300 px-2 text-blue-950 hover:bg-slate-200 hover:text-purple-950'
+                : 'hover:bg-slate-20 flex items-center rounded-lg bg-gray-300 px-2 text-black hover:text-cyan-900'
+            }
+          >
+            로그인
           </NavLink>
         </li>
       </ul>
