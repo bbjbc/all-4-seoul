@@ -1,11 +1,18 @@
 import React from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { FaMapMarkedAlt } from 'react-icons/fa';
 import { IoList } from 'react-icons/io5';
 
 function TypePickButton() {
+  const location = useLocation();
+
+  const isAuthPage =
+    location.pathname === '/login' || location.pathname === '/signup';
+
+  if (isAuthPage) return null;
+
   return (
     <div className="fixed left-0 top-20 z-10 w-full text-center">
       <div className="flex justify-center">
