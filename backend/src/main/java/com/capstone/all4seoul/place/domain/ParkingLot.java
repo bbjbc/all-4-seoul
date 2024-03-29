@@ -4,6 +4,13 @@ import jakarta.persistence.Column;
 
 public class ParkingLot {
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("P")
+public class ParkingLot extends Place {
+
     @Column(name = "capacity")
     private String capacity;
 
