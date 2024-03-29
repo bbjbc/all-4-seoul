@@ -1,9 +1,6 @@
 package com.capstone.all4seoul.place.domain;
 
 import jakarta.persistence.Column;
-
-public class ParkingLot {
-
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
