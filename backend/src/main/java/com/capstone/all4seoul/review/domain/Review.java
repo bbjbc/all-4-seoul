@@ -17,14 +17,17 @@ public class Review {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
+    @Column(name = "starRating", nullable = false, updatable = false)
     private Double starRating;
+
+    @Column(name = "content", nullable = false, updatable = false)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id")
+    @JoinColumn(name = "place_id", nullable = false, updatable = false)
     private Place place;
 
     /**
