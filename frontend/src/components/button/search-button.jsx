@@ -65,7 +65,7 @@ function SearchButton() {
                     </li>
                   ))
                 ) : (
-                  <li className="mt-20 animate-bounce text-center text-gray-600">
+                  <li className="mt-28 animate-bounce text-center text-gray-600">
                     검색 결과가 없습니다.
                   </li>
                 )}
