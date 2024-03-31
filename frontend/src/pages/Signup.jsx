@@ -3,11 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import Input from '../components/input/input';
 import DateInput from '../components/input/date-input';
 import SubmitButton from '../components/button/submit-button';
 import logo from '../assets/올포서울로고.jpg';
 import Option from '../components/input/option';
+import IdInput from '../components/input/id-input';
+import PasswordInput from '../components/input/password-input';
+import PasswordConfirmInput from '../components/input/password-confirm-input';
+import NameInput from '../components/input/name-input';
 
 function SignupPage() {
   const {
@@ -15,7 +18,8 @@ function SignupPage() {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm();
+    getValues,
+  } = useForm({ mode: 'onBlur' });
 
   const onSubmit = (data) => {
     console.log(data);
@@ -33,42 +37,14 @@ function SignupPage() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="mb-8 text-center text-3xl font-bold">Signup</h2>
-        <Input
-          id="id"
-          label="ID"
-          type="text"
-          placeholder="아이디를 입력해주세요."
+        <IdInput register={register} errors={errors} />
+        <PasswordInput register={register} errors={errors} />
+        <PasswordConfirmInput
           register={register}
           errors={errors}
-          errorMessage="아이디를 입력해주세요."
+          getValues={getValues}
         />
-        <Input
-          id="password"
-          label="Password"
-          type="password"
-          placeholder="패스워드를 입력해주세요."
-          register={register}
-          errors={errors}
-          errorMessage="패스워드를 입력해주세요."
-        />
-        <Input
-          id="password"
-          label="Password Confirm"
-          type="password"
-          placeholder="다시 한 번 패스워드를 입력해주세요."
-          register={register}
-          errors={errors}
-          errorMessage="패스워드를 입력해주세요."
-        />
-        <Input
-          id="name"
-          label="Name"
-          type="text"
-          placeholder="이름을 입력해주세요."
-          register={register}
-          errors={errors}
-          errorMessage="이름을 입력해주세요."
-        />
+        <NameInput register={register} errors={errors} />
         <DateInput
           id="birth"
           label="Birth"
