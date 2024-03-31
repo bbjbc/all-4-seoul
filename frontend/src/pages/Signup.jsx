@@ -1,20 +1,20 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import Input from '../components/input/input';
-import Date from '../components/input/date';
+import DateInput from '../components/input/date-input';
 import SubmitButton from '../components/button/submit-button';
 import logo from '../assets/올포서울로고.jpg';
 import Option from '../components/input/option';
-
-// id, pw, pw확인, 이름, 생년월일, mbti, 성별
 
 function SignupPage() {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
 
   const onSubmit = (data) => {
@@ -29,7 +29,7 @@ function SignupPage() {
         alt="logo"
       />
       <form
-        className="relative z-10 max-h-[80vh] w-96 overflow-y-auto scroll-smooth rounded-lg bg-white p-8 shadow-lg"
+        className="relative z-10 max-h-[80vh] w-96 animate-slidein overflow-y-auto scroll-smooth rounded-lg bg-white p-8 shadow-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="mb-8 text-center text-3xl font-bold">Signup</h2>
@@ -69,15 +69,13 @@ function SignupPage() {
           errors={errors}
           errorMessage="이름을 입력해주세요."
         />
-        <Date
+        <DateInput
           id="birth"
           label="Birth"
           placeholder="생년월일을 입력해주세요."
-          register={register}
-          errors={errors}
-          errorMessage="생년월일을 입력해주세요."
+          control={control}
+          defaultValue={new Date()}
         />
-
         <Option label="MBTI" id="mbti" register={register}>
           <option value="ISTJ">ISTJ</option>
           <option value="ISFJ">ISFJ</option>
@@ -101,6 +99,16 @@ function SignupPage() {
           <option value="female">Female</option>
         </Option>
 
+        <p className="p-3">
+          이미 회원이신가요? &nbsp;
+          <Link
+            to="/login"
+            className="text-blue-500 underline hover:text-blue-800"
+          >
+            로그인
+          </Link>
+          하세요!
+        </p>
         <SubmitButton text="회원가입" />
       </form>
     </div>
