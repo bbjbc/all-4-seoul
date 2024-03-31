@@ -26,7 +26,7 @@ function LoginPage() {
         alt="logo"
       />
       <form
-        className="relative z-10 w-96 rounded-lg bg-white p-8 shadow-lg"
+        className="relative z-10 w-96 animate-slidein rounded-lg bg-white p-8 shadow-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="mb-8 text-center text-3xl font-bold">Login</h2>
