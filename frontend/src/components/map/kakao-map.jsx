@@ -10,7 +10,7 @@ function KakaoMap() {
   const markerImageSrc =
     'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';
 
-  const imageSize = { width: 22, height: 26 };
+  const imageSize = new window.kakao.maps.Size(27, 28);
   const spriteSize = { width: 36, height: 98 };
 
   // 커피숍 마커가 표시될 좌표 배열입니다
@@ -49,7 +49,7 @@ function KakaoMap() {
   ];
   const carparkOrigin = { x: 10, y: 72 };
 
-  const [selectedCategory, setSelectedCategory] = useState('coffee');
+  const [selectedCategory, setSelectedCategory] = useState();
 
   return (
     <>
