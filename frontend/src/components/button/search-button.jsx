@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Modal from '../modal/modal';
 import ModalPortal from '../modal/modal-portal';
-import DummyData from '../places/dummy-data';
+import ListData from '../places/list-data';
 
 function SearchButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,7 +24,7 @@ function SearchButton() {
   };
 
   const filterData = (input) => {
-    const filtered = DummyData.filter((d) => d.name.includes(input));
+    const filtered = ListData.filter((d) => d.name.includes(input));
     setFilteredData(filtered);
   };
 
