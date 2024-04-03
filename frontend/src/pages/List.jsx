@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import PlaceGrid from '../components/places/place-grid';
-import ListData from '../components/places/list-data';
+import ListData from '../data/list-data';
 import CategoryBar from '../components/places/category-bar';
 
 function ListPage() {

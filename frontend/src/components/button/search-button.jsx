@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Modal from '../modal/modal';
 import ModalPortal from '../modal/modal-portal';
-import ListData from '../places/list-data';
+import ListData from '../../data/list-data';
 
 function SearchButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
