@@ -7,6 +7,7 @@ import ListData from '../data/list-data';
 import CategoryBar from '../components/places/category-bar';
 import PlaceSearchInput from '../components/places/place-search-input';
 import LoadingSpinner from '../components/button/loading-spinner';
+import ScrollToTopButton from '../components/button/scroll-to-top-button';
 
 function ListPage() {
   const allCategories = Array.from(
@@ -69,6 +70,7 @@ function ListPage() {
       <PlaceGrid places={places} />
       {loading && <LoadingSpinner />}
       <div ref={ref}></div>
+      <ScrollToTopButton />
     </div>
   );
 }
