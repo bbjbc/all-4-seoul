@@ -20,20 +20,19 @@ function ListPage() {
   const [places, setPlaces] = useState([]);
   const pageSize = 10;
 
+  const allData = ListData.filter((item) => item.name.includes(searchWord));
+  const filteredData = allData.filter(
+    (item) => item.category === selectedCategory,
+  );
+
   const loadPlaces = useCallback(() => {
     setLoading(true);
     const filteredPlaces =
-      selectedCategory === '전체보기'
-        ? ListData.filter((item) => item.name.includes(searchWord))
-        : ListData.filter(
-            (item) =>
-              item.category === selectedCategory &&
-              item.name.includes(searchWord),
-          );
+      selectedCategory === '전체보기' ? allData : filteredData;
     const newPlaces = filteredPlaces.slice(0, page * pageSize);
     setPlaces(newPlaces);
     setLoading(false);
-  }, [selectedCategory, searchWord, page, pageSize]);
+  }, [selectedCategory, allData, filteredData, page, pageSize]);
 
   useEffect(() => {
     loadPlaces();
