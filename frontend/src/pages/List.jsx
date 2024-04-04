@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { useInView } from 'react-intersection-observer';
 
@@ -19,7 +19,7 @@ function ListPage() {
   const [places, setPlaces] = useState([]);
   const pageSize = 10;
 
-  const loadPlaces = () => {
+  const loadPlaces = useCallback(() => {
     setLoading(true);
     const filteredPlaces =
       selectedCategory === '전체보기'
@@ -32,7 +32,7 @@ function ListPage() {
     const newPlaces = filteredPlaces.slice(0, page * pageSize);
     setPlaces(newPlaces);
     setLoading(false);
-  };
+  }, [selectedCategory, searchWord, page, pageSize]);
 
   useEffect(() => {
     loadPlaces();
