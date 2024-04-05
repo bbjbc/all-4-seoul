@@ -22,7 +22,7 @@ public class DetailUserResponse {
   private int credit;
 
   public static DetailUserResponse of(User user) {
-    DetailUserResponse detailUserResponse = new DetailUserResponse(findUser);
+    DetailUserResponse detailUserResponse = new DetailUserResponse();
 
     detailUserResponse.loginId = user.getLoginId();
     detailUserResponse.userName = user.getUsername();
