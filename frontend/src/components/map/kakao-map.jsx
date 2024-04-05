@@ -48,6 +48,8 @@ const MapComponent = () => {
       window.kakao.maps.event.preventMap,
     );
 
+    placeOverlay.setContent(contentNode);
+
     const placesSearchCB = (data, status) => {
       if (status === window.kakao.maps.services.Status.OK) {
         displayPlaces(data);
