@@ -41,7 +41,7 @@ public class User {
     private Gender gender;
 
     @Column(name = "nickname", nullable = false, unique = true, length = 30)
-    private String nickName;
+    private String nickname;
 
     @Column(name = "credit", nullable = false)
     private int credit;

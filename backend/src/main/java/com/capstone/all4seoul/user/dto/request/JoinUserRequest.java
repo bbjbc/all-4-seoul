@@ -35,7 +35,7 @@ public class JoinUserRequest {
     private Gender gender;
 
     @NotBlank(message = "닉네임을 입력해주세요.")
-    private String nickName;
+    private String nickname;
 
 }
 

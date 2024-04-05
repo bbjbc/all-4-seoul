@@ -53,7 +53,7 @@ public class UserService {
 
         findUser.setBirth(updateUserRequest.getBirth());
         findUser.setMbti(updateUserRequest.getMbti());
-        findUser.setNickName(updateUserRequest.getNickName());
+        findUser.setNickname(updateUserRequest.getNickname());
     }
 
     public void deleteUser(User user) {

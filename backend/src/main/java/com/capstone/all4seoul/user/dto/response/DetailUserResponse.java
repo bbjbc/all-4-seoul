@@ -18,7 +18,7 @@ public class DetailUserResponse {
   private LocalDate birth;
   private Mbti mbti;
   private Gender gender;
-  private String nickName;
+  private String nickname;
   private int credit;
 
   public static DetailUserResponse of(User user) {
@@ -29,7 +29,7 @@ public class DetailUserResponse {
     detailUserResponse.birth = user.getBirth();
     detailUserResponse.mbti = user.getMbti();
     detailUserResponse.gender = user.getGender();
-    detailUserResponse.nickName = user.getNickName();
+    detailUserResponse.nickname = user.getNickname();
     detailUserResponse.credit = user.getCredit();
 
     return detailUserResponse;

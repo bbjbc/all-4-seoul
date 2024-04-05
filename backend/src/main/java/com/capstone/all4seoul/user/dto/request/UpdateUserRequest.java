@@ -13,5 +13,5 @@ import java.time.LocalDate;
 public class UpdateUserRequest {
     private LocalDate birth;
     private Mbti mbti;
-    private String nickName;
+    private String nickname;
 }
