@@ -4,6 +4,7 @@ import com.capstone.all4seoul.place.domain.Place;
 import com.capstone.all4seoul.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -16,7 +17,7 @@ public class Review {
     @Column(name = "review_id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
@@ -26,9 +27,18 @@ public class Review {
     @Column(name = "content", nullable = false, updatable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "place_id", nullable = false, updatable = false)
     private Place place;
+
+    public static Review create(User user, String content, Double starRating) {
+        Review review = new Review();
+        review.setUser(user);
+        review.setContent(content);
+        review.setStarRating(starRating);
+        review.setPlace(null);
+        return review;
+    }
 
     /**
      * 연관관계 메서드

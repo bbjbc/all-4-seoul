@@ -47,7 +47,7 @@ public class User {
     private int credit;
 
     //    @OneToMany(mappedBy = "user")
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Review> reviews = new ArrayList<>();
 
     // 북마크
