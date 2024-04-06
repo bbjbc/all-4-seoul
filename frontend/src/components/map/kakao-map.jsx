@@ -1,6 +1,21 @@
 import React, { useEffect } from 'react';
 
 import MapCategory from './map-category';
+import OL7 from '../../assets/marker/gas.png';
+import PK6 from '../../assets/marker/parking.png';
+import CE7 from '../../assets/marker/coffee.png';
+import FD6 from '../../assets/marker/restaurant.png';
+import AT4 from '../../assets/marker/attractions.png';
+import CT1 from '../../assets/marker/culture.png';
+
+const markerImages = {
+  PK6: PK6,
+  CE7: CE7,
+  OL7: OL7,
+  FD6: FD6,
+  AT4: AT4,
+  CT1: CT1,
+};
 
 function KakaoMap() {
   useEffect(() => {
@@ -88,19 +103,16 @@ function KakaoMap() {
     };
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수
-    const addMarker = (position, order) => {
-      const imageSrc =
-        'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png';
-      const imageSize = new window.kakao.maps.Size(27, 28);
-      const imgOptions = {
-        spriteSize: new window.kakao.maps.Size(72, 208),
-        spriteOrigin: new window.kakao.maps.Point(46, order * 36),
-        offset: new window.kakao.maps.Point(11, 28),
-      };
+    const addMarker = (position) => {
+      const imageSrc = markerImages[currCategory];
+      if (!imageSrc) {
+        console.error('Invalid category');
+        return null;
+      }
+      const imageSize = new window.kakao.maps.Size(50, 50);
       const markerImage = new window.kakao.maps.MarkerImage(
         imageSrc,
         imageSize,
-        imgOptions,
       );
       const marker = new window.kakao.maps.Marker({
         position: position,
