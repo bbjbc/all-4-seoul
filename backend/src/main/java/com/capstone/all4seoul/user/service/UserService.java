@@ -18,7 +18,14 @@ public class UserService {
 
     @Transactional
     public void join(JoinUserRequest joinUserRequest) {
-        User user = User.createUser(joinUserRequest);
+        User user = User.createUser(
+                joinUserRequest.getLoginId(),
+                joinUserRequest.getLoginPassword(),
+                joinUserRequest.getUsername(),
+                joinUserRequest.getBirth(),
+                joinUserRequest.getMbti(),
+                joinUserRequest.getGender()
+        );
 
         // 사용자 생성 전 중복 로그인 ID 확인
         if (userRepository.findByLoginId(joinUserRequest.getLoginId()) != null) {
