@@ -15,6 +15,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
+
+    @Transactional
     public void join(JoinUserRequest joinUserRequest) {
         User user = User.createUser(joinUserRequest);
 
@@ -57,6 +59,7 @@ public class UserService {
         findUser.updateNickname(updateUserRequest.getNickname());
     }
 
+    @Transactional
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
