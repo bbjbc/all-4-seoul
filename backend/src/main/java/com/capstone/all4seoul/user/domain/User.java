@@ -2,7 +2,6 @@ package com.capstone.all4seoul.user.domain;
 
 import com.capstone.all4seoul.place.domain.Place;
 import com.capstone.all4seoul.review.domain.Review;
-import com.capstone.all4seoul.user.dto.request.JoinUserRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,7 +54,13 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Place> places = new ArrayList<>();
 
-    public static User createUser(JoinUserRequest joinUserRequest) {
+    public static User createUser(
+            String loginId,
+            String loginPassword,
+            String username,
+            LocalDate birth,
+            Mbti mbti,
+            Gender gender) {
         User user = new User();
         user.setLoginId(joinUserRequest.getLoginId());
         user.setLoginPassword(joinUserRequest.getLoginPassword());
