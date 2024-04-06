@@ -48,7 +48,7 @@ public class UserController {
      * 사용자 리스트 조회
      */
     @GetMapping("/user/find")
-    public List<User> findAll() {
+    public List<DetailUserResponse> findAll() {
 
         return userService.findAll();
     }
