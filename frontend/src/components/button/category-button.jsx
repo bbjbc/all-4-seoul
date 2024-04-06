@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 function CategoryButton({ icon: Icon, text, id, order }) {
   return (
     <button
-      className="flex items-center rounded-full border-2 border-gray-600 bg-zinc-100 px-3 py-1 text-center shadow-xl hover:bg-slate-200 focus:bg-yellow-100"
+      className="flex flex-col items-center space-y-2 rounded-lg border-2 border-gray-600 bg-blue-50 px-1 py-2 text-center shadow-xl hover:bg-cyan-300 focus:bg-yellow-100"
       id={id}
       data-order={order}
     >
       <Icon size={20} />
-      <span className="ml-1">{text}</span>
+      <span>{text}</span>
     </button>
   );
 }
