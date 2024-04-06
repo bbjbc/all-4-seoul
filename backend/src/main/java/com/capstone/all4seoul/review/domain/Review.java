@@ -35,7 +35,7 @@ public class Review {
     @Column(name = "content", nullable = false, updatable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id", nullable = false, updatable = false)
     private Place place;
 
