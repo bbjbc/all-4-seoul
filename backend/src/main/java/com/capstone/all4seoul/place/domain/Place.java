@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "places")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "DTYPE") //하위 테이블 구분 칼럼
+@DiscriminatorValue("place")
 public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

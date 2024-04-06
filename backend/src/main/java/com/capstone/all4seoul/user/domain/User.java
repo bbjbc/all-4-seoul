@@ -2,10 +2,10 @@ package com.capstone.all4seoul.user.domain;
 
 import com.capstone.all4seoul.place.domain.Place;
 import com.capstone.all4seoul.review.domain.Review;
-import com.capstone.all4seoul.user.dto.request.JoinUserRequest;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,27 +43,50 @@ public class User {
     @Column(name = "nickname", nullable = false, unique = true, length = 30)
     private String nickname;
 
-    @Column(name = "credit", nullable = false)
+    @Column(name = "credit")
     private int credit;
 
     //    @OneToMany(mappedBy = "user")
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
     // 북마크
 //    @OneToMany(mappedBy = "user")
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Place> places = new ArrayList<>();
 
-    public static User createUser(JoinUserRequest joinUserRequest) {
+    public static User createUser(
+            String loginId,
+            String loginPassword,
+            String username,
+            LocalDate birth,
+            Mbti mbti,
+            Gender gender) {
         User user = new User();
-        user.setLoginId(joinUserRequest.getLoginId());
-        user.setLoginPassword(joinUserRequest.getLoginPassword());
-        user.setUsername(joinUserRequest.getUsername());
-        user.setBirth(joinUserRequest.getBirth());
-        user.setMbti(joinUserRequest.getMbti());
-        user.setGender(joinUserRequest.getGender());
-        user.setCredit(0);
+
+        user.loginId = loginId;
+        user.loginPassword = loginPassword;
+        user.username = username;
+        user.birth = birth;
+        user.mbti = mbti;
+        user.gender = gender;
+        user.credit = 0;
+
         return user;
+    }
+
+    /**
+     * 사용자 수정 관련 메서드
+     */
+    public void updateBirth(LocalDate birth) {
+        this.birth = birth;
+    }
+
+    public void updateMbti(Mbti mbti) {
+        this.mbti = mbti;
+    }
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

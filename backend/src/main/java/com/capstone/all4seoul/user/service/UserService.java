@@ -3,6 +3,7 @@ package com.capstone.all4seoul.user.service;
 import com.capstone.all4seoul.user.domain.User;
 import com.capstone.all4seoul.user.dto.request.JoinUserRequest;
 import com.capstone.all4seoul.user.dto.request.UpdateUserRequest;
+import com.capstone.all4seoul.user.dto.response.DetailUserResponse;
 import com.capstone.all4seoul.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,20 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
+
+    @Transactional
     public void join(JoinUserRequest joinUserRequest) {
-        User user = User.createUser(joinUserRequest);
+        User user = User.createUser(
+                joinUserRequest.getLoginId(),
+                joinUserRequest.getLoginPassword(),
+                joinUserRequest.getUsername(),
+                joinUserRequest.getBirth(),
+                joinUserRequest.getMbti(),
+                joinUserRequest.getGender()
+        );
 
         // 사용자 생성 전 중복 로그인 ID 확인
         if (userRepository.findByLoginId(joinUserRequest.getLoginId()) != null) {
@@ -42,8 +53,11 @@ public class UserService {
         return userRepository.findListByUsername(username);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<DetailUserResponse> findAll() {
+        return userRepository.findAll()
+                .stream()
+                .map(DetailUserResponse::of)
+                .toList();
     }
 
     @Transactional
@@ -51,11 +65,12 @@ public class UserService {
 
         User findUser = userRepository.findById(id).get();
 
-        findUser.setBirth(updateUserRequest.getBirth());
-        findUser.setMbti(updateUserRequest.getMbti());
-        findUser.setNickname(updateUserRequest.getNickname());
+        findUser.updateBirth(updateUserRequest.getBirth());
+        findUser.updateMbti(updateUserRequest.getMbti());
+        findUser.updateNickname(updateUserRequest.getNickname());
     }
 
+    @Transactional
     public void deleteUser(User user) {
         userRepository.delete(user);
     }

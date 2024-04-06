@@ -2,13 +2,22 @@ package com.capstone.all4seoul.review.domain;
 
 import com.capstone.all4seoul.place.domain.Place;
 import com.capstone.all4seoul.user.domain.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "reviews")
 public class Review {
     @Id
@@ -16,7 +25,7 @@ public class Review {
     @Column(name = "review_id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
@@ -30,6 +39,15 @@ public class Review {
     @JoinColumn(name = "place_id", nullable = false, updatable = false)
     private Place place;
 
+    public static Review create(User user, String content, Double starRating) {
+        Review review = new Review();
+        review.user = user;
+        review.content = content;
+        review.starRating = starRating;
+        review.place = null;
+        return review;
+    }
+
     /**
      * 연관관계 메서드
      */
@@ -41,5 +59,16 @@ public class Review {
     public void setPlace(Place place) {
         this.place = place;
         place.getReviews().add(this);
+    }
+
+    /**
+     * 리뷰 수정 관련 메서드
+     */
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void updateStarRating(Double starRating) {
+        this.starRating = starRating;
     }
 }
