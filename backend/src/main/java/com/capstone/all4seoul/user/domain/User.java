@@ -44,12 +44,12 @@ public class User {
     private int credit;
 
     //    @OneToMany(mappedBy = "user")
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
     // 북마크
 //    @OneToMany(mappedBy = "user")
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Place> places = new ArrayList<>();
 
     public static User createUser(
