@@ -41,10 +41,10 @@ public class Review {
 
     public static Review create(User user, String content, Double starRating) {
         Review review = new Review();
-        review.setUser(user);
-        review.setContent(content);
-        review.setStarRating(starRating);
-        review.setPlace(null);
+        review.user = user;
+        review.content = content;
+        review.starRating = starRating;
+        review.place = null;
         return review;
     }
 
