@@ -51,9 +51,9 @@ public class UserService {
 
         User findUser = userRepository.findById(id).get();
 
-        findUser.setBirth(updateUserRequest.getBirth());
-        findUser.setMbti(updateUserRequest.getMbti());
-        findUser.setNickname(updateUserRequest.getNickname());
+        findUser.updateBirth(updateUserRequest.getBirth());
+        findUser.updateMbti(updateUserRequest.getMbti());
+        findUser.updateNickname(updateUserRequest.getNickname());
     }
 
     public void deleteUser(User user) {
