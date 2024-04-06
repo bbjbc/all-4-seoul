@@ -71,4 +71,19 @@ public class User {
 
         return user;
     }
+
+    /**
+     * 사용자 수정 관련 메서드
+     */
+    public void updateBirth(LocalDate birth) {
+        this.birth = birth;
+    }
+
+    public void updateMbti(Mbti mbti) {
+        this.mbti = mbti;
+    }
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }
