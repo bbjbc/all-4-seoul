@@ -3,6 +3,7 @@ package com.capstone.all4seoul.review.service;
 import com.capstone.all4seoul.review.domain.Review;
 import com.capstone.all4seoul.review.dto.request.CreateReviewRequestForPlace;
 import com.capstone.all4seoul.review.dto.request.UpdateReviewRequest;
+import com.capstone.all4seoul.review.dto.response.DetailReviewResponse;
 import com.capstone.all4seoul.review.repository.ReviewRepository;
 import com.capstone.all4seoul.user.domain.User;
 import com.capstone.all4seoul.user.repository.UserRepository;
@@ -35,8 +36,11 @@ public class ReviewService {
     }
 
     //리뷰 리스트 조회
-    public List<Review> findAll() {
-        return reviewRepository.findAll();
+    public List<DetailReviewResponse> findAll() {
+        return reviewRepository.findAll()
+                .stream()
+                .map(DetailReviewResponse::of)
+                .toList();
     }
 
     //리뷰 업데이트
