@@ -60,4 +60,15 @@ public class Review {
         this.place = place;
         place.getReviews().add(this);
     }
+
+    /**
+     * 리뷰 수정 관련 메서드
+     */
+    public void changeContent(String content) {
+        this.content = content;
+    }
+
+    public void changeStarRating(Double starRating) {
+        this.starRating = starRating;
+    }
 }
