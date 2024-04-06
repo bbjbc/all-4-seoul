@@ -60,13 +60,15 @@ public class User {
             Mbti mbti,
             Gender gender) {
         User user = new User();
-        user.setLoginId(joinUserRequest.getLoginId());
-        user.setLoginPassword(joinUserRequest.getLoginPassword());
-        user.setUsername(joinUserRequest.getUsername());
-        user.setBirth(joinUserRequest.getBirth());
-        user.setMbti(joinUserRequest.getMbti());
-        user.setGender(joinUserRequest.getGender());
-        user.setCredit(0);
+
+        user.loginId = loginId;
+        user.loginPassword = loginPassword;
+        user.username = username;
+        user.birth = birth;
+        user.mbti = mbti;
+        user.gender = gender;
+        user.credit = 0;
+
         return user;
     }
 }
