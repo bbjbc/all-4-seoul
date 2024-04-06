@@ -3,6 +3,7 @@ package com.capstone.all4seoul.user.service;
 import com.capstone.all4seoul.user.domain.User;
 import com.capstone.all4seoul.user.dto.request.JoinUserRequest;
 import com.capstone.all4seoul.user.dto.request.UpdateUserRequest;
+import com.capstone.all4seoul.user.dto.response.DetailUserResponse;
 import com.capstone.all4seoul.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -52,8 +53,11 @@ public class UserService {
         return userRepository.findListByUsername(username);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<DetailUserResponse> findAll() {
+        return userRepository.findAll()
+                .stream()
+                .map(DetailUserResponse::of)
+                .toList();
     }
 
     @Transactional
