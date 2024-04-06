@@ -43,7 +43,7 @@ public class User {
     @Column(name = "nickname", nullable = false, unique = true, length = 30)
     private String nickname;
 
-    @Column(name = "credit", nullable = false)
+    @Column(name = "credit")
     private int credit;
 
     //    @OneToMany(mappedBy = "user")
