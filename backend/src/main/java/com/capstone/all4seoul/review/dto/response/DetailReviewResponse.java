@@ -17,7 +17,7 @@ public class DetailReviewResponse {
     public static DetailReviewResponse of(Review review) {
         DetailReviewResponse detailReviewResponse = new DetailReviewResponse();
 
-        detailReviewResponse.author = review.getUser().getUsername();
+        detailReviewResponse.author = review.getUser().getNickname();
         detailReviewResponse.starRating = review.getStarRating();
         detailReviewResponse.content = review.getContent();
 
