@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { LuParkingCircle } from 'react-icons/lu';
-import { MdOutlineEventAvailable } from 'react-icons/md';
+import MapCategory from './map-category';
 
 function KakaoMap() {
   useEffect(() => {
@@ -186,59 +185,7 @@ function KakaoMap() {
   return (
     <>
       <div id="map" className="h-screen w-full"></div>
-      <div
-        id="category"
-        className="absolute left-16 top-32 z-20 flex flex-col gap-5"
-      >
-        <button
-          className="flex cursor-pointer items-center rounded-full border-2 border-gray-600 bg-zinc-100 px-3 py-1 text-center shadow-xl hover:bg-slate-200 focus:bg-yellow-100"
-          id="BK9"
-          data-order="0"
-        >
-          <LuParkingCircle size={20} />
-          <span className="ml-1">은행</span>
-        </button>
-        <button
-          className="flex cursor-pointer items-center rounded-full border-2 border-gray-600 bg-zinc-100 px-3 py-1 text-center shadow-xl hover:bg-slate-200 focus:bg-yellow-100"
-          id="MT1"
-          data-order="1"
-        >
-          <MdOutlineEventAvailable size={20} />
-          <span className="ml-1">마트</span>
-        </button>
-        <button
-          className="flex cursor-pointer items-center rounded-full border-2 border-gray-600 bg-zinc-100 px-3 py-1 text-center shadow-xl hover:bg-slate-200 focus:bg-yellow-100"
-          id="PM9"
-          data-order="2"
-        >
-          <LuParkingCircle size={20} />
-          <span className="ml-1">약국</span>
-        </button>
-        <button
-          className="flex cursor-pointer items-center rounded-full border-2 border-gray-600 bg-zinc-100 px-3 py-1 text-center shadow-xl hover:bg-slate-200 focus:bg-yellow-100"
-          id="OL7"
-          data-order="3"
-        >
-          <LuParkingCircle size={20} />
-          <span className="ml-1">주유소</span>
-        </button>
-        <button
-          className="flex cursor-pointer items-center rounded-full border-2 border-gray-600 bg-zinc-100 px-3 py-1 text-center shadow-xl hover:bg-slate-200 focus:bg-yellow-100"
-          id="CE7"
-          data-order="4"
-        >
-          <LuParkingCircle size={20} />
-          <span className="ml-1">카페</span>
-        </button>
-        <button
-          className="flex cursor-pointer items-center rounded-full border-2 border-gray-600 bg-zinc-100 px-3 py-1 text-center shadow-xl hover:bg-slate-200 focus:bg-yellow-100"
-          id="CS2"
-          data-order="5"
-        >
-          <LuParkingCircle size={20} />
-          <span className="ml-1">편의점</span>
-        </button>
-      </div>
+      <MapCategory id="category" />
     </>
   );
 }

@@ -10,32 +10,46 @@ import { RiRestaurantLine } from 'react-icons/ri';
 import { MdOutlineEventAvailable } from 'react-icons/md';
 import { PiPersonArmsSpreadDuotone } from 'react-icons/pi';
 
-function MapCategory({ setSelectedCategory }) {
+function MapCategory({ id }) {
   return (
-    <div className="absolute left-16 top-20 z-20 flex gap-3">
-      <CategoryButton
-        icon={LuParkingCircle}
-        text="주차장"
-        onClick={() => setSelectedCategory('carpark')}
-      />
+    <div id={id} className="absolute left-16 top-24 z-20 flex flex-col gap-7">
+      <CategoryButton icon={LuParkingCircle} text="주차장" id="PK6" order="0" />
       <CategoryButton
         icon={MdOutlineLocalCafe}
         text="카페"
-        onClick={() => setSelectedCategory('coffee')}
+        id="CE7"
+        order="1"
       />
       <CategoryButton
         icon={RiRestaurantLine}
-        text="식당"
-        onClick={() => setSelectedCategory('store')}
+        text="주유소"
+        id="OL7"
+        order="2"
       />
-      <CategoryButton icon={MdOutlineEventAvailable} text="문화행사" />
-      <CategoryButton icon={PiPersonArmsSpreadDuotone} text="문화장소" />
+      <CategoryButton
+        icon={MdOutlineEventAvailable}
+        text="음식점"
+        id="FD6"
+        order="3"
+      />
+      <CategoryButton
+        icon={PiPersonArmsSpreadDuotone}
+        text="관광명소"
+        id="AT4"
+        order="4"
+      />
+      <CategoryButton
+        icon={PiPersonArmsSpreadDuotone}
+        text="문화시설"
+        id="CT1"
+        order="5"
+      />
     </div>
   );
 }
 
 MapCategory.propTypes = {
-  setSelectedCategory: propTypes.func.isRequired,
+  id: propTypes.string,
 };
 
 export default MapCategory;
