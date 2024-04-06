@@ -64,11 +64,11 @@ public class Review {
     /**
      * 리뷰 수정 관련 메서드
      */
-    public void changeContent(String content) {
+    public void updateContent(String content) {
         this.content = content;
     }
 
-    public void changeStarRating(Double starRating) {
+    public void updateStarRating(Double starRating) {
         this.starRating = starRating;
     }
 }

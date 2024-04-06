@@ -47,8 +47,8 @@ public class ReviewService {
     @Transactional
     public void updateReview(Long reviewId, UpdateReviewRequest request) {
         Review review = reviewRepository.findById(reviewId).get();
-        review.changeContent(request.getContent());
-        review.changeStarRating(request.getStarRating());
+        review.updateContent(request.getContent());
+        review.updateStarRating(request.getStarRating());
 
     }
 
