@@ -20,6 +20,7 @@ public class ReviewService {
     private final UserRepository userRepository;
 
     //장소기반
+    @Transactional
     public Long createReviewForPlace(CreateReviewRequestForPlace request) {
         User user = userRepository.findById(request.getId()).get();
         Review review = Review.create(user, request.getContent(), request.getStarRating());
@@ -48,6 +49,7 @@ public class ReviewService {
     }
 
     //리뷰 삭제
+    @Transactional
     public void deleteReview(Review review) {
         reviewRepository.delete(review);
     }
