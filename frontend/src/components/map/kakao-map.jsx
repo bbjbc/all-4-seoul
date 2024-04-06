@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { LuParkingCircle } from 'react-icons/lu';
 import { MdOutlineEventAvailable } from 'react-icons/md';
 
-const MapComponent = () => {
+function KakaoMap() {
   useEffect(() => {
     const mapOption = {
       center: new window.kakao.maps.LatLng(37.555946, 126.972317),
@@ -14,8 +14,9 @@ const MapComponent = () => {
       document.getElementById('map'),
       mapOption,
     );
-    const ps = new window.kakao.maps.services.Places(map);
+    const ps = new window.kakao.maps.services.Places(map); // 장소 검색 객체
 
+    // 카테고리 검색 함수
     const searchPlaces = () => {
       if (!currCategory) {
         return;
@@ -27,9 +28,10 @@ const MapComponent = () => {
       ps.categorySearch(currCategory, placesSearchCB, { useMapBounds: true });
     };
 
+    // 지도 이동 시 검색 함수
     window.kakao.maps.event.addListener(map, 'idle', searchPlaces);
 
-    const placeOverlay = new window.kakao.maps.CustomOverlay({ zIndex: 1 });
+    const placeOverlay = new window.kakao.maps.CustomOverlay();
     const contentNode = document.createElement('div');
 
     const addEventHandle = (target, type, callback) => {
@@ -50,8 +52,10 @@ const MapComponent = () => {
       window.kakao.maps.event.preventMap,
     );
 
+    // 커스텀 오버레이에 컨텐츠 설정.
     placeOverlay.setContent(contentNode);
 
+    // 장소 검색 결과를 받아오는 콜백함수
     const placesSearchCB = (data, status) => {
       if (status === window.kakao.maps.services.Status.OK) {
         displayPlaces(data);
@@ -64,6 +68,7 @@ const MapComponent = () => {
       }
     };
 
+    // 검색 결과 목록과 마커를 표시하는 함수
     const displayPlaces = (places) => {
       const order = document
         .getElementById(currCategory)
@@ -83,6 +88,7 @@ const MapComponent = () => {
       }
     };
 
+    // 마커를 생성하고 지도 위에 마커를 표시하는 함수
     const addMarker = (position, order) => {
       const imageSrc =
         'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png';
@@ -108,6 +114,7 @@ const MapComponent = () => {
       return marker;
     };
 
+    // 지도 위에 표시되고 있는 마커를 모두 제거하는 함수
     const removeMarker = () => {
       for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
@@ -115,6 +122,7 @@ const MapComponent = () => {
       markers = [];
     };
 
+    // 마커 클릭 시 장소 정보를 표시하는 커스텀 오버레이를 표시하는 함수
     const displayPlaceInfo = (place) => {
       const content = `
         <div class="absolute left-0 w-72 bg-white border border-gray-300 rounded-md shadow-md">
@@ -144,6 +152,7 @@ const MapComponent = () => {
       placeOverlay.setMap(map);
     };
 
+    // 카테고리 클릭 시 이벤트 추가 함수
     const addCategoryClickEvent = () => {
       const category = document.getElementById('category');
       const children = category.children;
@@ -153,6 +162,7 @@ const MapComponent = () => {
       }
     };
 
+    // 카테고리 클릭 시 실행되는 함수
     const onClickCategory = (event) => {
       const id = event.currentTarget.id;
 
@@ -231,6 +241,6 @@ const MapComponent = () => {
       </div>
     </>
   );
-};
+}
 
-export default MapComponent;
+export default KakaoMap;
