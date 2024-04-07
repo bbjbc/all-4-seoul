@@ -154,6 +154,11 @@ function KakaoMap() {
           placeOverlay.setMap(null);
         });
       }
+
+      // 지도 클릭 시 오버레이 닫기
+      window.kakao.maps.event.addListener(map, 'click', () => {
+        placeOverlay.setMap(null);
+      });
     };
 
     // 카테고리 클릭 시 이벤트 추가 함수
