@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 import MapCategory from './map-category';
+import PlaceOverlay from './place-overlay';
 import OL7 from '../../assets/marker/gas.png';
 import PK6 from '../../assets/marker/parking.png';
 import CE7 from '../../assets/marker/coffee.png';
@@ -135,32 +137,23 @@ function KakaoMap() {
 
     // 마커 클릭 시 장소 정보를 표시하는 커스텀 오버레이를 표시하는 함수
     const displayPlaceInfo = (place) => {
-      const content = `
-        <div class="absolute left-0 w-72 bg-white border border-gray-300 rounded-md shadow-md">
-          <div class="font-bold px-4 py-2 bg-red-500 text-white rounded-t-md">${place.place_name}</div>
-          <div class="p-4">
-            <div class="mb-2">
-              <a href="${place.place_url}" target="_blank" class="text-blue-500 hover:underline">${place.place_name}</a>
-            </div>
-            ${
-              place.road_address_name
-                ? `<div title="${place.road_address_name}" class="text-sm">${place.road_address_name}</div>`
-                : ''
-            }
-            ${
-              place.address_name
-                ? `<div title="${place.address_name}" class="text-sm">(지번 : ${place.address_name})</div>`
-                : ''
-            }
-            <div class="text-sm tel text-green-600">${place.phone}</div>
-          </div>
-          <div class="absolute after left-1/2 transform -translate-x-1/2 bottom-0 w-22 h-12 bg-no-repeat" style="background-image: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');"></div>
-        </div>
-      `;
+      // jsx는 js 객체이기 때문에 문자열로 변환하여 innerHTML에 넣어줘야 함
+      // innerHTML에 넣어주기 위해 ReactDOMServer.renderToString() 사용
+      const content = ReactDOMServer.renderToString(
+        <PlaceOverlay place={place} id="closeOverlay" />,
+      );
 
       contentNode.innerHTML = content;
       placeOverlay.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
       placeOverlay.setMap(map);
+
+      // 오버레이 닫기 버튼 이벤트
+      const closeOverlayBtn = document.getElementById('closeOverlay');
+      if (closeOverlayBtn) {
+        closeOverlayBtn.addEventListener('click', () => {
+          placeOverlay.setMap(null);
+        });
+      }
     };
 
     // 카테고리 클릭 시 이벤트 추가 함수
