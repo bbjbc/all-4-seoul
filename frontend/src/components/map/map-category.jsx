@@ -13,7 +13,7 @@ import { PiPersonArmsSpreadDuotone } from 'react-icons/pi';
 
 function MapCategory({ id }) {
   return (
-    <div id={id} className="absolute left-16 top-24 z-20 flex flex-col gap-7">
+    <div id={id} className="absolute left-16 top-20 z-20 flex flex-col gap-7">
       <CategoryButton icon={FaSquareParking} text="주차장" id="PK6" order="0" />
       <CategoryButton icon={MdLocalCafe} text="카페" id="CE7" order="1" />
       <CategoryButton icon={FaGasPump} text="주유소" id="OL7" order="2" />

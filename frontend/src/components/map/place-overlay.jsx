@@ -6,13 +6,13 @@ import { FaRegWindowClose } from 'react-icons/fa';
 
 function PlaceOverlay({ place, id }) {
   return (
-    <div className="absolute w-80 animate-fadein rounded-lg border border-gray-300 bg-white shadow-md">
-      <div className="rounded-t-md bg-red-500 px-4 py-2 font-bold text-white">
+    <div className="absolute animate-fadein rounded-lg border border-gray-300 bg-white shadow-md">
+      <div className="rounded-t-md bg-red-500 px-4 pb-2 pt-3 font-bold text-white">
         <a
           href={place.place_url}
           target="_blank"
           rel="noreferrer"
-          className="hover:text-blue-300 hover:underline"
+          className="px-6 hover:text-blue-300 hover:underline"
         >
           {place.place_name}
         </a>
