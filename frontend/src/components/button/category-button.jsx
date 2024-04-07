@@ -18,7 +18,7 @@ CategoryButton.propTypes = {
   icon: PropTypes.elementType.isRequired,
   text: PropTypes.string.isRequired,
   id: PropTypes.string,
-  order: PropTypes.number,
+  order: PropTypes.string,
 };
 
 export default CategoryButton;
