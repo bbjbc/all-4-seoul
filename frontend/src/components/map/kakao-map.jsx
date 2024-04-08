@@ -1,122 +1,201 @@
-import React, { useState } from 'react';
-
-import { Map } from 'react-kakao-maps-sdk';
-import { MapMarker } from 'react-kakao-maps-sdk';
+import React, { useEffect } from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 import MapCategory from './map-category';
+import PlaceOverlay from './place-overlay';
+import OL7 from '../../assets/marker/gas.png';
+import PK6 from '../../assets/marker/parking.png';
+import CE7 from '../../assets/marker/coffee.png';
+import FD6 from '../../assets/marker/restaurant.png';
+import AT4 from '../../assets/marker/attractions.png';
+import CT1 from '../../assets/marker/culture.png';
+
+const markerImages = {
+  PK6: PK6,
+  CE7: CE7,
+  OL7: OL7,
+  FD6: FD6,
+  AT4: AT4,
+  CT1: CT1,
+};
 
 function KakaoMap() {
-  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
-  const markerImageSrc =
-    'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png';
+  useEffect(() => {
+    const mapOption = {
+      center: new window.kakao.maps.LatLng(37.555946, 126.972317),
+      level: 5,
+    };
 
-  const imageSize = new window.kakao.maps.Size(27, 28);
-  const spriteSize = { width: 36, height: 98 };
+    const map = new window.kakao.maps.Map(
+      document.getElementById('map'),
+      mapOption,
+    );
+    const ps = new window.kakao.maps.services.Places(map); // 장소 검색 객체
 
-  // 커피숍 마커가 표시될 좌표 배열입니다
-  const coffeePositions = [
-    { lat: 37.499590490909185, lng: 127.0263723554437 },
-    { lat: 37.499427948430814, lng: 127.02794423197847 },
-    { lat: 37.498553760499505, lng: 127.02882598822454 },
-    { lat: 37.497625593121384, lng: 127.02935713582038 },
-    { lat: 37.49646391248451, lng: 127.02675574250912 },
-    { lat: 37.49629291770947, lng: 127.02587362608637 },
-    { lat: 37.49754540521486, lng: 127.02546694890695 },
-  ];
-  const coffeeOrigin = { x: 10, y: 0 };
+    // 카테고리 검색 함수
+    const searchPlaces = () => {
+      if (!currCategory) {
+        return;
+      }
 
-  // 편의점 마커가 표시될 좌표 배열입니다
-  const storePositions = [
-    { lat: 37.497535461505684, lng: 127.02948149502778 },
-    { lat: 37.49671536281186, lng: 127.03020491448352 },
-    { lat: 37.496201943633714, lng: 127.02959405469642 },
-    { lat: 37.49640072567703, lng: 127.02726459882308 },
-    { lat: 37.49640098874988, lng: 127.02609983175294 },
-    { lat: 37.49932849491523, lng: 127.02935780247945 },
-    { lat: 37.49996818951873, lng: 127.02943721562295 },
-  ];
-  const storeOrigin = { x: 10, y: 36 };
+      placeOverlay.setMap(null);
+      removeMarker();
 
-  // 주차장 마커가 표시될 좌표 배열입니다
-  const carparkPositions = [
-    { lat: 37.49966168796031, lng: 127.03007039430118 },
-    { lat: 37.499463762912974, lng: 127.0288828824399 },
-    { lat: 37.49896834100913, lng: 127.02833986892401 },
-    { lat: 37.49893267508434, lng: 127.02673400572665 },
-    { lat: 37.49872543597439, lng: 127.02676785815386 },
-    { lat: 37.49813096097184, lng: 127.02591949495914 },
-    { lat: 37.497680616783086, lng: 127.02518427952202 },
-  ];
-  const carparkOrigin = { x: 10, y: 72 };
+      ps.categorySearch(currCategory, placesSearchCB, { useMapBounds: true });
+    };
 
-  const [selectedCategory, setSelectedCategory] = useState();
+    // 지도 이동 시 검색 함수
+    window.kakao.maps.event.addListener(map, 'idle', searchPlaces);
+
+    const placeOverlay = new window.kakao.maps.CustomOverlay();
+    const contentNode = document.createElement('div');
+
+    const addEventHandle = (target, type, callback) => {
+      if (target.addEventListener) {
+        target.addEventListener(type, callback);
+      } else {
+        target.attachEvent('on' + type, callback);
+      }
+    };
+    addEventHandle(
+      contentNode,
+      'mousedown',
+      window.kakao.maps.event.preventMap,
+    );
+    addEventHandle(
+      contentNode,
+      'touchstart',
+      window.kakao.maps.event.preventMap,
+    );
+
+    // 커스텀 오버레이에 컨텐츠 설정.
+    placeOverlay.setContent(contentNode);
+
+    // 장소 검색 결과를 받아오는 콜백함수
+    const placesSearchCB = (data, status) => {
+      if (status === window.kakao.maps.services.Status.OK) {
+        displayPlaces(data);
+      } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
+        alert('검색 결과가 존재하지 않습니다.');
+        return;
+      } else if (status === window.kakao.maps.services.Status.ERROR) {
+        alert('검색 결과 중 오류가 발생했습니다.');
+        console.error(data);
+      }
+    };
+
+    // 검색 결과 목록과 마커를 표시하는 함수
+    const displayPlaces = (places) => {
+      const order = document
+        .getElementById(currCategory)
+        .getAttribute('data-order');
+
+      for (let i = 0; i < places.length; i++) {
+        const marker = addMarker(
+          new window.kakao.maps.LatLng(places[i].y, places[i].x),
+          order,
+        );
+
+        ((marker, place) => {
+          window.kakao.maps.event.addListener(marker, 'click', () => {
+            displayPlaceInfo(place);
+          });
+        })(marker, places[i]);
+      }
+    };
+
+    // 마커를 생성하고 지도 위에 마커를 표시하는 함수
+    const addMarker = (position) => {
+      const imageSrc = markerImages[currCategory];
+      if (!imageSrc) {
+        console.error('Invalid category');
+        return null;
+      }
+      const imageSize = new window.kakao.maps.Size(50, 50);
+      const markerImage = new window.kakao.maps.MarkerImage(
+        imageSrc,
+        imageSize,
+      );
+      const marker = new window.kakao.maps.Marker({
+        position: position,
+        image: markerImage,
+      });
+
+      marker.setMap(map);
+      markers.push(marker);
+
+      return marker;
+    };
+
+    // 지도 위에 표시되고 있는 마커를 모두 제거하는 함수
+    const removeMarker = () => {
+      for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+      }
+      markers = [];
+    };
+
+    // 마커 클릭 시 장소 정보를 표시하는 커스텀 오버레이를 표시하는 함수
+    const displayPlaceInfo = (place) => {
+      // jsx는 js 객체이기 때문에 문자열로 변환하여 innerHTML에 넣어줘야 함
+      // innerHTML에 넣어주기 위해 ReactDOMServer.renderToString() 사용
+      const content = ReactDOMServer.renderToString(
+        <PlaceOverlay place={place} id="closeOverlay" />,
+      );
+
+      contentNode.innerHTML = content;
+      placeOverlay.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
+      placeOverlay.setMap(map);
+
+      // 오버레이 닫기 버튼 이벤트
+      const closeOverlayBtn = document.getElementById('closeOverlay');
+      if (closeOverlayBtn) {
+        closeOverlayBtn.addEventListener('click', () => {
+          placeOverlay.setMap(null);
+        });
+      }
+
+      // 지도 클릭 시 오버레이 닫기
+      window.kakao.maps.event.addListener(map, 'click', () => {
+        placeOverlay.setMap(null);
+      });
+    };
+
+    // 카테고리 클릭 시 이벤트 추가 함수
+    const addCategoryClickEvent = () => {
+      const category = document.getElementById('category');
+      const children = category.children;
+
+      for (let i = 0; i < children.length; i++) {
+        children[i].onclick = onClickCategory;
+      }
+    };
+
+    // 카테고리 클릭 시 실행되는 함수
+    const onClickCategory = (event) => {
+      const id = event.currentTarget.id;
+
+      placeOverlay.setMap(null);
+
+      if (currCategory === id) {
+        currCategory = '';
+        removeMarker();
+      } else {
+        currCategory = id;
+        searchPlaces();
+      }
+    };
+
+    let markers = [];
+    let currCategory = '';
+
+    addCategoryClickEvent();
+  }, []);
 
   return (
     <>
-      <div id="mapwrap">
-        <Map // 지도를 표시할 Container
-          id={`map`}
-          center={{
-            // 지도의 중심좌표
-            lat: 37.498004414546934,
-            lng: 127.02770621963765,
-          }}
-          style={{
-            // 지도의 크기
-            width: '100%',
-            height: '100vh',
-          }}
-          level={3} // 지도의 확대 레벨
-        >
-          {selectedCategory === 'coffee' &&
-            coffeePositions.map((position) => (
-              <MapMarker
-                key={`coffee-${position.lat},${position.lng}`}
-                position={position}
-                image={{
-                  src: markerImageSrc,
-                  size: imageSize,
-                  options: {
-                    spriteSize: spriteSize,
-                    spriteOrigin: coffeeOrigin,
-                  },
-                }}
-              />
-            ))}
-          {selectedCategory === 'store' &&
-            storePositions.map((position) => (
-              <MapMarker
-                key={`store-${position.lat},${position.lng}`}
-                position={position}
-                image={{
-                  src: markerImageSrc,
-                  size: imageSize,
-                  options: {
-                    spriteSize: spriteSize,
-                    spriteOrigin: storeOrigin,
-                  },
-                }}
-              />
-            ))}
-          {selectedCategory === 'carpark' &&
-            carparkPositions.map((position) => (
-              <MapMarker
-                key={`carpark-${position.lat},${position.lng}`}
-                position={position}
-                image={{
-                  src: markerImageSrc,
-                  size: imageSize,
-                  options: {
-                    spriteSize: spriteSize,
-                    spriteOrigin: carparkOrigin,
-                  },
-                }}
-              />
-            ))}
-        </Map>
-        {/* 지도 위에 표시될 마커 카테고리 */}
-        <MapCategory setSelectedCategory={setSelectedCategory} />
-      </div>
+      <div id="map" className="h-screen w-full"></div>
+      <MapCategory id="category" />
     </>
   );
 }

@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function CategoryButton({ icon: Icon, text, onClick }) {
+function CategoryButton({ icon: Icon, text, id, order }) {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const focusHandler = () => {
+    setIsFocused(!isFocused);
+  };
+
+  const blurHandler = () => {
+    setIsFocused(false);
+  };
+
   return (
     <button
-      className="flex items-center rounded-full border-2 border-gray-600 bg-zinc-100 px-3 py-1 text-center shadow-xl hover:bg-slate-200 focus:bg-yellow-100"
-      onClick={onClick}
+      className={`flex flex-col items-center space-y-2 rounded-lg border-2 border-gray-600 bg-blue-50 px-1 py-2 text-center shadow-xl hover:bg-cyan-300 ${isFocused ? 'focus:bg-yellow-100' : ''}`}
+      id={id}
+      data-order={order}
+      onClick={focusHandler}
+      onBlur={blurHandler}
     >
       <Icon size={20} />
-      <span className="ml-1">{text}</span>
+      <span>{text}</span>
     </button>
   );
 }
@@ -16,7 +29,8 @@ function CategoryButton({ icon: Icon, text, onClick }) {
 CategoryButton.propTypes = {
   icon: PropTypes.elementType.isRequired,
   text: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
+  id: PropTypes.string,
+  order: PropTypes.string,
 };
 
 export default CategoryButton;
