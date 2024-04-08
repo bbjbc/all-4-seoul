@@ -23,7 +23,7 @@ function KakaoMap() {
   useEffect(() => {
     const mapOption = {
       center: new window.kakao.maps.LatLng(37.555946, 126.972317),
-      level: 5,
+      level: 8,
     };
 
     const map = new window.kakao.maps.Map(
@@ -31,6 +31,58 @@ function KakaoMap() {
       mapOption,
     );
     const ps = new window.kakao.maps.services.Places(map); // 장소 검색 객체
+
+    // seoul_data.json 데이터를 받아 폴리곤을 지도에 표시
+    const displayPolygons = (jsonData) => {
+      const features = jsonData.features;
+      for (let i = 0; i < features.length; i++) {
+        const feature = features[i];
+        const coordinates = feature.geometry.coordinates[0];
+
+        const kakaoCoordinates = coordinates.map(
+          (point) => new window.kakao.maps.LatLng(point[1], point[0]),
+        );
+
+        const polygon = new window.kakao.maps.Polygon({
+          map: map,
+          path: kakaoCoordinates,
+          strokeWeight: 2,
+          strokeColor: '#004c80',
+          strokeOpacity: 0.8,
+          fillColor: '#fff',
+          fillOpacity: 0.7,
+        });
+
+        polygon.setMap(map);
+        registerPolygonEvents(polygon, feature); // 폴리곤에 이벤트 등록
+      }
+    };
+
+    // 폴리곤 클릭 이벤트 함수
+    const registerPolygonEvents = (polygon, feature) => {
+      window.kakao.maps.event.addListener(polygon, 'click', () => {
+        // 클릭한 폴리곤의 정보를 처리할 수 있습니다.
+        console.log('이 폴리곤은', feature.properties.SIG_KOR_NM);
+      });
+    };
+
+    const fetchDataAndDisplayPolygons = async () => {
+      try {
+        // Fetch를 통해 GeoJSON 데이터 가져오기
+        const response = await fetch('/data/seoul_data.json');
+        if (!response.ok) {
+          throw new Error('데이터를 가져오는 데 실패했습니다.');
+        }
+        const data = await response.json();
+
+        // 가져온 GeoJSON 데이터를 활용하여 폴리곤 표시
+        displayPolygons(data);
+      } catch (error) {
+        console.error('Error fetching JSON data:', error);
+      }
+    };
+
+    fetchDataAndDisplayPolygons();
 
     // 카테고리 검색 함수
     const searchPlaces = () => {
