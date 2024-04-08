@@ -3,6 +3,8 @@ import ReactDOMServer from 'react-dom/server';
 
 import MapCategory from './map-category';
 import PlaceOverlay from './place-overlay';
+import { fetchDataAndDisplayPolygons } from '../../lib/fetch-data';
+
 import OL7 from '../../assets/marker/gas.png';
 import PK6 from '../../assets/marker/parking.png';
 import CE7 from '../../assets/marker/coffee.png';
@@ -99,23 +101,7 @@ function KakaoMap() {
       });
     };
 
-    const fetchDataAndDisplayPolygons = async () => {
-      try {
-        // Fetch를 통해 GeoJSON 데이터 가져오기
-        const response = await fetch('/data/seoul_data.json');
-        if (!response.ok) {
-          throw new Error('데이터를 가져오는 데 실패했습니다.');
-        }
-        const data = await response.json();
-
-        // 가져온 GeoJSON 데이터를 활용하여 폴리곤 표시
-        displayPolygons(data);
-      } catch (error) {
-        console.error('Error fetching JSON data:', error);
-      }
-    };
-
-    fetchDataAndDisplayPolygons();
+    fetchDataAndDisplayPolygons('/data/seoul_data.json', displayPolygons);
 
     // 카테고리 검색 함수
     const searchPlaces = () => {
