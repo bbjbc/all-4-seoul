@@ -96,8 +96,8 @@ function KakaoMap() {
           order,
         );
 
-        (function (marker, place) {
-          window.kakao.maps.event.addListener(marker, 'click', function () {
+        ((marker, place) => {
+          window.kakao.maps.event.addListener(marker, 'click', () => {
             displayPlaceInfo(place);
           });
         })(marker, places[i]);
