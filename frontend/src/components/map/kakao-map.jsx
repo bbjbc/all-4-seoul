@@ -30,6 +30,7 @@ function KakaoMap() {
       document.getElementById('map'),
       mapOption,
     );
+    const customOverlay = new window.kakao.maps.CustomOverlay({});
     const ps = new window.kakao.maps.services.Places(map); // 장소 검색 객체
 
     // seoul_data.json 데이터를 받아 폴리곤을 지도에 표시
@@ -63,6 +64,38 @@ function KakaoMap() {
       window.kakao.maps.event.addListener(polygon, 'click', () => {
         // 클릭한 폴리곤의 정보를 처리할 수 있습니다.
         console.log('이 폴리곤은', feature.properties.SIG_KOR_NM);
+      });
+
+      // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 커스텀 오버레이를 표시
+      window.kakao.maps.event.addListener(
+        polygon,
+        'mouseover',
+        (mouseEvent) => {
+          polygon.setOptions({ fillColor: '#09f' });
+          customOverlay.setContent(
+            '<div class="absolute bg-orange-100 border-2 border-slate-600 rounded-md text-sm top-[-5px] left-[15px] p-2">' +
+              feature.properties.SIG_KOR_NM +
+              '</div>',
+          );
+
+          customOverlay.setPosition(mouseEvent.latLng);
+          customOverlay.setMap(map);
+        },
+      );
+
+      // 다각형에 mousemove 이벤트를 등록하고 이벤트가 발생하면 커스텀 오버레이의 위치를 변경
+      window.kakao.maps.event.addListener(
+        polygon,
+        'mousemove',
+        (mouseEvent) => {
+          customOverlay.setPosition(mouseEvent.latLng);
+        },
+      );
+
+      // 다각형에 mouseout 이벤트를 등록하고 이벤트가 발생하면 커스텀 오버레이를 제거
+      window.kakao.maps.event.addListener(polygon, 'mouseout', () => {
+        polygon.setOptions({ fillColor: '#fff' });
+        customOverlay.setMap(null);
       });
     };
 
