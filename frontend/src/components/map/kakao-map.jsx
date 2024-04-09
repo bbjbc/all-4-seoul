@@ -57,6 +57,21 @@ function KakaoMap() {
           fillOpacity: 0.7,
         });
 
+        const path = polygon.getPath();
+        const centroid = getCentroid(path);
+
+        const customOverlay = new window.kakao.maps.CustomOverlay({
+          map: map,
+        });
+
+        // 폴리곤에 이름 표시
+        customOverlay.setContent(
+          '<div class="text-md font-extrabold">' +
+            feature.properties.SIG_KOR_NM +
+            '</div>',
+        );
+        customOverlay.setPosition(centroid);
+
         polygon.setMap(map);
         polygonArr.push(polygon);
         registerPolygonEvents(polygon, feature, polygonArr); // 폴리곤에 이벤트 등록
