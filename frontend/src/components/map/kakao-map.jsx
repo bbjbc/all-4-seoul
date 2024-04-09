@@ -35,6 +35,7 @@ function KakaoMap() {
     const customOverlay = new window.kakao.maps.CustomOverlay({});
     const ps = new window.kakao.maps.services.Places(map); // 장소 검색 객체
 
+    const polygonArr = [];
     // seoul_data.json 데이터를 받아 폴리곤을 지도에 표시
     const displayPolygons = (jsonData) => {
       const features = jsonData.features;
@@ -57,15 +58,52 @@ function KakaoMap() {
         });
 
         polygon.setMap(map);
-        registerPolygonEvents(polygon, feature); // 폴리곤에 이벤트 등록
+        polygonArr.push(polygon);
+        registerPolygonEvents(polygon, feature, polygonArr); // 폴리곤에 이벤트 등록
       }
     };
 
+    // 폴리곤의 중심 좌표를 구하는 함수 → 폴리곤 클릭 시 클릭한 지역 중앙으로 확대
+    const getCentroid = (path) => {
+      let totalX = 0;
+      let totalY = 0;
+      const len = path.length;
+
+      path.forEach((point) => {
+        totalX += point.getLng();
+        totalY += point.getLat();
+      });
+
+      return new window.kakao.maps.LatLng(totalY / len, totalX / len);
+    };
+
+    // 폴리곤 제거 함수
+    const deletePolygon = (polygons) => {
+      for (let i = 0; i < polygons.length; i++) {
+        polygons[i].setMap(null);
+      }
+      return [];
+    };
+
     // 폴리곤 클릭 이벤트 함수
-    const registerPolygonEvents = (polygon, feature) => {
+    const registerPolygonEvents = (polygon, feature, polygonArr) => {
       window.kakao.maps.event.addListener(polygon, 'click', () => {
         // 클릭한 폴리곤의 정보를 처리할 수 있습니다.
         console.log('이 폴리곤은', feature.properties.SIG_KOR_NM);
+        customOverlay.setMap(null);
+
+        // 클릭한 폴리곤을 중심으로 지도 확대
+        const path = polygon.getPath();
+        const centroid = getCentroid(path);
+        map.setCenter(centroid);
+        map.setLevel(4, {
+          animate: {
+            duration: 350,
+          },
+        });
+
+        // 클릭한 폴리곤을 포함한 모든 폴리곤 제거
+        polygonArr = deletePolygon(polygonArr);
       });
 
       // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 커스텀 오버레이를 표시
@@ -101,7 +139,7 @@ function KakaoMap() {
       });
     };
 
-    fetchDataAndDisplayPolygons('/data/seoul_data.json', displayPolygons);
+    fetchDataAndDisplayPolygons(map, '/data/seoul_data.json', displayPolygons);
 
     // 카테고리 검색 함수
     const searchPlaces = () => {
