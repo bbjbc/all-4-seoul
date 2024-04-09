@@ -3,6 +3,10 @@ module.exports = {
   content: ['./src/**/*.{js,jsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        gmarketmedium: ['GmarketSansMedium', 'sans-serif'],
+        gmarketbold: ['GmarketSansBold', 'sans-serif'],
+      },
       keyframes: {
         slidein: {
           '0%': {
