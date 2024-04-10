@@ -34,9 +34,13 @@ function ListPage() {
     setLoading(false);
   }, [selectedCategory, allData, filteredData, page, pageSize]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    loadPlaces();
-  }, [selectedCategory, searchWord, page, pageSize, loadPlaces]);
+    const fetchData = async () => {
+      await loadPlaces();
+    };
+    fetchData();
+  }, []);
 
   const changeCategoryHandler = (newCategory) => {
     setSelectedCategory(newCategory);
