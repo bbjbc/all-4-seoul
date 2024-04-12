@@ -36,11 +36,8 @@ function ListPage() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    const fetchData = async () => {
-      await loadPlaces();
-    };
-    fetchData();
-  }, []);
+    loadPlaces();
+  }, [loadPlaces]);
 
   const changeCategoryHandler = (newCategory) => {
     setSelectedCategory(newCategory);
