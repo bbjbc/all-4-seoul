@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import Modal from '../modal/modal';
 import ModalPortal from '../modal/modal-portal';
 import ListData from '../../data/list-data';
@@ -8,6 +10,7 @@ function SearchButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [filteredData, setFilteredData] = useState([]);
+  const navigation = useNavigate();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -15,6 +18,8 @@ function SearchButton() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setSearchInput('');
+    setFilteredData([]);
   };
 
   const inputChangeHandler = (e) => {
@@ -26,6 +31,12 @@ function SearchButton() {
   const filterData = (input) => {
     const filtered = ListData.filter((d) => d.name.includes(input));
     setFilteredData(filtered);
+  };
+
+  const handleClick = (name) => {
+    const encodedName = encodeURIComponent(name);
+    navigation(`/list/${encodedName}`);
+    closeModal();
   };
 
   return (
@@ -55,8 +66,10 @@ function SearchButton() {
                 {filteredData.length > 0 ? (
                   filteredData.map((item) => (
                     <li
-                      key={item.id}
-                      className="rounded-md p-4 transition-colors duration-300 hover:bg-gray-100"
+                      key={item.id + item.name + item.category}
+                      className="cursor-pointer rounded-md p-4 transition-colors duration-300 hover:bg-gray-100"
+                      onClick={() => handleClick(item.name)}
+                      role="presentation"
                     >
                       <div>
                         <h1>{item.name}</h1>
