@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -18,6 +18,10 @@ function PlaceDetailPage() {
 
   const { id } = useParams();
   const decodedName = decodeURIComponent(id);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [decodedName]);
 
   const realTimeRef = useRef(null);
   const populationRef = useRef(null);
