@@ -19,10 +19,10 @@ function App() {
       errorElement: <ErrorPage />,
       children: [
         { path: '/', element: <Home /> },
-        { path: '/:id', element: <PlaceDetailPage /> },
         { path: '/login', element: <LoginPage /> },
         { path: '/signup', element: <SignupPage /> },
         { path: '/list', element: <ListPage /> },
+        { path: '/list/:id', element: <PlaceDetailPage /> },
       ],
     },
   ]);

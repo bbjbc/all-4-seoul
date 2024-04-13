@@ -9,8 +9,7 @@ function PlaceItem({ name, category, images }) {
 
   const handleClick = () => {
     const encodedName = encodeURIComponent(name);
-    navigation(`/${encodedName}`);
-    console.log(encodedName);
+    navigation(`/list/${encodedName}`);
   };
 
   return (
