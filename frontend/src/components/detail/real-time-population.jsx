@@ -7,7 +7,7 @@ import image2 from '../../assets/congestion/보통.jpg';
 import image3 from '../../assets/congestion/약간붐빔.jpg';
 import image4 from '../../assets/congestion/붐빔.jpg';
 
-function RealTimePopulation({ name, congestionLevel }) {
+function RealTimePopulation({ name, congestionLevel, realtimeRef }) {
   let congestionImage, congestionDescription;
   switch (congestionLevel) {
     case '여유':
@@ -48,7 +48,10 @@ function RealTimePopulation({ name, congestionLevel }) {
   }
 
   return (
-    <div className="mx-auto flex flex-col justify-center rounded-lg bg-white p-10 shadow-lg">
+    <div
+      className="mx-auto flex flex-col justify-center rounded-lg bg-white p-10 shadow-lg"
+      ref={realtimeRef}
+    >
       <p className="text-sm text-gray-500">
         {new Date().toLocaleTimeString()} 기준
       </p>
@@ -76,6 +79,7 @@ function RealTimePopulation({ name, congestionLevel }) {
 RealTimePopulation.propTypes = {
   name: propTypes.string.isRequired,
   congestionLevel: propTypes.string.isRequired,
+  realtimeRef: propTypes.object.isRequired,
 };
 
 export default RealTimePopulation;
