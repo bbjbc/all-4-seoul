@@ -10,7 +10,7 @@ import WeatherInfo from '../components/detail/weather-info';
 import CultureEvent from '../components/detail/culture-event';
 import ParkingInfo from '../components/detail/parking-info';
 import Review from '../components/detail/review';
-import { IoIosArrowBack } from 'react-icons/io';
+import { IoArrowBack } from 'react-icons/io5';
 
 function PlaceDetailPage() {
   const navigation = useNavigate();
@@ -33,9 +33,11 @@ function PlaceDetailPage() {
   const handleCategoryClick = (category, ref) => {
     setActiveCategory(category);
     if (ref && ref.current) {
-      ref.current.scrollIntoView({ behavior: 'smooth' });
+      const yOffset = -90;
+      const y =
+        ref.current.getBoundingClientRect().top + window.scrollY + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
-    console.log(ref.current);
   };
 
   const handleBack = () => {
@@ -44,16 +46,7 @@ function PlaceDetailPage() {
 
   return (
     <>
-      <div className="relative flex animate-fadein items-center justify-center px-4 py-36">
-        <div className="absolute left-40 top-28">
-          <button
-            className="text-md flex flex-row text-zinc-900 hover:text-neutral-500"
-            onClick={handleBack}
-          >
-            <IoIosArrowBack size={20} />
-            뒤로가기
-          </button>
-        </div>
+      <div className="flex h-screen">
         <CategorySection
           activeCategory={activeCategory}
           handleCategoryClick={handleCategoryClick}
@@ -66,10 +59,21 @@ function PlaceDetailPage() {
             '리뷰 작성': reviewRef,
           }}
         />
-        <DetailItem decodedName={decodedName} />
+        <div className="relative flex-grow animate-slidein">
+          <div className="absolute left-32 top-20 z-50">
+            <button
+              className="text-md flex flex-row rounded-lg px-2 py-1 text-white transition-all duration-200 ease-in-out hover:bg-teal-700"
+              onClick={handleBack}
+            >
+              <IoArrowBack size={20} />
+              뒤로가기
+            </button>
+          </div>
+          <DetailItem decodedName={decodedName} />
+        </div>
       </div>
 
-      <div className="flex items-center justify-center">
+      <div className="mt-24 flex items-center justify-center">
         <div className="mx-10 flex w-3/5 flex-col items-center justify-center space-y-10">
           <RealTimePopulation
             name={decodedName}
@@ -77,8 +81,8 @@ function PlaceDetailPage() {
             realtimeRef={realTimeRef}
           />
           <PopulationInfo populationRef={populationRef} />
-          <WeatherInfo weatherRef={weatherRef} />
           <CultureEvent cultureRef={cultureRef} />
+          <WeatherInfo weatherRef={weatherRef} />
           <ParkingInfo parkingRef={parkingRef} />
           <Review reviewRef={reviewRef} />
         </div>
