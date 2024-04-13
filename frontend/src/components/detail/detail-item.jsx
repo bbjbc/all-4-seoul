@@ -24,21 +24,25 @@ function DetailItem({ decodedName }) {
     return <LoadingSpinner />;
   }
 
-  const { category, images } = placeData;
+  const { category, images, ENG_NM } = placeData;
 
   return (
-    <div className="w-full overflow-hidden rounded-xl shadow-lg md:w-1/2">
-      <div className="flex justify-center">
-        <img
-          src={images}
-          alt={decodedName}
-          className="h-96 w-full object-cover"
-        />
-      </div>
-      <div className="bg-white p-6">
-        <h1 className="text-center text-3xl font-semibold">{decodedName}</h1>
-        <p className="text-center text-xs text-gray-400">{placeData.ENG_NM}</p>
-        <p className="mt-4 text-center text-gray-600">{category}</p>
+    <div className="relative h-full w-full">
+      <img
+        src={images}
+        alt={decodedName}
+        className="absolute z-0 h-full w-full object-cover"
+        style={{
+          maskImage:
+            'linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1))',
+        }}
+      />
+      <div className="absolute z-10 flex h-full w-full flex-col items-start justify-center space-y-8 bg-gradient-to-l from-transparent to-black pl-40 opacity-80">
+        <h1 className="text-center text-8xl font-bold text-white">
+          {decodedName}
+        </h1>
+        <p className="text-center text-2xl text-white">{ENG_NM}</p>
+        <p className="text-center text-5xl text-white">{category}</p>
       </div>
     </div>
   );
