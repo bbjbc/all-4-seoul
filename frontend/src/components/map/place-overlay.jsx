@@ -12,6 +12,9 @@ import culture from '../../assets/overlay/culture.jpg';
 import gas from '../../assets/overlay/gas.jpg';
 import parking from '../../assets/overlay/parking.jpg';
 import attractions from '../../assets/overlay/attractions.jpg';
+import { SlLocationPin } from 'react-icons/sl';
+import { GrPhone } from 'react-icons/gr';
+import { GiRoad } from 'react-icons/gi';
 
 function PlaceOverlay({ place, onClose }) {
   let image = null;
@@ -42,8 +45,8 @@ function PlaceOverlay({ place, onClose }) {
   return (
     <ModalPortal>
       <Modal onClose={onClose}>
-        <div className="overflow-y-auto p-5">
-          <h1 className="mb-6 text-center text-3xl font-bold text-gray-800">
+        <article className="overflow-y-auto p-5">
+          <h1 className="mb-6 text-center font-gmarketbold text-3xl text-gray-800">
             {place.place_name}
           </h1>
 
@@ -52,17 +55,25 @@ function PlaceOverlay({ place, onClose }) {
             <div className="text-sm">{place.category_name}</div>
           </div>
 
-          <div className="text-md mb-4 space-y-2 text-gray-700">
-            <div>
-              <span className="font-semibold">전화번호:</span> {place.phone}
-            </div>
-            <div>
-              <span className="font-semibold">주소:</span> {place.address_name}
-            </div>
-            <div>
-              <span className="font-semibold">도로명 주소:</span>
-              {place.road_address_name}
-            </div>
+          <div className="text-md mb-4 space-y-4 text-gray-700">
+            <span className="flex flex-row gap-4 font-semibold">
+              <GrPhone size={20} />
+              {place.phone === ''
+                ? '전화번호 정보가 존재하지 않습니다.'
+                : place.phone}
+            </span>
+            <span className="flex flex-row gap-4 font-semibold">
+              <SlLocationPin size={20} />
+              {place.address_name === ''
+                ? '주소 정보가 존재하지 않습니다.'
+                : place.address_name}
+            </span>
+            <span className="flex flex-row gap-4 font-semibold">
+              <GiRoad size={20} />
+              {place.road_address_name === ''
+                ? '도로명 주소 정보가 존재하지 않습니다.'
+                : place.road_address_name}
+            </span>
             <div className="text-blue-500 underline">
               <Link to={`/list/${place.place_name}`}>상세 페이지 보기</Link>
             </div>
@@ -77,7 +88,7 @@ function PlaceOverlay({ place, onClose }) {
               />
             </div>
           )}
-        </div>
+        </article>
       </Modal>
     </ModalPortal>
   );
