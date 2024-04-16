@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import ReactDOMServer from 'react-dom/server';
+import React, { useEffect, useState } from 'react';
 
 import MapCategory from './map-category';
 import PlaceOverlay from './place-overlay';
@@ -22,6 +21,7 @@ const markerImages = {
 };
 
 function KakaoMap() {
+  const [selectedPlace, setSelectedPlace] = useState(null);
   useEffect(() => {
     const mapOption = {
       center: new window.kakao.maps.LatLng(37.555946, 126.972317),
@@ -259,30 +259,9 @@ function KakaoMap() {
       markers = [];
     };
 
-    // 마커 클릭 시 장소 정보를 표시하는 커스텀 오버레이를 표시하는 함수
+    // 마커 클릭 시 장소 정보를 표시하는 함수
     const displayPlaceInfo = (place) => {
-      // jsx는 js 객체이기 때문에 문자열로 변환하여 innerHTML에 넣어줘야 함
-      // innerHTML에 넣어주기 위해 ReactDOMServer.renderToString() 사용
-      const content = ReactDOMServer.renderToString(
-        <PlaceOverlay place={place} id="closeOverlay" />,
-      );
-
-      contentNode.innerHTML = content;
-      placeOverlay.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
-      placeOverlay.setMap(map);
-
-      // 오버레이 닫기 버튼 이벤트
-      const closeOverlayBtn = document.getElementById('closeOverlay');
-      if (closeOverlayBtn) {
-        closeOverlayBtn.addEventListener('click', () => {
-          placeOverlay.setMap(null);
-        });
-      }
-
-      // 지도 클릭 시 오버레이 닫기
-      window.kakao.maps.event.addListener(map, 'click', () => {
-        placeOverlay.setMap(null);
-      });
+      setSelectedPlace(place);
     };
 
     // 카테고리 클릭 시 이벤트 추가 함수
@@ -320,6 +299,12 @@ function KakaoMap() {
     <>
       <div id="map" className="h-screen w-full"></div>
       <MapCategory id="category" />
+      {selectedPlace && (
+        <PlaceOverlay
+          place={selectedPlace}
+          onClose={() => setSelectedPlace(null)}
+        />
+      )}
     </>
   );
 }

@@ -14,7 +14,7 @@ function NavBar() {
   };
 
   return (
-    <nav className="text-md fixed left-0 top-0 z-10 w-full rounded-b-md bg-white bg-opacity-90 p-3 font-gmarketbold">
+    <nav className="text-md fixed left-0 top-0 z-50 w-full rounded-b-md bg-white bg-opacity-90 p-3 font-gmarketbold">
       <ul className="mx-56 flex justify-between">
         <li className="flex items-center">
           <NavLink

@@ -9,6 +9,7 @@ import RootLayout from './pages/Root';
 import ErrorPage from './pages/Error';
 import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
+import PlaceDetailPage from './pages/Detail';
 
 function App() {
   const router = createBrowserRouter([
@@ -21,6 +22,7 @@ function App() {
         { path: '/login', element: <LoginPage /> },
         { path: '/signup', element: <SignupPage /> },
         { path: '/list', element: <ListPage /> },
+        { path: '/list/:id', element: <PlaceDetailPage /> },
       ],
     },
   ]);

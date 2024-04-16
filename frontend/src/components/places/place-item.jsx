@@ -1,10 +1,23 @@
 import React from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 
 function PlaceItem({ name, category, images }) {
+  const navigation = useNavigate();
+
+  const handleClick = () => {
+    const encodedName = encodeURIComponent(name);
+    navigation(`/list/${encodedName}`);
+  };
+
   return (
-    <article className="flex flex-col items-center rounded-xl bg-white shadow-xl">
+    <article
+      className="flex cursor-pointer flex-col items-center rounded-xl bg-white shadow-xl"
+      onClick={handleClick}
+      role="presentation"
+    >
       <header className="h-auto w-auto overflow-hidden">
         <img
           src={images}
