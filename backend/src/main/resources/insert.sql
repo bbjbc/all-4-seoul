@@ -5,11 +5,21 @@ values (1, 'tdawkes0@is.gd', 'zI4`(Q,udf40}WJ', 'Avigdor Meigh', '2023-08-16 22:
 insert into users (user_id, login_id, login_password, name, birth, mbti, gender, nickname)
 values (2, 'lbittany1@ftc.gov', 'jS1#`89eGg8%OesC', 'Thaddus McCullouch', '2023-10-30 05:45:08', 'ISFP',
         'Male', 'Laurie Bittany');
+insert into users (user_id, login_id, login_password, name, birth, mbti, gender, nickname)
+values (3, 'lbittany1@ftc.gov2', 'jS1#`89eGg8%OesC', 'Thaddus McCullouch', '2023-10-30 05:45:08', 'ISFP',
+        'Male', 'Laurie Bittany2');
 
 -- places 테이블에 더미 데이터 추가
-INSERT INTO places (place_id, user_id, phone_number, address, x, y, DTYPE, name)
-VALUES (1, 1, '01012345678', '광교산로 뭐시기', '127.002', '37.002', 'place', 'Place One'),
-       (2, 2, '01087654321', '보정로 30', '127.002', '37.003', 'place', 'Place Two');
+INSERT INTO places (place_id, phone_number, address, x, y, DTYPE, name)
+VALUES (1, '01012345678', '광교산로 뭐시기', '127.002', '37.002', 'place', 'Place One'),
+       (2, '01087654321', '보정로 30', '127.002', '37.003', 'place', 'Place Two');
+
+-- bookmarks 테이블 더미 데이터 추가
+INSERT INTO bookmarks (user_id, place_id)
+VALUES (1, 1),
+       (1, 2),
+       (2, 1),
+       (2, 2);
 
 -- events 테이블에 더미 데이터 추가
 INSERT INTO events (event_id, name, start_date, end_date, price, place_id, x, y)
