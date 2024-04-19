@@ -10,6 +10,9 @@ import CE7 from '../../assets/marker/coffee.png';
 import FD6 from '../../assets/marker/restaurant.png';
 import AT4 from '../../assets/marker/attractions.png';
 import CT1 from '../../assets/marker/culture.png';
+import ListMarker from '../../assets/marker/listMarker.png';
+import ListPlaceOverlay from './list-place-overlay';
+import ListData from '../../data/list-data';
 
 const markerImages = {
   PK6: PK6,
@@ -22,6 +25,8 @@ const markerImages = {
 
 function KakaoMap() {
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [listSelectedPlace, setListSelectedPlace] = useState(null);
+
   useEffect(() => {
     const mapOption = {
       center: new window.kakao.maps.LatLng(37.555946, 126.972317),
@@ -228,6 +233,40 @@ function KakaoMap() {
       }
     };
 
+    let listMarkerArr = [];
+
+    const loadAndAddMarkers = () => {
+      const data = ListData;
+      data.forEach((item) => {
+        const position = new window.kakao.maps.LatLng(
+          item.latitude,
+          item.longitude,
+        );
+        addListMarker(position, item);
+      });
+    };
+
+    const addListMarker = (position, data) => {
+      const image = ListMarker;
+      const imageSize = new window.kakao.maps.Size(40, 40);
+      const markerImage = new window.kakao.maps.MarkerImage(image, imageSize);
+      const marker = new window.kakao.maps.Marker({
+        position: position,
+        image: markerImage,
+      });
+
+      marker.setMap(map);
+      listMarkerArr.push(marker);
+
+      window.kakao.maps.event.addListener(marker, 'click', () => {
+        displayListPlaceInfo(data);
+      });
+
+      return marker;
+    };
+
+    loadAndAddMarkers();
+
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수
     const addMarker = (position) => {
       const imageSrc = markerImages[currCategory];
@@ -257,6 +296,17 @@ function KakaoMap() {
         markers[i].setMap(null);
       }
       markers = [];
+    };
+
+    // 리스트 마커 클릭 시 장소 정보를 표시하는 함수
+    const displayListPlaceInfo = (place) => {
+      const info = ListData.find(
+        (dataItem) =>
+          parseFloat(dataItem.latitude) === parseFloat(place.latitude) &&
+          parseFloat(dataItem.longitude) === parseFloat(place.longitude),
+      );
+
+      setListSelectedPlace(info);
     };
 
     // 마커 클릭 시 장소 정보를 표시하는 함수
@@ -303,6 +353,12 @@ function KakaoMap() {
         <PlaceOverlay
           place={selectedPlace}
           onClose={() => setSelectedPlace(null)}
+        />
+      )}
+      {listSelectedPlace && (
+        <ListPlaceOverlay
+          place={listSelectedPlace}
+          onClose={() => setListSelectedPlace(null)}
         />
       )}
     </>
