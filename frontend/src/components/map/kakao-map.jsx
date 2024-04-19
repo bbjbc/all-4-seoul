@@ -248,7 +248,7 @@ function KakaoMap() {
 
     const addListMarker = (position, data) => {
       const image = ListMarker;
-      const imageSize = new window.kakao.maps.Size(40, 40);
+      const imageSize = new window.kakao.maps.Size(45, 45);
       const markerImage = new window.kakao.maps.MarkerImage(image, imageSize);
       const marker = new window.kakao.maps.Marker({
         position: position,

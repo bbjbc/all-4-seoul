@@ -44,13 +44,13 @@ function PlaceOverlay({ place, onClose }) {
 
   return (
     <ModalPortal>
-      <Modal onClose={onClose}>
+      <Modal onClose={onClose} height="h-[600px]">
         <article className="overflow-y-auto p-5">
           <h1 className="mb-6 text-center font-gmarketbold text-3xl text-gray-800">
             {place.place_name}
           </h1>
 
-          <div className="mb-4 space-y-2 rounded-md bg-indigo-100 px-6 py-5 text-indigo-800">
+          <div className="mb-4 space-y-2 rounded-md bg-green-200 px-6 py-5 text-stone-900">
             <div className="text-lg font-bold">{place.category_group_name}</div>
             <div className="text-sm">{place.category_name}</div>
           </div>
@@ -74,9 +74,6 @@ function PlaceOverlay({ place, onClose }) {
                 ? '도로명 주소 정보가 존재하지 않습니다.'
                 : place.road_address_name}
             </span>
-            <div className="text-blue-500 underline">
-              <Link to={`/list/${place.place_name}`}>상세 페이지 보기</Link>
-            </div>
           </div>
 
           {image && (
@@ -88,6 +85,13 @@ function PlaceOverlay({ place, onClose }) {
               />
             </div>
           )}
+          <Link to={`/list/${place.place_name}`}>
+            <div className="flex w-full justify-end text-center">
+              <div className="w-full rounded-md bg-green-500 p-2 text-stone-900 transition-all duration-200 ease-in-out hover:bg-green-400">
+                상세 페이지 보기
+              </div>
+            </div>
+          </Link>
         </article>
       </Modal>
     </ModalPortal>
