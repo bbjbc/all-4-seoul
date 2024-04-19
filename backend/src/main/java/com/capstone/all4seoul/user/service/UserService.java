@@ -1,11 +1,18 @@
 package com.capstone.all4seoul.user.service;
 
+import com.capstone.all4seoul.bookmark.domain.Bookmark;
+import com.capstone.all4seoul.bookmark.dto.request.DeleteBookmarkRequest;
+import com.capstone.all4seoul.bookmark.repository.BookmarkRepository;
+import com.capstone.all4seoul.place.domain.Place;
+import com.capstone.all4seoul.place.dto.response.DetailPlaceResponse;
+import com.capstone.all4seoul.place.repository.PlaceRepository;
 import com.capstone.all4seoul.user.domain.User;
 import com.capstone.all4seoul.user.dto.request.JoinUserRequest;
 import com.capstone.all4seoul.user.dto.request.UpdateUserRequest;
 import com.capstone.all4seoul.user.dto.response.DetailUserResponse;
 import com.capstone.all4seoul.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +20,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
+    private final PlaceRepository placeRepository;
+    private final BookmarkRepository bookmarkRepository;
 
     @Transactional
     public void join(JoinUserRequest joinUserRequest) {
@@ -25,7 +34,8 @@ public class UserService {
                 joinUserRequest.getUsername(),
                 joinUserRequest.getBirth(),
                 joinUserRequest.getMbti(),
-                joinUserRequest.getGender()
+                joinUserRequest.getGender(),
+                joinUserRequest.getNickname()
         );
 
         // 사용자 생성 전 중복 로그인 ID 확인
@@ -68,6 +78,28 @@ public class UserService {
         findUser.updateBirth(updateUserRequest.getBirth());
         findUser.updateMbti(updateUserRequest.getMbti());
         findUser.updateNickname(updateUserRequest.getNickname());
+    }
+
+    @Transactional
+    public void addBookmark(DeleteBookmarkRequest request) {
+        User user = userRepository.findById(request.getUserId()).get();
+        Place place = placeRepository.findById(request.getPlaceId()).get();
+
+        bookmarkRepository.save(Bookmark.createBookmark(user, place));
+    }
+
+    public List<DetailPlaceResponse> findBookmarkedPlaces(User user) {
+        return user.getBookmarks().getBookmarks()
+                .stream()
+                .map(Bookmark::getPlace)
+                .map(DetailPlaceResponse::of)
+                .toList();
+    }
+
+    @Transactional
+    public void deleteBookmark(DeleteBookmarkRequest request) {
+        User user = userRepository.findById(request.getUserId()).get();
+        user.deleteBookmark(request.getPlaceId());
     }
 
     @Transactional

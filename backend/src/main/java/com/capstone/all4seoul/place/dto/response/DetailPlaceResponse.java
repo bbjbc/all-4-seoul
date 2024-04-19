@@ -23,10 +23,9 @@ public class DetailPlaceResponse {
         detailPlaceResponse.name = place.getName();
 
         // Place에 있는 Review 객체들을 DetailReviewResponse 객체로 변환하여 리스트에 담음
-        List<DetailReviewResponse> reviewResponses = place.getReviews().stream()
-                .map(review -> DetailReviewResponse.of(review))
-                .collect(Collectors.toList());
-        detailPlaceResponse.reviews = reviewResponses;
+        detailPlaceResponse.reviews = place.getReviews().stream()
+                .map(DetailReviewResponse::of)
+                .toList();
 
         detailPlaceResponse.phoneNumber = place.getPhoneNumber();
 

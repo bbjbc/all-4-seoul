@@ -1,7 +1,18 @@
 package com.capstone.all4seoul.user.domain;
 
+import com.capstone.all4seoul.bookmark.domain.Bookmarks;
 import com.capstone.all4seoul.review.domain.Review;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,17 +56,20 @@ public class User {
     @Column(name = "credit")
     private int credit;
 
-    //    @OneToMany(mappedBy = "user")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
+    @Embedded
+    private Bookmarks bookmarks = Bookmarks.createEmptyBookmarks();
+  
     public static User createUser(
             String loginId,
             String loginPassword,
             String username,
             LocalDate birth,
             Mbti mbti,
-            Gender gender) {
+            Gender gender,
+            String nickname) {
         User user = new User();
 
         user.loginId = loginId;
@@ -64,6 +78,7 @@ public class User {
         user.birth = birth;
         user.mbti = mbti;
         user.gender = gender;
+        user.nickname = nickname;
         user.credit = 0;
 
         return user;
@@ -82,5 +97,12 @@ public class User {
 
     public void updateNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    /**
+     * 사용자 북마크 제거 메서드
+     */
+    public void deleteBookmark(Long placeId) {
+        bookmarks.deleteBookmark(placeId);
     }
 }

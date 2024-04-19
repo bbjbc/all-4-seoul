@@ -2,7 +2,19 @@ package com.capstone.all4seoul.place.domain;
 
 import com.capstone.all4seoul.event.domain.Event;
 import com.capstone.all4seoul.review.domain.Review;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +42,7 @@ public class Place {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 
     @Column(name = "phone_number", nullable = false, unique = true, length = 11)
