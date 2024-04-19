@@ -5,10 +5,7 @@ import Logo from '../../assets/올포서울로고.jpg';
 
 const Header = () => {
   return (
-    <header
-      className="fixed z-50 mb-10 flex w-full items-center justify-between bg-gray-900 px-40 text-white"
-      style={{ height: '50px' }}
-    >
+    <header className="fixed z-50 mb-10 flex h-12 w-full items-center justify-between bg-gray-900 px-40 text-white">
       <p className="flex items-center text-left">
         <img src={Logo} alt="올포서울로고" className="mr-2 h-7 rounded-full" />
         <span className="mr-2">All 4 Seoul</span>

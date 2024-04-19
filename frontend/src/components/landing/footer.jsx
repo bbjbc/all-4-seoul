@@ -7,10 +7,7 @@ const Footer = () => {
   };
 
   return (
-    <footer
-      className="flex w-full items-center justify-between bg-gray-900 px-40 text-white"
-      style={{ height: '50px' }}
-    >
+    <footer className="z-10 flex h-12 w-full items-center justify-between bg-gray-900 px-40 text-white">
       <p className="text-left">Copyright &copy; {thisYear()}</p>
       <p className="text-right ">심화캡스톤디자인 3팀 피어나</p>
     </footer>
