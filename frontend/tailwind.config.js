@@ -3,6 +3,10 @@ module.exports = {
   content: ['./src/**/*.{js,jsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        gmarketmedium: ['GmarketSansMedium', 'sans-serif'],
+        gmarketbold: ['GmarketSansBold', 'sans-serif'],
+      },
       keyframes: {
         slidein: {
           '0%': {
@@ -24,6 +28,16 @@ module.exports = {
             transform: 'translateY(0)',
           },
         },
+        fadeout: {
+          '0%': {
+            opacity: 1,
+            transform: 'translateY(0)',
+          },
+          '100%': {
+            opacity: 0,
+            transform: 'translateY(-5px)',
+          },
+        },
         bounce: {
           '0%': {
             transform: 'translateY(-25%)',
@@ -38,6 +52,7 @@ module.exports = {
       animation: {
         slidein: 'slidein 1s forwards',
         fadein: 'fadein 0.5s ease',
+        fadeout: 'fadeout 0.5s ease',
         bounce: 'bounce 1.5s infinite',
       },
     },

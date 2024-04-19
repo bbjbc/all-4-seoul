@@ -10,6 +10,7 @@ import ErrorPage from './pages/Error';
 import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
 import LandingPage from './pages/Landing';
+import PlaceDetailPage from './pages/Detail';
 
 function App() {
   const router = createBrowserRouter([
@@ -23,6 +24,7 @@ function App() {
         { path: '/signup', element: <SignupPage /> },
         { path: '/list', element: <ListPage /> },
         { path: '/Landing', element: <LandingPage /> },
+        { path: '/list/:id', element: <PlaceDetailPage /> },
       ],
     },
   ]);

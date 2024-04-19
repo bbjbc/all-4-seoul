@@ -1,32 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { IoCloseOutline } from 'react-icons/io5';
-
 import PropTypes from 'prop-types';
 
 function Modal({ children, onClose }) {
+  const [isVisible, setIsVisible] = useState(true);
+
+  const handleClose = () => {
+    setIsVisible(false);
+  };
+
+  useEffect(() => {
+    if (!isVisible) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, onClose]);
+
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
-      onClose();
+      handleClose();
     }
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ${isVisible ? 'animate-fadein' : 'animate-fadeout'}`}
       onClick={handleBackdropClick}
       role="presentation"
     >
-      <div className="animate-fadein">
-        <div className="relative flex h-[500px] transform flex-col rounded-lg bg-white p-8 pt-10">
-          <button
-            onClick={onClose}
-            className="absolute right-2 top-2 text-gray-500 hover:text-gray-700 focus:outline-none"
-          >
-            <IoCloseOutline size={35} />
-          </button>
-          {children}
-        </div>
+      <div className="relative flex h-[500px] transform flex-col rounded-lg bg-white p-8 pt-10">
+        <button
+          onClick={handleClose}
+          className="absolute right-2 top-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+        >
+          <IoCloseOutline size={35} />
+        </button>
+        {children}
       </div>
     </div>
   );

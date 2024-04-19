@@ -14,21 +14,21 @@ function NavBar() {
   };
 
   return (
-    <nav className="fixed left-0 top-0 z-10 w-full rounded-b-2xl bg-gray-700 bg-opacity-50 p-3 text-lg font-semibold">
-      <ul className="mx-20 flex justify-between">
+    <nav className="text-md fixed left-0 top-0 z-50 w-full rounded-b-md bg-white bg-opacity-90 p-3 font-gmarketbold">
+      <ul className="mx-56 flex justify-between">
         <li className="flex items-center">
           <NavLink
             to="/"
             className={({ isActive }) =>
               isActive
-                ? 'flex items-center text-blue-950 hover:text-purple-950'
-                : 'flex items-center text-black hover:text-cyan-900'
+                ? 'flex items-center text-blue-950 transition duration-300 ease-in-out hover:scale-110 hover:text-purple-950'
+                : 'flex transform items-center text-black transition duration-300 ease-in-out hover:scale-110 hover:text-cyan-900'
             }
           >
             <img
               src={logo}
               alt="logo"
-              className="mr-3 h-7 w-7 rounded-full text-lg text-black"
+              className="text-md mr-3 h-7 w-7 rounded-full text-black"
             />
             All 4 Seoul
           </NavLink>
@@ -61,7 +61,7 @@ function NavBar() {
               <NavLink
                 to="/"
                 onClick={handleLogout}
-                className="flex items-center rounded-lg bg-gray-300 px-2 text-black hover:text-cyan-900"
+                className="rounded-lgpx-2 flex items-center text-black hover:text-cyan-900"
               >
                 로그아웃
               </NavLink>
@@ -71,8 +71,8 @@ function NavBar() {
               to="/login"
               className={({ isActive }) =>
                 isActive
-                  ? 'flex items-center rounded-lg bg-gray-300 px-2 text-blue-950 hover:bg-slate-200 hover:text-purple-950'
-                  : 'hover:bg-slate-20 flex items-center rounded-lg bg-gray-300 px-2 text-black hover:text-cyan-900'
+                  ? 'flex items-center rounded-lg px-2 text-blue-950 hover:text-purple-800'
+                  : 'flex items-center rounded-lg px-2  text-black hover:text-cyan-900'
               }
             >
               로그인
