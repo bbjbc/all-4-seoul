@@ -68,7 +68,7 @@ function PlaceDetailPage() {
         <CultureEvent cultureRef={cultureRef} />
       </DetailLayout>
       <DetailLayout>
-        <WeatherInfo weatherRef={weatherRef} />
+        <WeatherInfo weatherRef={weatherRef} name={decodedName} />
       </DetailLayout>
       <DetailLayout>
         <ParkingInfo parkingRef={parkingRef} />
