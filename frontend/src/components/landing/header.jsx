@@ -1,12 +1,12 @@
 import React from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { FaYoutubeSquare } from 'react-icons/fa';
-import Logo from '../../../assets/올포서울로고.jpg';
+import Logo from '../../assets/올포서울로고.jpg';
 
 const Header = () => {
   return (
     <header
-      className="fixed z-10 mb-10 flex w-full items-center justify-between bg-gray-900 px-40 text-white"
+      className="fixed z-50 mb-10 flex w-full items-center justify-between bg-gray-900 px-40 text-white"
       style={{ height: '50px' }}
     >
       <p className="flex items-center text-left">
