@@ -15,30 +15,38 @@ DROP TABLE IF EXISTS bookmarks;
 DROP TABLE IF EXISTS places;
 DROP TABLE IF EXISTS users;
 
--- 테이블 생성: places와 users 먼저 생성
-CREATE TABLE users (
-                       user_id BIGINT NOT NULL AUTO_INCREMENT,
-                       birth DATE NOT NULL,
-                       credit INTEGER DEFAULT 0,
-                       login_id VARCHAR(30) NOT NULL UNIQUE,
-                       name VARCHAR(30) NOT NULL,
-                       nickname VARCHAR(30) NOT NULL UNIQUE,
-                       login_password VARCHAR(100) NOT NULL,
-                       gender ENUM('Male', 'Female') NOT NULL,
-                       mbti ENUM('INTJ', 'INTP', 'INFJ', 'INFP', 'ISTJ', 'ISFJ', 'ISTP', 'ISFP', 'ENTJ', 'ENTP', 'ENFJ', 'ENFP', 'ESTJ', 'ESFJ', 'ESTP', 'ESFP') NOT NULL,
-                       PRIMARY KEY (user_id)
-) ENGINE=InnoDB;
+CREATE TABLE users
+(
+    user_id        BIGINT                                                                                                                                NOT NULL AUTO_INCREMENT,
+    birth          DATE                                                                                                                                  NOT NULL,
+    credit         INTEGER DEFAULT 0,
+    login_id       VARCHAR(30)                                                                                                                           NOT NULL UNIQUE,
+    name           VARCHAR(30)                                                                                                                           NOT NULL,
+    nickname       VARCHAR(30)                                                                                                                           NOT NULL UNIQUE,
+    login_password VARCHAR(100)                                                                                                                          NOT NULL,
+    gender         ENUM ('Male', 'Female')                                                                                                               NOT NULL,
+    mbti           ENUM ('INTJ', 'INTP', 'INFJ', 'INFP', 'ISTJ', 'ISFJ', 'ISTP', 'ISFP', 'ENTJ', 'ENTP', 'ENFJ', 'ENFP', 'ESTJ', 'ESFJ', 'ESTP', 'ESFP') NOT NULL,
+    PRIMARY KEY (user_id)
+) ENGINE = InnoDB;
 
-CREATE TABLE places (
-                        place_id BIGINT NOT NULL AUTO_INCREMENT,
-                        phone_number VARCHAR(11) NOT NULL UNIQUE,
-                        address VARCHAR(100) NOT NULL,
-                        x DOUBLE NOT NULL,
-                        y DOUBLE NOT NULL,
-                        DTYPE VARCHAR(31) NOT NULL,
-                        name VARCHAR(100) NOT NULL,
-                        PRIMARY KEY (place_id)
-) ENGINE=InnoDB;
+CREATE TABLE places
+(
+    place_id     BIGINT       NOT NULL AUTO_INCREMENT,
+    name         VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(11)  NOT NULL UNIQUE,
+    address      VARCHAR(255) NOT NULL,
+    x            DOUBLE       NOT NULL,
+    y            DOUBLE       NOT NULL,
+    DTYPE        VARCHAR(31)  NOT NULL,
+    website_uri  VARCHAR(255) NOT NULL,
+    category     ENUM ('PARKING_LOT',
+        'GAS_STATION',
+        'CULTURE_FACILITY',
+        'TOURIST_ATTRACTION',
+        'RESTAURANT',
+        'CAFE')               NOT NULL,
+    PRIMARY KEY (place_id)
+) ENGINE = InnoDB;
 
 CREATE TABLE bookmarks (
                            bookmark_id BIGINT NOT NULL AUTO_INCREMENT,
@@ -47,43 +55,46 @@ CREATE TABLE bookmarks (
                            PRIMARY KEY (bookmark_id),
                            CONSTRAINT FK_bookmarks_users FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
                            CONSTRAINT FK_bookmarks_places FOREIGN KEY (place_id) REFERENCES places(place_id) ON DELETE CASCADE,
-                           UNIQUE (user_id, place_id)  -- 이 구문은 한 사용자가 같은 장소에 중복 북마크를 허용하지 않습니다.
+                           UNIQUE (user_id, place_id)
 ) ENGINE=InnoDB;
 
 -- 이어서 events, parking_lot, reviews 테이블 생성
-CREATE TABLE events (
-                        event_id BIGINT NOT NULL AUTO_INCREMENT,
-                        place_id BIGINT,
-                        x DOUBLE NOT NULL,
-                        y DOUBLE NOT NULL,
-                        name VARCHAR(100) NOT NULL,
-                        start_date DATETIME NOT NULL,
-                        end_date DATETIME NOT NULL,
-                        price INTEGER NOT NULL,
-                        PRIMARY KEY (event_id),
-                        CONSTRAINT FK_events_places FOREIGN KEY (place_id) REFERENCES places (place_id)
-) ENGINE=InnoDB;
+CREATE TABLE events
+(
+    event_id   BIGINT       NOT NULL AUTO_INCREMENT,
+    place_id   BIGINT,
+    x          DOUBLE       NOT NULL,
+    y          DOUBLE       NOT NULL,
+    name       VARCHAR(100) NOT NULL,
+    start_date DATETIME     NOT NULL,
+    end_date   DATETIME     NOT NULL,
+    price      INTEGER      NOT NULL,
+    PRIMARY KEY (event_id),
+    CONSTRAINT FK_events_places FOREIGN KEY (place_id) REFERENCES places (place_id)
+) ENGINE = InnoDB;
 
-CREATE TABLE parking_lot (
-                             place_id BIGINT NOT NULL,
-                             add_rates VARCHAR(255),
-                             capacity VARCHAR(255),
-                             etc VARCHAR(255),
-                             price VARCHAR(255),
-                             time_rates VARCHAR(255),
-                             PRIMARY KEY (place_id),
-                             CONSTRAINT FK_parking_lot_places FOREIGN KEY (place_id) REFERENCES places (place_id)
-) ENGINE=InnoDB;
+CREATE TABLE parking_lot
+(
+    place_id   BIGINT NOT NULL,
+    add_rates  VARCHAR(255),
+    capacity   VARCHAR(255),
+    etc        VARCHAR(255),
+    price      VARCHAR(255),
+    time_rates VARCHAR(255),
+    PRIMARY KEY (place_id),
+    CONSTRAINT FK_parking_lot_places FOREIGN KEY (place_id) REFERENCES places (place_id)
+) ENGINE = InnoDB;
 
-CREATE TABLE reviews (
-                         review_id BIGINT NOT NULL AUTO_INCREMENT,
-                         user_id BIGINT NOT NULL,
-                         place_id BIGINT,
-                         event_id BIGINT,
-                         star_rating FLOAT NOT NULL,
-                         content VARCHAR(255) NOT NULL,
-                         PRIMARY KEY (review_id),
-                         CONSTRAINT FK_reviews_users FOREIGN KEY (user_id) REFERENCES users (user_id),
-                         CONSTRAINT FK_reviews_places FOREIGN KEY (place_id) REFERENCES places (place_id),
-                         CONSTRAINT FK_reviews_events FOREIGN KEY (event_id) REFERENCES events (event_id)
-) ENGINE=InnoDB;
+CREATE TABLE reviews
+(
+    review_id   BIGINT       NOT NULL AUTO_INCREMENT,
+    user_id     BIGINT       NOT NULL,
+    place_id    BIGINT,
+    event_id    BIGINT,
+    star_rating FLOAT        NOT NULL,
+    content     VARCHAR(255) NOT NULL,
+    PRIMARY KEY (review_id),
+    CONSTRAINT FK_reviews_users FOREIGN KEY (user_id) REFERENCES users (user_id),
+    CONSTRAINT FK_reviews_places FOREIGN KEY (place_id) REFERENCES places (place_id),
+    CONSTRAINT FK_reviews_events FOREIGN KEY (event_id) REFERENCES events (event_id)
+) ENGINE = InnoDB;

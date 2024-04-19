@@ -19,6 +19,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,13 @@ public class Place {
 
     @Column(name = "y", nullable = false)
     private Double y;
+
+    @Column(name = "website_uri", nullable = true, columnDefinition = "VARCHAR(255)")
+    private URI websiteUri;
+
+    @Column(name = "category", nullable = true)
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     public static Place createPlace(
             List<Event> events,

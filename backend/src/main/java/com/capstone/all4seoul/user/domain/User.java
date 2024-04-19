@@ -56,13 +56,12 @@ public class User {
     @Column(name = "credit")
     private int credit;
 
-    //    @OneToMany(mappedBy = "user")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
     @Embedded
     private Bookmarks bookmarks = Bookmarks.createEmptyBookmarks();
-
+  
     public static User createUser(
             String loginId,
             String loginPassword,
