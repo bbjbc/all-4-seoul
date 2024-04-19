@@ -37,11 +37,11 @@ public class Review {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id", nullable = false, updatable = false)
+    @JoinColumn(name = "place_id", updatable = false)
     private Place place;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id", nullable = false, updatable = false)
+    @JoinColumn(name = "event_id", updatable = false)
     private Event event;
 
     public static Review createReviewForPlace(

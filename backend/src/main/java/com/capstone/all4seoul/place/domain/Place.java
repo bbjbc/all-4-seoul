@@ -2,8 +2,19 @@ package com.capstone.all4seoul.place.domain;
 
 import com.capstone.all4seoul.event.domain.Event;
 import com.capstone.all4seoul.review.domain.Review;
-import com.capstone.all4seoul.user.domain.User;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,17 +35,13 @@ public class Place {
     @Column(name = "place_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Event> events;
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 
     @Column(name = "phone_number", nullable = false, unique = true, length = 11)
@@ -50,7 +57,6 @@ public class Place {
     private Double y;
 
     public static Place createPlace(
-            User user,
             List<Event> events,
             String name,
             List<Review> reviews,
@@ -61,7 +67,6 @@ public class Place {
     ) {
         Place place = new Place();
 
-        place.setUser(user);
         place.events = events;
         place.name = name;
         place.reviews = reviews;
@@ -71,13 +76,5 @@ public class Place {
         place.y = y;
 
         return place;
-    }
-
-    /**
-     * 연관관계 메서드
-     */
-    private void setUser(User user) {
-        this.user = user;
-        user.getPlaces().add(this);
     }
 }
