@@ -7,7 +7,7 @@ import CategorySection from '../components/detail/category-section';
 import DetailLayout from '../components/detail/detail-layout';
 import DetailItem from '../components/detail/detail-item';
 import PopulationInfo from '../components/detail/population-info';
-import WeatherInfo from '../components/detail/weather-info';
+import WeatherInfo from '../components/detail/weather/weather-info';
 import CultureEvent from '../components/detail/culture-event';
 import ParkingInfo from '../components/detail/parking-info';
 import Review from '../components/detail/review';
