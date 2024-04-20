@@ -1,5 +1,5 @@
 // 동적으로 time을 생성하는 메서드
-export function DummyData() {
+export function generateTime() {
   const now = new Date();
   const currentHour = now.getHours();
 
@@ -69,4 +69,101 @@ export function DummyData() {
     futureHourDiff,
     pastHourDiff,
   };
+}
+
+// 가상의 날씨 데이터 생성
+export function fetchWeatherData() {
+  const currentDate = new Date();
+  const weatherData = {
+    ...generateWeatherData(currentDate),
+    hourlyForecast: generateHourlyForecast(currentDate),
+  };
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(weatherData);
+    }, 1000);
+  });
+}
+
+// 현재 시간을 기준으로 가상의 날씨 데이터 생성
+function generateWeatherData(currentDate) {
+  const temperature = Math.floor(Math.random() * 10) + 20;
+  const feelsLike = temperature;
+  const humidity = Math.floor(Math.random() * 30) + 40;
+  const dustLevels = ['좋음', '보통', '나쁨'];
+  const dust = dustLevels[Math.floor(Math.random() * dustLevels.length)];
+  const microDustLevels = ['좋음', '보통', '나쁨'];
+  const microDust =
+    microDustLevels[Math.floor(Math.random() * microDustLevels.length)];
+  const windSpeed = Math.floor(Math.random() * 5) + 1;
+  const uvIndexLevels = ['낮음', '보통', '높음', '매우높음'];
+  const uvIndex =
+    uvIndexLevels[Math.floor(Math.random() * uvIndexLevels.length)];
+
+  const sunrise = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
+  currentDate.setHours(currentDate.getHours() + 12);
+  const sunset = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
+
+  return {
+    temperature,
+    feelsLike,
+    humidity,
+    dust,
+    microDust,
+    windSpeed,
+    minTemperature: temperature - 6,
+    maxTemperature: temperature + 6,
+    sunrise,
+    sunset,
+    precipitation: null,
+    uvIndex,
+  };
+}
+
+// 가상의 일별 날씨 데이터 생성
+export function fetchWeeklyWeatherData() {
+  const currentDate = new Date();
+  const weeklyWeatherData = generateWeeklyWeatherData(currentDate);
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(weeklyWeatherData);
+    }, 1000);
+  });
+}
+
+// 현재 시간을 기준으로 24시간치의 시간 데이터 생성
+function generateHourlyForecast(currentDate) {
+  const hourlyForecast = [];
+  for (let i = -12; i <= 12; i++) {
+    const nextHour = new Date(currentDate);
+    nextHour.setHours(nextHour.getHours() + i + 24);
+    const hour = nextHour.getHours() % 24;
+    hourlyForecast.push({
+      hour: `${hour}시`,
+      temperature: Math.floor(Math.random() * 10) + 20,
+      precipitation: `${Math.floor(Math.random() * 10)}%`,
+    });
+  }
+  return hourlyForecast;
+}
+
+// 현재 날짜를 기준으로 7일치의 날짜 데이터 생성
+function generateWeeklyWeatherData(currentDate) {
+  const weeklyWeatherData = [];
+  for (let i = 0; i < 7; i++) {
+    const nextDay = new Date(currentDate);
+    nextDay.setDate(nextDay.getDate() + i);
+    const formattedDate = `${nextDay.getMonth() + 1}월 ${nextDay.getDate()}일`;
+    weeklyWeatherData.push({
+      date: formattedDate,
+      minTemperature: Math.floor(Math.random() * 10) + 15,
+      maxTemperature: Math.floor(Math.random() * 10) + 25,
+      condition: ['맑음', '흐림', '비', '구름 많음'][
+        Math.floor(Math.random() * 4)
+      ],
+    });
+  }
+  return weeklyWeatherData;
 }
