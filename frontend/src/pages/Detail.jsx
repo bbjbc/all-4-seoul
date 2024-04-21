@@ -71,7 +71,7 @@ function PlaceDetailPage() {
         <WeatherInfo weatherRef={weatherRef} name={decodedName} />
       </DetailLayout>
       <DetailLayout>
-        <ParkingInfo parkingRef={parkingRef} />
+        <ParkingInfo parkingRef={parkingRef} name={decodedName} />
       </DetailLayout>
       <DetailLayout>
         <Review reviewRef={reviewRef} />
