@@ -167,3 +167,28 @@ function generateWeeklyWeatherData(currentDate) {
   }
   return weeklyWeatherData;
 }
+
+// 가상의 주차장 데이터 생성
+export function generateParkingData(count) {
+  const parkingData = [];
+  for (let i = 1; i <= count; i++) {
+    const id = i;
+    const name = String.fromCharCode(65 + (i - 1)) + ' 주차장';
+    const fee = `${Math.floor(Math.random() * 50 + 1) * 100}원/30분`;
+    const openingHours = '평일 08:00~22:00, 주말 10:00~20:00';
+    const capacity = Math.floor(Math.random() * 5) + 50;
+    const occupied = Math.floor(Math.random() * (capacity + 1));
+    const available = capacity - occupied > 0;
+
+    parkingData.push({
+      id,
+      name,
+      fee,
+      openingHours,
+      capacity,
+      occupied,
+      available,
+    });
+  }
+  return parkingData;
+}
