@@ -10,7 +10,7 @@ import PopulationInfo from '../components/detail/population-info';
 import WeatherInfo from '../components/detail/weather/weather-info';
 import CultureEvent from '../components/detail/culture-event';
 import ParkingInfo from '../components/detail/parking-info';
-import Review from '../components/detail/review';
+import Review from '../components/detail/review/review';
 
 function PlaceDetailPage() {
   const [activeCategory, setActiveCategory] = useState(null);
