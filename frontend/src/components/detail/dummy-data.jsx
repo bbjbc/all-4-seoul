@@ -192,3 +192,21 @@ export function generateParkingData(count) {
   }
   return parkingData;
 }
+
+export const virtualButtons = [
+  { id: '1', label: '개수대가 잘 되어 있어요', category: '시설' },
+  { id: '2', label: '온수가 잘 나와요', category: '시설' },
+  { id: '3', label: '화장실이 잘 되어 있어요', category: '시설' },
+  { id: '4', label: '벌레 걱정 없어요', category: '시설' },
+  { id: '5', label: '깨끗해요', category: '시설' },
+  { id: '6', label: '매너타임이 잘 지켜져요', category: '분위기' },
+  { id: '7', label: '조용히 쉬기 좋아요', category: '분위기' },
+  { id: '8', label: '사진이 잘 나와요', category: '분위기' },
+  { id: '9', label: '뷰가 좋아요', category: '분위기' },
+  { id: '10', label: '그늘이 많아요', category: '분위기' },
+  { id: '11', label: '바베큐 해먹기 좋아요', category: '기타' },
+  { id: '12', label: '주차하기 편해요', category: '기타' },
+  { id: '13', label: '공용시설 관리가 잘 되어있어요', category: '기타' },
+  { id: '14', label: '사이트 간격이 넓어요', category: '기타' },
+  { id: '15', label: '물놀이하기 좋아요', category: '기타' },
+];
