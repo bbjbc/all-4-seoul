@@ -23,7 +23,7 @@ function ParkingInfo({ parkingRef, name }) {
 
   return (
     <main ref={parkingRef} className="relative h-full">
-      <div className="flex h-full items-center justify-center">
+      <section className="flex h-full items-center justify-center">
         <img
           src={parkingImage}
           alt={parkingImage}
@@ -31,7 +31,7 @@ function ParkingInfo({ parkingRef, name }) {
         />
         <div className="absolute inset-0 bg-black opacity-50"></div>
 
-        <section className="z-10 h-3/4 w-1/2 rounded-lg bg-white p-6 shadow-lg">
+        <article className="z-10 mt-10 h-3/4 w-1/2 rounded-lg bg-white p-6 shadow-lg">
           <header className="mb-2 text-3xl">
             <h1 className="font-gmarketbold text-orange-600">{name}</h1>
             <span className="font-semibold">주변 주차장 정보</span>
@@ -74,8 +74,8 @@ function ParkingInfo({ parkingRef, name }) {
               </div>
             ))}
           </article>
-        </section>
-      </div>
+        </article>
+      </section>
     </main>
   );
 }

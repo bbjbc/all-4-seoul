@@ -20,14 +20,14 @@ function PopulationInfo({ populationRef }) {
   } = generateTime();
 
   return (
-    <article className="relative h-full w-full" ref={populationRef}>
+    <main className="relative h-full w-full" ref={populationRef}>
       <img
         src={populationInfo}
         alt={populationInfo}
         className="absolute z-0 h-full w-full object-cover opacity-65"
       />
-      <div className="flex items-center justify-center gap-10 pl-40 pr-16">
-        <div className="relative top-32 z-10 h-auto w-2/3 rounded-lg bg-white p-5 shadow-lg">
+      <section className="flex items-center justify-center gap-10 pl-40 pr-16">
+        <article className="relative top-32 z-10 h-auto w-2/3 rounded-lg bg-white p-5 shadow-lg">
           <p className="text-sm text-gray-700">
             ※ {new Date().toLocaleTimeString()} 기준
           </p>
@@ -35,8 +35,8 @@ function PopulationInfo({ populationRef }) {
             실시간 인구 및 혼잡도 추이 전망
           </h3>
           <BarGraph data={timeData} />
-        </div>
-        <div className="relative top-32 z-10 h-auto w-1/3 rounded-lg bg-white p-5 shadow-lg">
+        </article>
+        <article className="relative top-32 z-10 h-auto w-1/3 rounded-lg bg-white p-5 shadow-lg">
           <div className="mb-6 rounded-lg p-3 transition-all duration-200 ease-in-out hover:bg-blue-100">
             <h1 className="mb-2 flex flex-row justify-center gap-3 text-2xl font-bold text-gray-800">
               <IoMdTimer size={30} />
@@ -74,9 +74,9 @@ function PopulationInfo({ populationRef }) {
               최대 인구수는 {pastMaxPopulation}명이었어요.
             </p>
           </div>
-        </div>
-      </div>
-    </article>
+        </article>
+      </section>
+    </main>
   );
 }
 

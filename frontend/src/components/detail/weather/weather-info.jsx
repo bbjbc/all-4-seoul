@@ -48,14 +48,14 @@ function WeatherInfo({ weatherRef, name }) {
   }
 
   return (
-    <article ref={weatherRef} className="relative h-full">
+    <main ref={weatherRef} className="relative h-full">
       <div className="flex h-full items-center justify-center">
         <img
           src={weatherImage}
           alt={weatherImage}
           className="absolute z-0 h-full w-full object-cover opacity-50"
         />
-        <div className="z-10 w-3/5">
+        <article className="z-10 w-3/5">
           <div className="mt-10 space-y-4 rounded-lg bg-white px-8 py-6 shadow-lg">
             <header className="space-y-4 border-b-2">
               <h1 className="text-3xl font-bold">
@@ -88,9 +88,9 @@ function WeatherInfo({ weatherRef, name }) {
               />
             </div>
           </div>
-        </div>
+        </article>
       </div>
-    </article>
+    </main>
   );
 }
 
