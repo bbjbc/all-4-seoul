@@ -10,7 +10,7 @@ import Modal from '../modal/modal';
 function ListPlaceOverlay({ place, onClose }) {
   return (
     <ModalPortal>
-      <Modal onClose={onClose} height="h-[650px]">
+      <Modal onClose={onClose} height="h-4/5">
         <article className="overflow-y-auto p-5" key={place.NO}>
           <h1 className="mb-6 text-center font-gmarketbold text-3xl text-gray-800">
             {place.name}
