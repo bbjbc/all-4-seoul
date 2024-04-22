@@ -17,9 +17,6 @@ public class EventService {
 
     private final EventRepository eventRepository;
 
-    /**
-     * 이벤트 단건 조회
-     */
     public DetailEventResponse findById(Long eventId) {
         return DetailEventResponse.of(
                 eventRepository.findById(eventId)
@@ -27,9 +24,6 @@ public class EventService {
         );
     }
 
-    /**
-     * 이벤트 전체 조회
-     */
     public List<DetailEventResponse> findAll() {
         return eventRepository.findAll()
                 .stream()
@@ -37,9 +31,6 @@ public class EventService {
                 .toList();
     }
 
-    /**
-     * 특정 기간 내의 이벤트 목록 조회
-     */
     public List<DetailEventResponse> findEventsByPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         return eventRepository.findByPeriod(startDateTime, endDateTime)
                 .stream()
@@ -48,7 +39,7 @@ public class EventService {
     }
 
     /**
-     * 반경 안의 이벤트 목록 조회
+     * 반경 안의 이벤트 목록 조회 관련 메소드
      */
     public List<DetailEventResponse> findEventsByLocation(Double x, Double y, int radius) {
         return eventRepository.findAll()
