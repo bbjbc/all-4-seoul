@@ -27,7 +27,7 @@ public class UserService {
     private final BookmarkRepository bookmarkRepository;
 
     @Transactional
-    public void join(JoinUserRequest joinUserRequest) {
+    public Long join(JoinUserRequest joinUserRequest) {
         User user = User.createUser(
                 joinUserRequest.getLoginId(),
                 joinUserRequest.getLoginPassword(),
@@ -41,7 +41,9 @@ public class UserService {
         if (userRepository.findByLoginId(joinUserRequest.getLoginId()).isPresent()) {
             throw new IllegalArgumentException("이미 사용 중인 로그인 아이디입니다.");
         }
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        return savedUser.getId();
     }
 
     public User findById(Long userId) {
