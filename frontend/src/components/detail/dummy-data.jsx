@@ -210,3 +210,32 @@ export const virtualButtons = [
   { id: '14', label: '사이트 간격이 넓어요', category: '기타' },
   { id: '15', label: '물놀이하기 좋아요', category: '기타' },
 ];
+
+export const dummyReviews = [
+  { id: 1, author: '조병찬', content: '지리네', date: '2021-09-01' },
+  { id: 2, author: '정재우', content: '홀리피젼', date: '2021-09-01' },
+  {
+    id: 3,
+    author: '유동우',
+    content: '피어나 최고',
+    date: '2021-09-01',
+  },
+  {
+    id: 4,
+    author: '홍공진',
+    content: '연애하자',
+    date: '2021-09-01',
+  },
+  {
+    id: 5,
+    author: '송영훈',
+    content: '누나바라기',
+    date: '2021-09-01',
+  },
+  {
+    id: 6,
+    author: '이태용',
+    content: '나는야 포항 사나이',
+    date: '2021-09-01',
+  },
+];
