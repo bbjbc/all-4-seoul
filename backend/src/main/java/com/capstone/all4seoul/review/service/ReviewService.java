@@ -12,6 +12,7 @@ import com.capstone.all4seoul.review.dto.response.DetailReviewResponse;
 import com.capstone.all4seoul.review.repository.ReviewRepository;
 import com.capstone.all4seoul.user.domain.User;
 import com.capstone.all4seoul.user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,30 +28,36 @@ public class ReviewService {
     private final PlaceRepository placeRepository;
     private final EventRepository eventRepository;
 
-    //장소기반
     @Transactional
     public Long createReviewForPlace(Long placeId, CreateReviewRequestForPlace request) {
-        User user = userRepository.findById(request.getId()).get();
-        Place place = placeRepository.findById(placeId).get();
-        Review review = Review.createReviewForPlace(user, place, request.getContent(), request.getStarRating());
-        reviewRepository.save(review);
+        User user = userRepository.findById(request.getId())
+                .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
+        Place place = placeRepository.findById(placeId)
+                .orElseThrow(() -> new EntityNotFoundException("장소를 찾을 수 없습니다."));
 
-        return review.getId();
+        Review review = Review.createReviewForPlace(user, place, request.getContent(), request.getStarRating());
+        Review savedReview = reviewRepository.save(review);
+
+        return savedReview.getId();
     }
 
     @Transactional
     public Long createReviewForEvent(Long eventId, CreateReviewRequestForEvent request) {
-        User user = userRepository.findById(request.getId()).get();
-        Event event = eventRepository.findById(eventId).get();
-        Review review = Review.createReviewForEvent(user, event, request.getContent(), request.getStarRating());
-        reviewRepository.save(review);
+        User user = userRepository.findById(request.getId())
+                .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("이벤트를 찾을 수 없습니다."));
 
-        return review.getId();
+        Review review = Review.createReviewForEvent(user, event, request.getContent(), request.getStarRating());
+        Review savedReview = reviewRepository.save(review);
+
+        return savedReview.getId();
     }
 
     //리뷰 단건 조회
     public Review findById(Long reviewId) {
-        return reviewRepository.findById(reviewId).get();
+        return reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new EntityNotFoundException("리뷰를 찾을 수 없습니다."));
     }
 
     //리뷰 리스트 조회
@@ -80,10 +87,11 @@ public class ReviewService {
     //리뷰 업데이트
     @Transactional
     public void updateReview(Long reviewId, UpdateReviewRequest request) {
-        Review review = reviewRepository.findById(reviewId).get();
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new EntityNotFoundException("리뷰를 찾을 수 없습니다."));
+
         review.updateContent(request.getContent());
         review.updateStarRating(request.getStarRating());
-
     }
 
     //리뷰 삭제
