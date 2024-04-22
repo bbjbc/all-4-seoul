@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 // 회원가입
@@ -32,9 +33,9 @@ public class UserController {
      */
     @PostMapping("/users")
     public ResponseEntity<Object> join(@RequestBody JoinUserRequest request) {
-        userService.join(request);
+        Long userId = userService.join(request);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.created(URI.create("users/" + userId)).build();
     }
 
     /**
