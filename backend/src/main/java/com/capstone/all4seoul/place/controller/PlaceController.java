@@ -19,25 +19,33 @@ import java.util.List;
 public class PlaceController {
     private final PlaceService placeService;
 
-    //장소 단건 조회
+    /**
+     * 장소 단건 조회
+     */
     @GetMapping("/places/{placeId}")
     public DetailPlaceResponse getPlace(@PathVariable Long placeId) {
         return placeService.findById(placeId);
     }
 
-    //전체 장소 조회
+    /**
+     * 전체 장소 조회
+     */
     @GetMapping("/places")
     public List<DetailPlaceResponse> getAllPlaces() {
         return placeService.findAll();
     }
 
-    //장소 이름으로 장소 리스트 조회
+    /**
+     * 장소 이름으로 장소 목록 조회
+     */
     @GetMapping("/places/{name}")
     public List<DetailPlaceResponse> getPlacesByName(@PathVariable String name) {
         return placeService.findPlacesByName(name);
     }
 
-    //구글 api 장소 검색
+    /**
+     * 구글 API 장소 검색
+     */
     @PostMapping("/places/google")
     public PlaceSearchResponse searchPlacesByGoogle(@RequestBody PlaceSearchRequest placeSearchRequest) {
         return PlaceServiceByGoogle.searchPlaces(placeSearchRequest);

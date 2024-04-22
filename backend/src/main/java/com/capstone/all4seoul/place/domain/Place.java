@@ -54,10 +54,10 @@ public class Place {
     @Column(name = "y", nullable = false)
     private Double y;
 
-    @Column(name = "website_uri", nullable = true)
+    @Column(name = "website_uri")
     private String websiteUri;
 
-    @Column(name = "category", nullable = true)
+    @Column(name = "category", nullable = false)
     @Enumerated(EnumType.STRING)
     private Category category;
 
