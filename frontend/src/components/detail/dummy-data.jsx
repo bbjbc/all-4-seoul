@@ -239,3 +239,83 @@ export const dummyReviews = [
     date: '2021-09-01',
   },
 ];
+
+export const dummyCultureEvents = [
+  {
+    id: 1,
+    title: 'CCPP 기후환경 사진 프로젝트',
+    date: '2024-04-18~2024-09-08',
+    location: '충무아트센터 갤러리 신당',
+    category: '전시/미술',
+    description:
+      '전 세계 대륙과 바다 그리고 하늘에서 바라본 위태로운 지구. 5명의 작가들이 기후위기의 심각성을 알리고 사진을 매개로 공감과 희망의 메시지를 전합니다.',
+    charge:
+      '일 반(만 19세 이상): 18,000원 청소년(만 13세~18세): 15,000원 어린이(만 48개월~12세): 10,000원',
+    agency: '중구문화재단',
+    image:
+      'https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=79352dbba9d84e2ebdc1e0d3b2fc8698&thumb=Y',
+  },
+  {
+    id: 2,
+    title: '[중구문화재단] 뮤지컬 [디어 에반 핸슨]',
+    date: '2024-03-28~2024-06-23',
+    location: '	충무아트센터 대극장',
+    category: '연극',
+    description: null,
+    charge: 'VIP석 16만원 / R석 13만원 / S석 10만원 / A석 7만원',
+    agency: '중구문화재단',
+    image:
+      'https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=aa7d9cef735d4048b73d3acd53b42e23&thumb=Y',
+  },
+  {
+    id: 3,
+    title: '[중구문화재단] 소극장 영화 감상회 [씨네타운 중구]',
+    date: '2024-03-21~2024-05-25',
+    location: '충무아트센터 소극장 블루',
+    category: '영화',
+    description: null,
+    charge: null,
+    agency: '중구문화재단',
+    image:
+      'https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=3f524904f7874863905d84186a5defbe&thumb=Y',
+  },
+  {
+    id: 4,
+    title: '동대문운동장 기념관',
+    date: '2024-01-01~2024-12-31',
+    location:
+      '2호선 동대문역사문화공원 1번, 2번 출구 / 4호선 동대문역 7번 출구',
+    category: '전시/미술',
+    description: null,
+    charge: null,
+    agency: '동대문디자인플라자',
+    image:
+      'https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=c3848573720a4ada9c9cd3e84dea2de9&thumb=Y',
+  },
+  {
+    id: 5,
+    title: '동대문 역사관',
+    date: '	2024-01-01~2024-12-31',
+    location:
+      '2호선 동대문역사문화공원 1번, 2번 출구 / 4호선 동대문역 7번 출구',
+    category: '전시/미술',
+    description: null,
+    charge: null,
+    agency: '동대문디자인플라자',
+    image:
+      'https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=66170fa63f40437e866de7a65fdf889d&thumb=Y',
+  },
+  {
+    id: 6,
+    title: '	DDP 투어 프로그램:건축투어',
+    date: '2024-04-18~2024-09-08',
+    location: '	DDP 뮤지엄(배움터) 1층 투어데스크',
+    category: '교육/체험',
+    description: null,
+    charge:
+      '만 13세 이상 (중학생 이상) 참여 (만 13세 이하, 2명당 보호자 1명 필수, 현장 조정 불가)',
+    agency: '동대문디자인플라자',
+    image:
+      'https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=63a7e31504494a4aad5fa73de878bdc8&thumb=Y',
+  },
+];
