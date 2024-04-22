@@ -11,8 +11,8 @@ import com.capstone.all4seoul.user.dto.request.JoinUserRequest;
 import com.capstone.all4seoul.user.dto.request.UpdateUserRequest;
 import com.capstone.all4seoul.user.dto.response.DetailUserResponse;
 import com.capstone.all4seoul.user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,24 +38,21 @@ public class UserService {
                 joinUserRequest.getNickname()
         );
 
-        // 사용자 생성 전 중복 로그인 ID 확인
-        if (userRepository.findByLoginId(joinUserRequest.getLoginId()) != null) {
+        if (userRepository.findByLoginId(joinUserRequest.getLoginId()).isPresent()) {
             throw new IllegalArgumentException("이미 사용 중인 로그인 아이디입니다.");
         }
-        try {
-            userRepository.save(user);
-        } catch (Exception e) {
-            throw new RuntimeException("사용자 생성 중 오류가 발생했습니다.", e);
-        }
+        userRepository.save(user);
     }
 
     public User findById(Long userId) {
-        return userRepository.findById(userId).get();
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
     }
 
     //로그인 아이디로 조회
     public User findByLoginId(String loginId) {
-        return userRepository.findByLoginId(loginId);
+        return userRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
     }
 
     //컬렉션 조회
@@ -71,19 +68,22 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(Long id, UpdateUserRequest updateUserRequest) {
+    public void updateUser(Long id, UpdateUserRequest request) {
 
-        User findUser = userRepository.findById(id).get();
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
 
-        findUser.updateBirth(updateUserRequest.getBirth());
-        findUser.updateMbti(updateUserRequest.getMbti());
-        findUser.updateNickname(updateUserRequest.getNickname());
+        user.updateBirth(request.getBirth());
+        user.updateMbti(request.getMbti());
+        user.updateNickname(request.getNickname());
     }
 
     @Transactional
     public void addBookmark(DeleteBookmarkRequest request) {
-        User user = userRepository.findById(request.getUserId()).get();
-        Place place = placeRepository.findById(request.getPlaceId()).get();
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
+        Place place = placeRepository.findById(request.getPlaceId())
+                .orElseThrow(() -> new EntityNotFoundException("장소를 찾을 수 없습니다."));
 
         bookmarkRepository.save(Bookmark.createBookmark(user, place));
     }
@@ -98,7 +98,8 @@ public class UserService {
 
     @Transactional
     public void deleteBookmark(DeleteBookmarkRequest request) {
-        User user = userRepository.findById(request.getUserId()).get();
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
         user.deleteBookmark(request.getPlaceId());
     }
 
