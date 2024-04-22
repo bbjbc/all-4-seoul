@@ -27,18 +27,18 @@ public class UserService {
     private final BookmarkRepository bookmarkRepository;
 
     @Transactional
-    public Long join(JoinUserRequest joinUserRequest) {
+    public Long join(JoinUserRequest request) {
         User user = User.createUser(
-                joinUserRequest.getLoginId(),
-                joinUserRequest.getLoginPassword(),
-                joinUserRequest.getUsername(),
-                joinUserRequest.getBirth(),
-                joinUserRequest.getMbti(),
-                joinUserRequest.getGender(),
-                joinUserRequest.getNickname()
+                request.getLoginId(),
+                request.getLoginPassword(),
+                request.getUsername(),
+                request.getBirth(),
+                request.getMbti(),
+                request.getGender(),
+                request.getNickname()
         );
 
-        if (userRepository.findByLoginId(joinUserRequest.getLoginId()).isPresent()) {
+        if (userRepository.findByLoginId(request.getLoginId()).isPresent()) {
             throw new IllegalArgumentException("이미 사용 중인 로그인 아이디입니다.");
         }
         User savedUser = userRepository.save(user);
