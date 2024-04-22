@@ -19,6 +19,12 @@ import java.util.List;
 public class PlaceController {
     private final PlaceService placeService;
 
+    //장소 단건 조회
+    @GetMapping("/places/{placeId}")
+    public DetailPlaceResponse getPlace(@PathVariable Long placeId) {
+        return placeService.findById(placeId);
+    }
+
     //전체 장소 조회
     @GetMapping("/places")
     public List<DetailPlaceResponse> getAllPlaces() {
