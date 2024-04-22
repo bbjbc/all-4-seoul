@@ -81,13 +81,16 @@ public class UserService {
     }
 
     @Transactional
-    public void addBookmark(DeleteBookmarkRequest request) {
+    public Long addBookmark(DeleteBookmarkRequest request) {
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
         Place place = placeRepository.findById(request.getPlaceId())
                 .orElseThrow(() -> new EntityNotFoundException("장소를 찾을 수 없습니다."));
 
-        bookmarkRepository.save(Bookmark.createBookmark(user, place));
+        Bookmark bookmark = Bookmark.createBookmark(user, place);
+        Bookmark savedBookmark = bookmarkRepository.save(bookmark);
+
+        return savedBookmark.getId();
     }
 
     public List<DetailPlaceResponse> findBookmarkedPlaces(User user) {
