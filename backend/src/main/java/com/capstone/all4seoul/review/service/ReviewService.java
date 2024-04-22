@@ -54,13 +54,11 @@ public class ReviewService {
         return savedReview.getId();
     }
 
-    //리뷰 단건 조회
     public Review findById(Long reviewId) {
         return reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new EntityNotFoundException("리뷰를 찾을 수 없습니다."));
     }
 
-    //리뷰 리스트 조회
     public List<DetailReviewResponse> findAll() {
         return reviewRepository.findAll()
                 .stream()
@@ -68,7 +66,6 @@ public class ReviewService {
                 .toList();
     }
 
-    //특정 장소의 리뷰 목록 조회
     public List<DetailReviewResponse> findReviewsByPlace(Long placeId) {
         return reviewRepository.findByPlaceId(placeId)
                 .stream()
@@ -76,7 +73,6 @@ public class ReviewService {
                 .toList();
     }
 
-    //특정 이벤트의 리뷰 목록 조회
     public List<DetailReviewResponse> findReviewsByEvent(Long eventId) {
         return reviewRepository.findByEventId(eventId)
                 .stream()
@@ -84,7 +80,6 @@ public class ReviewService {
                 .toList();
     }
 
-    //리뷰 업데이트
     @Transactional
     public void updateReview(Long reviewId, UpdateReviewRequest request) {
         Review review = reviewRepository.findById(reviewId)
@@ -94,7 +89,6 @@ public class ReviewService {
         review.updateStarRating(request.getStarRating());
     }
 
-    //리뷰 삭제
     @Transactional
     public void deleteReview(Review review) {
         reviewRepository.delete(review);
