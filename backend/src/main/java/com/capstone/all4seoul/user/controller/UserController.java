@@ -69,8 +69,10 @@ public class UserController {
      * 북마크 추가
      */
     @PostMapping("/users/bookmarks")
-    public void addBookmark(@RequestBody DeleteBookmarkRequest request) {
-        userService.addBookmark(request);
+    public ResponseEntity<Void> addBookmark(@RequestBody DeleteBookmarkRequest request) {
+        Long bookmarkId = userService.addBookmark(request);
+
+        return ResponseEntity.created(URI.create("users/bookmarks/" + bookmarkId)).build();
     }
 
     /**
