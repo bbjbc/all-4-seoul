@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,9 +28,9 @@ public class ReviewController {
      */
     @PostMapping("/places/{placeId}/reviews")
     public ResponseEntity<Object> createReviewForPlace(@PathVariable Long placeId, @RequestBody CreateReviewRequestForPlace request) {
-        reviewService.createReviewForPlace(placeId, request);
+        Long reviewId = reviewService.createReviewForPlace(placeId, request);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.created(URI.create("/places/" + placeId + "/reviews/" + reviewId)).build();
     }
 
     /**
@@ -37,9 +38,9 @@ public class ReviewController {
      */
     @PostMapping("/events/{eventId}/reviews")
     public ResponseEntity<Object> createReviewForEvent(@PathVariable Long eventId, @RequestBody CreateReviewRequestForEvent request) {
-        reviewService.createReviewForEvent(eventId, request);
+        Long reviewId = reviewService.createReviewForEvent(eventId, request);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.created(URI.create("/events/" + eventId + "/reviews/" + reviewId)).build();
     }
 
     /**
