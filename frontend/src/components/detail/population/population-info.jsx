@@ -3,8 +3,8 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 import BarGraph from './bar-graph';
-import { generateTime } from './dummy-data';
-import populationInfo from '../../assets/detail-background/info.jpg';
+import { generateTime } from '../dummy-data';
+import populationInfo from '../../../assets/detail-background/info.jpg';
 import { IoMdTimer } from 'react-icons/io';
 import { RxCountdownTimer } from 'react-icons/rx';
 

@@ -2,11 +2,11 @@ import React from 'react';
 
 import propTypes from 'prop-types';
 
-import image1 from '../../assets/congestion/여유.jpg';
-import image2 from '../../assets/congestion/보통.jpg';
-import image3 from '../../assets/congestion/약간붐빔.jpg';
-import image4 from '../../assets/congestion/붐빔.jpg';
-import populationImg from '../../assets/detail-background/population.jpg';
+import image1 from '../../../assets/congestion/여유.jpg';
+import image2 from '../../../assets/congestion/보통.jpg';
+import image3 from '../../../assets/congestion/약간붐빔.jpg';
+import image4 from '../../../assets/congestion/붐빔.jpg';
+import populationImg from '../../../assets/detail-background/population.jpg';
 
 function RealTimePopulation({ name, congestionLevel, realtimeRef }) {
   let congestionImage, congestionDescription;

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import propTypes from 'prop-types';
 
-import ListData from '../../data/list-data';
-import LoadingSpinner from '../button/loading-spinner';
+import ListData from '../../../data/list-data';
+import LoadingSpinner from '../../button/loading-spinner';
 
 function DetailItem({ decodedName }) {
   const [placeData, setPlaceData] = useState(null);

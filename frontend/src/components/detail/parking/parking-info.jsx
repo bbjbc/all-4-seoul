@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import propTypes from 'prop-types';
 
-import parkingImage from '../../assets/detail-background/parking.jpg';
-import { generateParkingData } from './dummy-data';
+import parkingImage from '../../../assets/detail-background/parking.jpg';
+import { generateParkingData } from '../dummy-data';
 
 function ParkingInfo({ parkingRef, name }) {
   const [expandedItems, setExpandedItems] = useState({});

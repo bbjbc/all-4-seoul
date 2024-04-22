@@ -2,14 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import RealTimePopulation from '../components/detail/real-time-population';
-import CategorySection from '../components/detail/category-section';
-import DetailLayout from '../components/detail/detail-layout';
-import DetailItem from '../components/detail/detail-item';
-import PopulationInfo from '../components/detail/population-info';
+import RealTimePopulation from '../components/detail/realtime/real-time-population';
+import CategorySection from '../components/detail/main/category-section';
+import DetailLayout from '../components/detail/main/detail-layout';
+import DetailItem from '../components/detail/main/detail-item';
+import PopulationInfo from '../components/detail/population/population-info';
 import WeatherInfo from '../components/detail/weather/weather-info';
-import CultureEvent from '../components/detail/culture-event';
-import ParkingInfo from '../components/detail/parking-info';
+import CultureEvent from '../components/detail/event/culture-event';
+import ParkingInfo from '../components/detail/parking/parking-info';
 import Review from '../components/detail/review/review';
 
 function PlaceDetailPage() {
