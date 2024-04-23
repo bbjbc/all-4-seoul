@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlaceSearchResponse {
+public class PlaceSearchResponseByGoogle {
 
     private List<Result> places;
 
