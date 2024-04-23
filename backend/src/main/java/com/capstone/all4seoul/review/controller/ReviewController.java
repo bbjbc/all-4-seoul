@@ -59,20 +59,27 @@ public class ReviewController {
         return reviewService.findReviewsByEvent(eventId);
     }
 
+    /**
+     * 라뷰 전체 조회
+     */
     @GetMapping("/reviews")
     public List<DetailReviewResponse> findAll() {
         return reviewService.findAll();
     }
 
-    //리뷰 수정
+    /**
+     * 리뷰 수정
+     */
     @PatchMapping("/reviews/{reviewId}")
-    public ResponseEntity<Object> updateUser(@PathVariable Long userId, @RequestBody UpdateReviewRequest request) {
+    public ResponseEntity<Object> updateReview(@PathVariable Long userId, @RequestBody UpdateReviewRequest request) {
         reviewService.updateReview(userId, request);
 
         return ResponseEntity.noContent().build();
     }
 
-    //리뷰 삭제
+    /**
+     * 리뷰 삭제
+     */
     @DeleteMapping("/reviews/{reviewId}")
     public ResponseEntity<Object> deleteReview(@PathVariable Long reviewId) {
         reviewService.deleteReview(reviewService.findById(reviewId));

@@ -51,13 +51,11 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
     }
 
-    //로그인 아이디로 조회
     public User findByLoginId(String loginId) {
         return userRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
     }
 
-    //컬렉션 조회
     public List<User> findListByUsername(String username) {
         return userRepository.findListByUsername(username);
     }

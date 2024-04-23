@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 import java.util.List;
 
-// 회원가입
 @RestController
 @RequiredArgsConstructor
 public class UserController {

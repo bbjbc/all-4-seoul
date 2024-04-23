@@ -15,7 +15,6 @@ import java.util.List;
 public class PlaceService {
     private final PlaceRepository placeRepository;
 
-    //단일 장소 조회
     public DetailPlaceResponse findById(Long placeId) {
         return DetailPlaceResponse.of(
                 placeRepository.findById(placeId)
@@ -23,7 +22,6 @@ public class PlaceService {
         );
     }
 
-    //전체 장소 조회
     public List<DetailPlaceResponse> findAll() {
         return placeRepository.findAll()
                 .stream()
@@ -31,7 +29,6 @@ public class PlaceService {
                 .toList();
     }
 
-    //장소 이름으로 장소 리스트 조회
     public List<DetailPlaceResponse> findPlacesByName(String name) {
         return placeRepository.findByName(name)
                 .stream()
