@@ -2,7 +2,7 @@ package com.capstone.all4seoul.place.controller;
 
 import com.capstone.all4seoul.place.dto.request.PlaceSearchRequest;
 import com.capstone.all4seoul.place.dto.response.DetailPlaceResponse;
-import com.capstone.all4seoul.place.dto.response.PlaceSearchResponse;
+import com.capstone.all4seoul.place.dto.response.PlaceSearchResponseByGoogle;
 import com.capstone.all4seoul.place.service.PlaceService;
 import com.capstone.all4seoul.place.service.PlaceServiceByGoogle;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +47,7 @@ public class PlaceController {
      * 구글 API 장소 검색
      */
     @PostMapping("/places/google")
-    public PlaceSearchResponse searchPlacesByGoogle(@RequestBody PlaceSearchRequest placeSearchRequest) {
+    public PlaceSearchResponseByGoogle searchPlacesByGoogle(@RequestBody PlaceSearchRequest placeSearchRequest) {
         return PlaceServiceByGoogle.searchPlaces(placeSearchRequest);
     }
 }
