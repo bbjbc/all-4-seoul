@@ -38,6 +38,14 @@ module.exports = {
             transform: 'translateY(-5px)',
           },
         },
+        expand: {
+          '0%': { maxHeight: '0' },
+          '100%': { maxHeight: '500px' },
+        },
+        collapse: {
+          '0%': { maxHeight: '500px' },
+          '100%': { maxHeight: '0' },
+        },
         bounce: {
           '0%': {
             transform: 'translateY(-25%)',
@@ -54,6 +62,8 @@ module.exports = {
         fadein: 'fadein 0.5s ease',
         fadeout: 'fadeout 0.5s ease',
         bounce: 'bounce 1.5s infinite',
+        expand: 'expand 0.3s ease-in-out',
+        collapse: 'collapse 0.3s ease-in-out',
       },
     },
   },

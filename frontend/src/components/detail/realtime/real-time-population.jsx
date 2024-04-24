@@ -2,11 +2,11 @@ import React from 'react';
 
 import propTypes from 'prop-types';
 
-import image1 from '../../assets/congestion/여유.jpg';
-import image2 from '../../assets/congestion/보통.jpg';
-import image3 from '../../assets/congestion/약간붐빔.jpg';
-import image4 from '../../assets/congestion/붐빔.jpg';
-import populationImg from '../../assets/detail-background/population.jpg';
+import image1 from '../../../assets/congestion/여유.jpg';
+import image2 from '../../../assets/congestion/보통.jpg';
+import image3 from '../../../assets/congestion/약간붐빔.jpg';
+import image4 from '../../../assets/congestion/붐빔.jpg';
+import populationImg from '../../../assets/detail-background/population.jpg';
 
 function RealTimePopulation({ name, congestionLevel, realtimeRef }) {
   let congestionImage, congestionDescription;
@@ -52,14 +52,14 @@ function RealTimePopulation({ name, congestionLevel, realtimeRef }) {
   }
 
   return (
-    <article ref={realtimeRef} className="relative h-full w-full">
+    <main ref={realtimeRef} className="relative h-full w-full">
       <img
         src={populationImg}
         alt={populationImg}
         className="absolute z-0 h-full w-full object-cover opacity-55"
       />
-      <div className="z-10 flex min-h-screen">
-        <div className="z-10 flex w-6/12 items-center pl-40">
+      <section className="z-10 flex min-h-screen">
+        <article className="z-10 flex w-6/12 items-center pl-40">
           <div className="w-96 space-y-6 text-left">
             {congestionDescription.split('\n').map((line, index) => (
               <p key={index} className="text-2xl font-semibold text-stone-700">
@@ -67,9 +67,9 @@ function RealTimePopulation({ name, congestionLevel, realtimeRef }) {
               </p>
             ))}
           </div>
-        </div>
+        </article>
 
-        <div className="relative flex flex-1">
+        <article className="relative flex flex-1">
           <div className="absolute right-20 top-14 mr-14 mt-12 flex w-full flex-col justify-center gap-7 rounded-lg bg-white p-8 shadow-lg">
             <h1 className="text-3xl font-bold">
               {new Date().toLocaleTimeString()} 기준
@@ -89,9 +89,9 @@ function RealTimePopulation({ name, congestionLevel, realtimeRef }) {
               실제 현장과는 차이가 있을 수 있음을 알려드립니다.
             </div>
           </div>
-        </div>
-      </div>
-    </article>
+        </article>
+      </section>
+    </main>
   );
 }
 

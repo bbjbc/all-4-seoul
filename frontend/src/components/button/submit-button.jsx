@@ -2,12 +2,17 @@ import React from 'react';
 
 import propTypes from 'prop-types';
 
-function SubmitButton({ text }) {
+function SubmitButton({ text, disabled }) {
   return (
     <div className="flex items-center justify-between">
       <button
-        className="focus:shadow-outline w-full rounded-md bg-stone-600 px-4 py-2 font-bold text-white hover:bg-zinc-800 focus:outline-none"
+        className={`focus:shadow-outline w-full rounded-md px-4 py-2 font-bold text-white ${
+          disabled
+            ? 'cursor-not-allowed bg-stone-300'
+            : 'bg-stone-600 hover:bg-zinc-800'
+        }`}
         type="submit"
+        disabled={disabled}
       >
         {text}
       </button>
@@ -17,6 +22,7 @@ function SubmitButton({ text }) {
 
 SubmitButton.propTypes = {
   text: propTypes.string.isRequired,
+  disabled: propTypes.bool,
 };
 
 export default SubmitButton;
