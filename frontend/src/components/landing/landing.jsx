@@ -4,7 +4,7 @@ import Footer from './footer';
 import Header from './header';
 import Section from './sections';
 
-import s0 from '../../assets/landingpage/서울0.jpg';
+import bgImg from '../../assets/landingpage/서울0.jpg';
 
 function Landing() {
   useEffect(() => {
@@ -17,7 +17,7 @@ function Landing() {
 
       <div className="relative">
         <img
-          src={s0}
+          src={bgImg}
           alt="서울 0"
           className="fixed z-0 h-full w-full bg-cover bg-center object-cover opacity-80"
         />

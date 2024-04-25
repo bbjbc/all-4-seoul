@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Typewriter from 'typewriter-effect';
 
 import SectionAnime from './section-animation';
@@ -45,7 +46,7 @@ function Section() {
                   <img
                     src={section.image}
                     alt={`섹션 ${index + 1}`}
-                    className="max-h-200 max-w-200 h-auto rounded-lg"
+                    className="max-h-200 max-w-200 h-auto rounded-2xl"
                   />
                 </div>
               </div>
