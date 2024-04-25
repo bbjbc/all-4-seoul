@@ -12,8 +12,9 @@ function TypePickButton() {
     location.pathname === '/login' || location.pathname === '/signup';
 
   const isDetailPage = /^\/list\/[^/]+$/.test(location.pathname);
+  const isMyPage = /^(\/mypage|\/mypage\/[^/]+)$/.test(location.pathname);
 
-  if (isAuthPage || isDetailPage) return null;
+  if (isAuthPage || isDetailPage || isMyPage) return null;
 
   return (
     <div className="fixed left-0 top-20 z-10 w-full text-center">
