@@ -18,7 +18,7 @@ function NavBar() {
       <ul className="mx-56 flex justify-between">
         <li className="flex items-center">
           <NavLink
-            to="/"
+            to="/home"
             className={({ isActive }) =>
               isActive
                 ? 'flex items-center text-blue-950 transition duration-300 ease-in-out hover:scale-110 hover:text-purple-950'
@@ -59,7 +59,7 @@ function NavBar() {
                 마이페이지
               </NavLink>
               <NavLink
-                to="/"
+                to="/home"
                 onClick={handleLogout}
                 className="rounded-lgpx-2 flex items-center text-black hover:text-cyan-900"
               >

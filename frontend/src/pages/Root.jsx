@@ -9,8 +9,7 @@ import TypePickButton from '../components/button/type-pick-button';
 function RootLayout() {
   const location = useLocation();
 
-  // 현재 경로가 랜딩 페이지인지 확인
-  const isLandingPage = location.pathname === '/landing'; // 랜딩 페이지의 경로
+  const isLandingPage = location.pathname === '/';
   return (
     <>
       {!isLandingPage && (
