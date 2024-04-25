@@ -21,7 +21,6 @@ class Result {
     @JsonProperty("RESULT.MESSAGE")
     private String resultMessage;
 }
-
 class CityData {
     @JsonProperty("AREA_NM")
     private String areaName;
