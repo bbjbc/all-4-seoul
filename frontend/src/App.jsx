@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // BrowserRouter, Routes, Route import 추가
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './App.css';
 import Home from './pages/Home';
@@ -16,27 +17,27 @@ import BookmarkedPage from './components/mypage/bookmarked';
 import ChangeInfoPage from './components/mypage/change-info';
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<RootLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/list" element={<ListPage />} />
-          <Route path="/Landing" element={<LandingPage />} />
-          <Route path="/list/:id" element={<PlaceDetailPage />} />
-          <Route path="/mypage" element={<MyPage />}>
-            <Route index element={<MyPage />} />{' '}
-            <Route path="myarticles" element={<MyArticlesPage />} />
-            <Route path="bookmarked" element={<BookmarkedPage />} />
-            <Route path="change-info" element={<ChangeInfoPage />} />
-          </Route>
-          <Route path="*" element={<ErrorPage />} />
-        </Route>
-      </Routes>
-    </Router>
-  );
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <RootLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        { path: '/', element: <Home /> },
+        { path: '/login', element: <LoginPage /> },
+        { path: '/signup', element: <SignupPage /> },
+        { path: '/list', element: <ListPage /> },
+        { path: '/Landing', element: <LandingPage /> },
+        { path: '/list/:id', element: <PlaceDetailPage /> },
+        { path: '/mypage', element: <MyPage /> },
+        { path: '/mypage/myarticles', element: <MyArticlesPage /> },
+        { path: '/mypage/bookmarked', element: <BookmarkedPage /> },
+        { path: '/mypage/change-info', element: <ChangeInfoPage /> },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
