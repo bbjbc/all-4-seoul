@@ -11,8 +11,9 @@ import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
 import LandingPage from './pages/Landing';
 import PlaceDetailPage from './pages/Detail';
-import MyPage from './pages/MyPage';
-import MyArticlesPage from './components/mypage/myarticles';
+import MyPageLayout from './pages/Mypage-layout';
+import MyInfoPage from './components/mypage/my-info';
+import MyCommentPage from './components/mypage/my-comment';
 import BookmarkedPage from './components/mypage/bookmarked';
 import ChangeInfoPage from './components/mypage/change-info';
 import { BookmarkProvider } from './state/bookmark-context';
@@ -32,9 +33,10 @@ function App() {
         { path: '/list/:id', element: <PlaceDetailPage /> },
         {
           path: '/mypage',
-          element: <MyPage />,
+          element: <MyPageLayout />,
           children: [
-            { path: '/mypage/myarticles', element: <MyArticlesPage /> },
+            { path: '/mypage', element: <MyInfoPage /> },
+            { path: '/mypage/comment', element: <MyCommentPage /> },
             { path: '/mypage/bookmarked', element: <BookmarkedPage /> },
             { path: '/mypage/change-info', element: <ChangeInfoPage /> },
           ],
