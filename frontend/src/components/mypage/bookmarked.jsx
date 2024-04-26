@@ -1,10 +1,12 @@
 import React from 'react';
 
+import BackgroundLayout from './background-layout';
+
 function Bookmarked() {
   return (
-    <div className="relative mt-5 flex h-screen justify-center overflow-hidden">
-      <h2>내 북마크 리스트 페이지</h2>
-    </div>
+    <BackgroundLayout>
+      <h2>내가 쓴 글 페이지</h2>
+    </BackgroundLayout>
   );
 }
 

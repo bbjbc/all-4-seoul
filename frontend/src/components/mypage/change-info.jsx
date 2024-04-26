@@ -1,10 +1,12 @@
 import React from 'react';
 
+import BackgroundLayout from './background-layout';
+
 function ChangeInfo() {
   return (
-    <div className="relative mt-5 flex h-screen justify-center overflow-hidden">
-      <h2>내 정보 변경 페이지</h2>
-    </div>
+    <BackgroundLayout>
+      <h2>내 정보 수정 페이지</h2>
+    </BackgroundLayout>
   );
 }
 
