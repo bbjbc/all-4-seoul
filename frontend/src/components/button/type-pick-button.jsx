@@ -21,7 +21,7 @@ function TypePickButton() {
       <div className="flex justify-center">
         <div className="grid grid-cols-2">
           <NavLink
-            to="/"
+            to="/home"
             className={({ isActive }) =>
               isActive
                 ? 'flex items-center justify-center rounded-l-lg bg-fuchsia-900 px-2 py-1 text-white'

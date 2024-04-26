@@ -19,7 +19,7 @@ function LoginForm() {
     console.log(data);
     const { id } = data;
     localStorage.setItem('id', id);
-    navigate('/');
+    navigate('/home');
     window.location.reload();
   };
 

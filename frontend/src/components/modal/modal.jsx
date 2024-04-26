@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 import { IoCloseOutline } from 'react-icons/io5';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
-function Modal({ children, onClose }) {
+function Modal({ children, onClose, height }) {
   const [isVisible, setIsVisible] = useState(true);
+  height = height || 'h-[500px]';
 
   const handleClose = () => {
     setIsVisible(false);
@@ -31,7 +32,9 @@ function Modal({ children, onClose }) {
       onClick={handleBackdropClick}
       role="presentation"
     >
-      <div className="relative flex h-[500px] transform flex-col rounded-lg bg-white p-8 pt-10">
+      <div
+        className={`relative flex ${height} transform flex-col rounded-lg bg-white p-8 pt-10`}
+      >
         <button
           onClick={handleClose}
           className="absolute right-2 top-2 text-gray-500 hover:text-gray-700 focus:outline-none"
@@ -45,8 +48,9 @@ function Modal({ children, onClose }) {
 }
 
 Modal.propTypes = {
-  children: PropTypes.node.isRequired,
-  onClose: PropTypes.func.isRequired,
+  children: propTypes.node.isRequired,
+  onClose: propTypes.func.isRequired,
+  height: propTypes.string,
 };
 
 export default Modal;

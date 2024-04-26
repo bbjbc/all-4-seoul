@@ -114,7 +114,7 @@ import image113 from '../assets/청와대.jpg';
 import image114 from '../assets/북창동 먹자골목.jpg';
 import image115 from '../assets/남대문시장.jpg';
 
-const DummyData = [
+const ListData = [
   {
     category: '관광특구',
     NO: '1',
@@ -122,6 +122,8 @@ const DummyData = [
     name: '강남 MICE 관광특구',
     ENG_NM: 'Gangnam MICE Special Tourist Zone',
     images: image1,
+    latitude: '127.06012',
+    longitude: '37.51267',
   },
   {
     category: '관광특구',
@@ -130,6 +132,8 @@ const DummyData = [
     name: '동대문 관광특구',
     ENG_NM: 'Dongdaemun Fashion Town Special Tourist Zone',
     images: image2,
+    latitude: '127.01319',
+    longitude: '37.56555',
   },
   {
     category: '관광특구',
@@ -139,6 +143,8 @@ const DummyData = [
     ENG_NM:
       'Myeong-dong Namdaemun Bukchang-dong Da-dong Mugyo-dong Special Tourist Zone',
     images: image3,
+    latitude: '126.98444',
+    longitude: '37.56340',
   },
   {
     category: '관광특구',
@@ -147,6 +153,8 @@ const DummyData = [
     name: '이태원 관광특구',
     ENG_NM: 'Itaewon Special Tourist Zone',
     images: image4,
+    latitude: '126.99676',
+    longitude: '37.53393',
   },
   {
     category: '관광특구',
@@ -155,6 +163,8 @@ const DummyData = [
     name: '잠실 관광특구',
     ENG_NM: 'Jamsil Special Tourist Zone',
     images: image5,
+    latitude: '127.11891',
+    longitude: '37.51991',
   },
   {
     category: '관광특구',
@@ -163,6 +173,8 @@ const DummyData = [
     name: '종로·청계 관광특구',
     ENG_NM: 'Jongno Cheonggye Special Toruist Zone',
     images: image6,
+    latitude: '126.99221',
+    longitude: '37.56947',
   },
   {
     category: '관광특구',
@@ -171,6 +183,8 @@ const DummyData = [
     name: '홍대 관광특구',
     ENG_NM: 'HongDae Culture & Arts Special Tourist Zone',
     images: image7,
+    latitude: '126.92300',
+    longitude: '37.55319',
   },
   {
     category: '고궁·문화유산',
@@ -179,6 +193,8 @@ const DummyData = [
     name: '경복궁',
     ENG_NM: 'Gyeongbokgung Palace',
     images: image8,
+    latitude: '126.97672',
+    longitude: '37.57986',
   },
   {
     category: '고궁·문화유산',
@@ -187,6 +203,8 @@ const DummyData = [
     name: '광화문·덕수궁',
     ENG_NM: 'Gwanghwamun & Deoksugung Palace',
     images: image9,
+    latitude: '126.97755',
+    longitude: '37.57213',
   },
   {
     category: '고궁·문화유산',
@@ -195,6 +213,8 @@ const DummyData = [
     name: '보신각',
     ENG_NM: 'Bosingak',
     images: image10,
+    latitude: '126.98424',
+    longitude: '37.57089',
   },
   {
     category: '고궁·문화유산',
@@ -203,6 +223,8 @@ const DummyData = [
     name: '서울 암사동 유적',
     ENG_NM: 'Amsa Prehistoric Settlement Site',
     images: image11,
+    latitude: '127.13033',
+    longitude: '37.56005',
   },
   {
     category: '고궁·문화유산',
@@ -211,6 +233,8 @@ const DummyData = [
     name: '창덕궁·종묘',
     ENG_NM: 'Changdeokgung Palace & Jongmyo Shrine',
     images: image12,
+    latitude: '126.99404',
+    longitude: '37.57706',
   },
   {
     category: '인구밀집지역',
@@ -219,6 +243,8 @@ const DummyData = [
     name: '가산디지털단지역',
     ENG_NM: 'Gasan Digital Complex station',
     images: image13,
+    latitude: '126.88238',
+    longitude: '37.48071',
   },
   {
     category: '인구밀집지역',
@@ -227,6 +253,8 @@ const DummyData = [
     name: '강남역',
     ENG_NM: 'Gangnam station',
     images: image14,
+    latitude: '127.02824',
+    longitude: '37.49849',
   },
   {
     category: '인구밀집지역',
@@ -235,6 +263,8 @@ const DummyData = [
     name: '건대입구역',
     ENG_NM: 'Konkuk University station',
     images: image15,
+    latitude: '127.06785',
+    longitude: '37.53923',
   },
   {
     category: '인구밀집지역',
@@ -243,6 +273,8 @@ const DummyData = [
     name: '고덕역',
     ENG_NM: 'Godeok station',
     images: image16,
+    latitude: '127.15486',
+    longitude: '37.55343',
   },
   {
     category: '인구밀집지역',
@@ -251,6 +283,8 @@ const DummyData = [
     name: '고속터미널역',
     ENG_NM: 'Express Bus Terminal station',
     images: image17,
+    latitude: '127.00619',
+    longitude: '37.50460',
   },
   {
     category: '인구밀집지역',
@@ -259,6 +293,8 @@ const DummyData = [
     name: '교대역',
     ENG_NM: 'Seoul National University of Education station',
     images: image18,
+    latitude: '127.01353',
+    longitude: '37.49166',
   },
   {
     category: '인구밀집지역',
@@ -267,6 +303,8 @@ const DummyData = [
     name: '구로디지털단지역',
     ENG_NM: 'Guro Digital Complex station',
     images: image19,
+    latitude: '126.89528',
+    longitude: '37.48345',
   },
   {
     category: '인구밀집지역',
@@ -275,6 +313,8 @@ const DummyData = [
     name: '구로역',
     ENG_NM: 'Guro station',
     images: image20,
+    latitude: '126.88205',
+    longitude: '37.50206',
   },
   {
     category: '인구밀집지역',
@@ -283,6 +323,8 @@ const DummyData = [
     name: '군자역',
     ENG_NM: 'Gunja station',
     images: image21,
+    latitude: '127.08022',
+    longitude: '37.55672',
   },
   {
     category: '인구밀집지역',
@@ -291,6 +333,8 @@ const DummyData = [
     name: '남구로역',
     ENG_NM: 'Namguro station',
     images: image22,
+    latitude: '126.88717',
+    longitude: '37.48498',
   },
   {
     category: '인구밀집지역',
@@ -299,6 +343,8 @@ const DummyData = [
     name: '대림역',
     ENG_NM: 'Daerim station',
     images: image23,
+    latitude: '126.89609',
+    longitude: '37.49231',
   },
   {
     category: '인구밀집지역',
@@ -307,6 +353,8 @@ const DummyData = [
     name: '동대문역',
     ENG_NM: 'Dongdaemun station',
     images: image24,
+    latitude: '127.00933',
+    longitude: '37.57101',
   },
   {
     category: '인구밀집지역',
@@ -315,6 +363,8 @@ const DummyData = [
     name: '뚝섬역',
     ENG_NM: 'Ttukseom station',
     images: image25,
+    latitude: '127.04717',
+    longitude: '37.54809',
   },
   {
     category: '인구밀집지역',
@@ -323,6 +373,8 @@ const DummyData = [
     name: '미아사거리역',
     ENG_NM: 'Miasageori station',
     images: image26,
+    latitude: '127.03089',
+    longitude: '37.61215',
   },
   {
     category: '인구밀집지역',
@@ -331,6 +383,8 @@ const DummyData = [
     name: '발산역',
     ENG_NM: 'Balsan station',
     images: image27,
+    latitude: '126.83897',
+    longitude: '37.55873',
   },
   {
     category: '인구밀집지역',
@@ -339,6 +393,8 @@ const DummyData = [
     name: '북한산우이역',
     ENG_NM: 'Bukhansan Ui station',
     images: image28,
+    latitude: '127.01125',
+    longitude: '37.66272',
   },
   {
     category: '인구밀집지역',
@@ -347,6 +403,8 @@ const DummyData = [
     name: '사당역',
     ENG_NM: 'Sadang station',
     images: image29,
+    latitude: '126.98053',
+    longitude: '37.47755',
   },
   {
     category: '인구밀집지역',
@@ -355,6 +413,8 @@ const DummyData = [
     name: '삼각지역',
     ENG_NM: 'Samgakji station',
     images: image30,
+    latitude: '126.97415',
+    longitude: '37.53506',
   },
   {
     category: '인구밀집지역',
@@ -363,6 +423,8 @@ const DummyData = [
     name: '서울대입구역',
     ENG_NM: 'Seoul National University station',
     images: image31,
+    latitude: '126.95282',
+    longitude: '37.48107',
   },
   {
     category: '인구밀집지역',
@@ -371,6 +433,8 @@ const DummyData = [
     name: '서울식물원·마곡나루역',
     ENG_NM: 'Seoul Botanic Park·Magongnaru station',
     images: image32,
+    latitude: '126.83122',
+    longitude: '37.56539',
   },
   {
     category: '인구밀집지역',
@@ -379,6 +443,8 @@ const DummyData = [
     name: '서울역',
     ENG_NM: 'Seoul station',
     images: image33,
+    latitude: '37.55739',
+    longitude: '126.97305',
   },
   {
     category: '인구밀집지역',
@@ -387,6 +453,8 @@ const DummyData = [
     name: '선릉역',
     ENG_NM: 'Seolleung station',
     images: image34,
+    latitude: '37.50553',
+    longitude: '127.04980',
   },
   {
     category: '인구밀집지역',
@@ -395,6 +463,8 @@ const DummyData = [
     name: '성신여대입구역',
     ENG_NM: "Sungshin Women's University station",
     images: image35,
+    latitude: '37.59263',
+    longitude: '127.01684',
   },
   {
     category: '인구밀집지역',
@@ -403,6 +473,8 @@ const DummyData = [
     name: '수유역',
     ENG_NM: 'Suyu station',
     images: image36,
+    latitude: '37.64064',
+    longitude: '127.02665',
   },
   {
     category: '인구밀집지역',
@@ -411,6 +483,8 @@ const DummyData = [
     name: '신논현역·논현역',
     ENG_NM: 'Sinnonhyeon·Nonhyeon station',
     images: image37,
+    latitude: '37.50761',
+    longitude: '127.02362',
   },
   {
     category: '인구밀집지역',
@@ -419,6 +493,8 @@ const DummyData = [
     name: '신도림역',
     ENG_NM: 'Sindorim station',
     images: image38,
+    latitude: '37.50886',
+    longitude: '126.89031',
   },
   {
     category: '인구밀집지역',
@@ -427,6 +503,8 @@ const DummyData = [
     name: '신림역',
     ENG_NM: 'Sillim station',
     images: image39,
+    latitude: '37.48446',
+    longitude: '126.92939',
   },
   {
     category: '인구밀집지역',
@@ -435,6 +513,8 @@ const DummyData = [
     name: '신촌·이대역',
     ENG_NM: 'Sinchon·Ewha Womans University station',
     images: image40,
+    latitude: '37.55698',
+    longitude: '126.93864',
   },
   {
     category: '인구밀집지역',
@@ -443,6 +523,8 @@ const DummyData = [
     name: '양재역',
     ENG_NM: 'Yangjae station',
     images: image41,
+    latitude: '37.48530',
+    longitude: '127.03479',
   },
   {
     category: '인구밀집지역',
@@ -451,6 +533,8 @@ const DummyData = [
     name: '역삼역',
     ENG_NM: 'Yeoksam station',
     images: image42,
+    latitude: '37.49944',
+    longitude: '127.03757',
   },
   {
     category: '인구밀집지역',
@@ -459,6 +543,8 @@ const DummyData = [
     name: '연신내역',
     ENG_NM: 'Yeonsinnae station',
     images: image43,
+    latitude: '37.61822',
+    longitude: '126.92072',
   },
   {
     category: '인구밀집지역',
@@ -467,6 +553,8 @@ const DummyData = [
     name: '오목교역·목동운동장',
     ENG_NM: 'Omokgyo·Mok-dong Stadium station',
     images: image44,
+    latitude: '37.52792',
+    longitude: '126.87594',
   },
   {
     category: '인구밀집지역',
@@ -475,6 +563,8 @@ const DummyData = [
     name: '왕십리역',
     ENG_NM: 'Wangsimni station',
     images: image45,
+    latitude: '37.56169',
+    longitude: '127.03847',
   },
   {
     category: '인구밀집지역',
@@ -483,6 +573,8 @@ const DummyData = [
     name: '용산역',
     ENG_NM: 'Yongsan station',
     images: image46,
+    latitude: '37.53079',
+    longitude: '126.95956',
   },
   {
     category: '인구밀집지역',
@@ -491,6 +583,8 @@ const DummyData = [
     name: '이태원역',
     ENG_NM: 'Itaewon station',
     images: image47,
+    latitude: '37.53447',
+    longitude: '126.99197',
   },
   {
     category: '인구밀집지역',
@@ -499,6 +593,8 @@ const DummyData = [
     name: '장지역',
     ENG_NM: 'Jangji station',
     images: image48,
+    latitude: '37.47869',
+    longitude: '127.12358',
   },
   {
     category: '인구밀집지역',
@@ -507,6 +603,8 @@ const DummyData = [
     name: '장한평역',
     ENG_NM: 'Janghanpyeong station',
     images: image49,
+    latitude: '37.56134',
+    longitude: '127.06471',
   },
   {
     category: '인구밀집지역',
@@ -515,6 +613,8 @@ const DummyData = [
     name: '천호역',
     ENG_NM: 'Cheonho station',
     images: image50,
+    latitude: '37.53938',
+    longitude: '127.12515',
   },
   {
     category: '인구밀집지역',
@@ -523,6 +623,8 @@ const DummyData = [
     name: '총신대입구(이수)역',
     ENG_NM: 'Chongshin University(Isu) station',
     images: image51,
+    latitude: '37.48593',
+    longitude: '126.98062',
   },
   {
     category: '인구밀집지역',
@@ -531,6 +633,8 @@ const DummyData = [
     name: '충정로역',
     ENG_NM: 'Chungjeongno station',
     images: image52,
+    latitude: '37.55943',
+    longitude: '126.96356',
   },
   {
     category: '인구밀집지역',
@@ -539,6 +643,8 @@ const DummyData = [
     name: '합정역',
     ENG_NM: 'Hapjeong station',
     images: image53,
+    latitude: '37.54820',
+    longitude: '126.91289',
   },
   {
     category: '인구밀집지역',
@@ -547,6 +653,8 @@ const DummyData = [
     name: '혜화역',
     ENG_NM: 'Hyehwa station',
     images: image54,
+    latitude: '37.51267',
+    longitude: '127.00202',
   },
   {
     category: '인구밀집지역',
@@ -555,6 +663,8 @@ const DummyData = [
     name: '홍대입구역(2호선)',
     ENG_NM: 'Hongik University station(Line 2)',
     images: image55,
+    latitude: '37.55644',
+    longitude: '126.92172',
   },
   {
     category: '인구밀집지역',
@@ -563,6 +673,8 @@ const DummyData = [
     name: '회기역',
     ENG_NM: 'Hoegi station',
     images: image56,
+    latitude: '37.59022',
+    longitude: '127.05656',
   },
   {
     category: '발달상권',
@@ -571,6 +683,8 @@ const DummyData = [
     name: '4·19 카페거리',
     ENG_NM: '4·19 Cafe street',
     images: image57,
+    latitude: '37.64481',
+    longitude: '127.00695',
   },
   {
     category: '발달상권',
@@ -579,6 +693,8 @@ const DummyData = [
     name: '가락시장',
     ENG_NM: 'Garak Market',
     images: image58,
+    latitude: '37.49400',
+    longitude: '127.11154',
   },
   {
     category: '발달상권',
@@ -587,6 +703,8 @@ const DummyData = [
     name: '가로수길',
     ENG_NM: 'Garosu-gil',
     images: image59,
+    latitude: '37.52106',
+    longitude: '127.02380',
   },
   {
     category: '발달상권',
@@ -595,6 +713,8 @@ const DummyData = [
     name: '광장(전통)시장',
     ENG_NM: 'Gwangjang(Traditional) Market',
     images: image60,
+    latitude: '37.56988',
+    longitude: '126.99959',
   },
   {
     category: '발달상권',
@@ -603,6 +723,8 @@ const DummyData = [
     name: '김포공항',
     ENG_NM: 'Gimpo Airport',
     images: image61,
+    longitude: '126.80189',
+    latitude: '37.56114',
   },
   {
     category: '발달상권',
@@ -611,6 +733,8 @@ const DummyData = [
     name: '낙산공원·이화마을',
     ENG_NM: 'Naksan Park·Ihwa Village',
     images: image62,
+    longitude: '127.00725',
+    latitude: '37.58007',
   },
   {
     category: '발달상권',
@@ -619,6 +743,8 @@ const DummyData = [
     name: '노량진',
     ENG_NM: 'Noryangjin',
     images: image63,
+    longitude: '126.94370',
+    latitude: '37.51369',
   },
   {
     category: '발달상권',
@@ -627,6 +753,8 @@ const DummyData = [
     name: '덕수궁길·정동길',
     ENG_NM: 'Deoksugung-gil·Jeongdong-gil',
     images: image64,
+    longitude: '126.97231',
+    latitude: '37.55672',
   },
   {
     category: '발달상권',
@@ -635,6 +763,8 @@ const DummyData = [
     name: '방배역 먹자골목',
     ENG_NM: 'Bangbae food alley',
     images: image65,
+    longitude: '126.99616',
+    latitude: '37.48231',
   },
   {
     category: '발달상권',
@@ -643,6 +773,8 @@ const DummyData = [
     name: '북촌한옥마을',
     ENG_NM: 'Bukchon Hanok Village',
     images: image66,
+    longitude: '126.98419',
+    latitude: '37.58099',
   },
   {
     category: '발달상권',
@@ -651,6 +783,8 @@ const DummyData = [
     name: '서촌',
     ENG_NM: 'Seochon',
     images: image67,
+    longitude: '126.96996',
+    latitude: '37.57974',
   },
   {
     category: '발달상권',
@@ -659,6 +793,8 @@ const DummyData = [
     name: '성수카페거리',
     ENG_NM: 'Seongsu Cafe Street',
     images: image68,
+    longitude: '127.05659',
+    latitude: '37.54266',
   },
   {
     category: '발달상권',
@@ -667,6 +803,8 @@ const DummyData = [
     name: '수유리 먹자골목',
     ENG_NM: 'Suyuri food alley',
     images: image69,
+    longitude: '127.02763',
+    latitude: '37.64236',
   },
   {
     category: '발달상권',
@@ -675,6 +813,8 @@ const DummyData = [
     name: '쌍문동 맛집거리',
     ENG_NM: 'Ssangmun-dong restaurant street',
     images: image70,
+    longitude: '127.03292',
+    latitude: '37.64732',
   },
   {
     category: '발달상권',
@@ -683,6 +823,8 @@ const DummyData = [
     name: '압구정로데오거리',
     ENG_NM: 'Apgujeong Rodeo Street',
     images: image71,
+    longitude: '127.03628',
+    latitude: '37.52413',
   },
   {
     category: '발달상권',
@@ -691,6 +833,8 @@ const DummyData = [
     name: '여의도',
     ENG_NM: 'Yeouido',
     images: image72,
+    longitude: '126.92680',
+    latitude: '37.52374',
   },
   {
     category: '발달상권',
@@ -699,6 +843,8 @@ const DummyData = [
     name: '연남동',
     ENG_NM: 'Yeonnam-dong',
     images: image73,
+    longitude: '126.92231',
+    latitude: '37.56190',
   },
   {
     category: '발달상권',
@@ -707,6 +853,8 @@ const DummyData = [
     name: '영등포 타임스퀘어',
     ENG_NM: 'Yeongdeungpo Time square',
     images: image74,
+    longitude: '126.90717',
+    latitude: '37.51676',
   },
   {
     category: '발달상권',
@@ -715,6 +863,8 @@ const DummyData = [
     name: '외대앞',
     ENG_NM: 'Hankuk University of Foreign Studies',
     images: image75,
+    longitude: '127.06302',
+    latitude: '37.59475',
   },
   {
     category: '발달상권',
@@ -723,6 +873,8 @@ const DummyData = [
     name: '용리단길',
     ENG_NM: 'Yongnidan-gil',
     images: image76,
+    longitude: '126.97145',
+    latitude: '37.53117',
   },
   {
     category: '발달상권',
@@ -731,6 +883,8 @@ const DummyData = [
     name: '이태원 앤틱가구거리',
     ENG_NM: 'Itaewon Antiques street',
     images: image77,
+    longitude: '126.99371',
+    latitude: '37.53234',
   },
   {
     category: '발달상권',
@@ -739,6 +893,8 @@ const DummyData = [
     name: '인사동·익선동',
     ENG_NM: 'Insa-dong·Ikseon-dong',
     images: image78,
+    longitude: '126.98713',
+    latitude: '37.57132',
   },
   {
     category: '발달상권',
@@ -747,6 +903,8 @@ const DummyData = [
     name: '창동 신경제 중심지',
     ENG_NM: 'Changdong New Economic Center',
     images: image79,
+    longitude: '127.05396',
+    latitude: '37.65667',
   },
   {
     category: '발달상권',
@@ -755,6 +913,8 @@ const DummyData = [
     name: '청담동 명품거리',
     ENG_NM: 'Cheongdam-dong Luxury Fashion street',
     images: image80,
+    longitude: '127.04670',
+    latitude: '37.52540',
   },
   {
     category: '발달상권',
@@ -763,6 +923,8 @@ const DummyData = [
     name: '청량리 제기동 일대 전통시장',
     ENG_NM: 'Traditional market in Cheongnyangni Jegi-dong',
     images: image81,
+    longitude: '127.03916',
+    latitude: '37.58067',
   },
   {
     category: '발달상권',
@@ -771,6 +933,8 @@ const DummyData = [
     name: '해방촌·경리단길',
     ENG_NM: 'Haebangchon·Gyeongnidan-gil',
     images: image82,
+    longitude: '126.98729',
+    latitude: '37.54190',
   },
   {
     category: '발달상권',
@@ -779,6 +943,8 @@ const DummyData = [
     name: 'DDP(동대문디자인플라자)',
     ENG_NM: 'DDP(Dongdaemun Design Plaza)',
     images: image83,
+    longitude: '127.01045',
+    latitude: '37.56640',
   },
   {
     category: '발달상권',
@@ -787,6 +953,8 @@ const DummyData = [
     name: 'DMC(디지털미디어시티)',
     ENG_NM: 'DMC(Digital Media City)',
     images: image84,
+    longitude: '126.89559',
+    latitude: '37.57741',
   },
   {
     category: '공원',
@@ -795,6 +963,8 @@ const DummyData = [
     name: '강서한강공원',
     ENG_NM: 'Gangseo Hangang Park',
     images: image85,
+    longitude: '126.81753',
+    latitude: '37.58689',
   },
   {
     category: '공원',
@@ -803,6 +973,8 @@ const DummyData = [
     name: '고척돔',
     ENG_NM: 'Gocheok Dome',
     images: image86,
+    longitude: '126.86722',
+    latitude: '37.49788',
   },
   {
     category: '공원',
@@ -811,6 +983,8 @@ const DummyData = [
     name: '광나루한강공원',
     ENG_NM: 'Gwangnaru Hangang Park',
     images: image87,
+    longitude: '127.11458',
+    latitude: '37.53946',
   },
   {
     category: '공원',
@@ -819,6 +993,8 @@ const DummyData = [
     name: '광화문광장',
     ENG_NM: 'Gwanghwamun Square',
     images: image88,
+    longitude: '126.97695',
+    latitude: '37.57232',
   },
   {
     category: '공원',
@@ -827,6 +1003,8 @@ const DummyData = [
     name: '국립중앙박물관·용산가족공원',
     ENG_NM: 'The National Museum of Korea·Yongsan Family Park',
     images: image89,
+    longitude: '126.98083',
+    latitude: '37.52276',
   },
   {
     category: '공원',
@@ -835,6 +1013,8 @@ const DummyData = [
     name: '난지한강공원',
     ENG_NM: 'Nanji Hangang Park',
     images: image90,
+    longitude: '126.87797',
+    latitude: '37.56639',
   },
   {
     category: '공원',
@@ -843,6 +1023,8 @@ const DummyData = [
     name: '남산공원',
     ENG_NM: 'Namsan Park',
     images: image91,
+    longitude: '126.98907',
+    latitude: '37.55164',
   },
   {
     category: '공원',
@@ -851,6 +1033,8 @@ const DummyData = [
     name: '노들섬',
     ENG_NM: 'Nodeul island',
     images: image92,
+    longitude: '126.95914',
+    latitude: '37.51728',
   },
   {
     category: '공원',
@@ -859,6 +1043,8 @@ const DummyData = [
     name: '뚝섬한강공원',
     ENG_NM: 'Ttukseom Hangang Park',
     images: image93,
+    longitude: '127.06834',
+    latitude: '37.52962',
   },
   {
     category: '공원',
@@ -867,6 +1053,8 @@ const DummyData = [
     name: '망원한강공원',
     ENG_NM: 'Mangwon Hangang Park',
     images: image94,
+    longitude: '126.89944',
+    latitude: '37.55231',
   },
   {
     category: '공원',
@@ -875,6 +1063,8 @@ const DummyData = [
     name: '반포한강공원',
     ENG_NM: 'Banpo Hangang Park',
     images: image95,
+    longitude: '126.99439',
+    latitude: '37.50916',
   },
   {
     category: '공원',
@@ -883,6 +1073,8 @@ const DummyData = [
     name: '북서울꿈의숲',
     ENG_NM: 'Dream Forest',
     images: image96,
+    longitude: '127.04131',
+    latitude: '37.62130',
   },
   {
     category: '공원',
@@ -891,6 +1083,8 @@ const DummyData = [
     name: '불광천',
     ENG_NM: 'Bulgwangcheon River',
     images: image97,
+    longitude: '126.91266',
+    latitude: '37.58603',
   },
   {
     category: '공원',
@@ -899,6 +1093,8 @@ const DummyData = [
     name: '서리풀공원·몽마르뜨공원',
     ENG_NM: 'Seoripul Park·Montmartre Park',
     images: image98,
+    longitude: '127.00173',
+    latitude: '37.49024',
   },
   {
     category: '공원',
@@ -907,6 +1103,8 @@ const DummyData = [
     name: '서울광장',
     ENG_NM: 'Seoul Plaza',
     images: image99,
+    longitude: '126.97798',
+    latitude: '37.56563',
   },
   {
     category: '공원',
@@ -915,6 +1113,8 @@ const DummyData = [
     name: '서울대공원',
     ENG_NM: 'Seoul Grand Park',
     images: image100,
+    longitude: '127.01560',
+    latitude: '37.43037',
   },
   {
     category: '공원',
@@ -923,6 +1123,8 @@ const DummyData = [
     name: '서울숲공원',
     ENG_NM: 'Seoul Forest',
     images: image101,
+    longitude: '127.03823',
+    latitude: '37.54202',
   },
   {
     category: '공원',
@@ -931,6 +1133,8 @@ const DummyData = [
     name: '아차산',
     ENG_NM: 'Achasan',
     images: image102,
+    longitude: '127.10246',
+    latitude: '37.56556',
   },
   {
     category: '공원',
@@ -939,6 +1143,8 @@ const DummyData = [
     name: '양화한강공원',
     ENG_NM: 'Yanghwa Hangang Park',
     images: image103,
+    longitude: '126.89866',
+    latitude: '37.54091',
   },
   {
     category: '공원',
@@ -947,6 +1153,8 @@ const DummyData = [
     name: '어린이대공원',
     ENG_NM: "Children's Grand Park",
     images: image104,
+    longitude: '127.08065',
+    latitude: '37.54824',
   },
   {
     category: '공원',
@@ -955,6 +1163,8 @@ const DummyData = [
     name: '여의도한강공원',
     ENG_NM: 'Yeouido Hangang Park',
     images: image105,
+    longitude: '126.92869',
+    latitude: '37.53063',
   },
   {
     category: '공원',
@@ -963,6 +1173,8 @@ const DummyData = [
     name: '월드컵공원',
     ENG_NM: 'World Cup Park',
     images: image106,
+    longitude: '126.88498',
+    latitude: '37.56903',
   },
   {
     category: '공원',
@@ -971,6 +1183,8 @@ const DummyData = [
     name: '응봉산',
     ENG_NM: 'Eungbongsan',
     images: image107,
+    longitude: '127.03017',
+    latitude: '37.54779',
   },
   {
     category: '공원',
@@ -979,6 +1193,8 @@ const DummyData = [
     name: '이촌한강공원',
     ENG_NM: 'Ichon Hangang Park',
     images: image108,
+    longitude: '126.97273',
+    latitude: '37.51629',
   },
   {
     category: '공원',
@@ -987,6 +1203,8 @@ const DummyData = [
     name: '잠실종합운동장',
     ENG_NM: 'Jamsil (Seoul) Sports Complex',
     images: image109,
+    longitude: '127.07387',
+    latitude: '37.51422',
   },
   {
     category: '공원',
@@ -995,6 +1213,8 @@ const DummyData = [
     name: '잠실한강공원',
     ENG_NM: 'Jamsil Hangang Park',
     images: image110,
+    longitude: '127.08478',
+    latitude: '37.51779',
   },
   {
     category: '공원',
@@ -1003,6 +1223,8 @@ const DummyData = [
     name: '잠원한강공원',
     ENG_NM: 'Jamwon Hangang Park',
     images: image111,
+    longitude: '127.01557',
+    latitude: '37.52483',
   },
   {
     category: '공원',
@@ -1011,6 +1233,8 @@ const DummyData = [
     name: '청계산',
     ENG_NM: 'Cheonggyesan',
     images: image112,
+    longitude: '127.05041',
+    latitude: '37.43930',
   },
   {
     category: '공원',
@@ -1019,6 +1243,8 @@ const DummyData = [
     name: '청와대',
     ENG_NM: 'Cheongwadae',
     images: image113,
+    longitude: '126.97626',
+    latitude: '37.58541',
   },
   {
     category: '발달상권',
@@ -1027,6 +1253,8 @@ const DummyData = [
     name: '북창동 먹자골목',
     ENG_NM: 'Bukchang-dong food alley',
     images: image114,
+    longitude: '126.97840',
+    latitude: '37.56233',
   },
   {
     category: '발달상권',
@@ -1035,7 +1263,9 @@ const DummyData = [
     name: '남대문시장',
     ENG_NM: 'Namdaemun Market',
     images: image115,
+    longitude: '126.97861',
+    latitude: '37.55996',
   },
 ];
 
-export default DummyData;
+export default ListData;

@@ -3,7 +3,7 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './App.css';
-import Home from './pages/Home';
+import HomePage from './pages/Home';
 import ListPage from './pages/List';
 import RootLayout from './pages/Root';
 import ErrorPage from './pages/Error';
@@ -23,11 +23,11 @@ function App() {
       element: <RootLayout />,
       errorElement: <ErrorPage />,
       children: [
-        { path: '/', element: <Home /> },
+        { path: '/', element: <LandingPage /> },
+        { path: '/home', element: <HomePage /> },
         { path: '/login', element: <LoginPage /> },
         { path: '/signup', element: <SignupPage /> },
         { path: '/list', element: <ListPage /> },
-        { path: '/Landing', element: <LandingPage /> },
         { path: '/list/:id', element: <PlaceDetailPage /> },
         { path: '/mypage', element: <MyPage /> },
         { path: '/mypage/myarticles', element: <MyArticlesPage /> },
