@@ -1,4 +1,4 @@
-export const dummyArticles = [
+export const dummyComments = [
   {
     id: 1,
     place: '맛집',
