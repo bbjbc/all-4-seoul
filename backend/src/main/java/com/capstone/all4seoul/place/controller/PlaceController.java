@@ -3,8 +3,9 @@ package com.capstone.all4seoul.place.controller;
 import com.capstone.all4seoul.place.dto.request.PlaceSearchRequest;
 import com.capstone.all4seoul.place.dto.response.DetailPlaceResponse;
 import com.capstone.all4seoul.place.dto.response.PlaceSearchResponseByGoogle;
+import com.capstone.all4seoul.place.dto.response.PlaceSearchResponseBySeoulDataApi;
 import com.capstone.all4seoul.place.service.PlaceService;
-import com.capstone.all4seoul.place.service.PlaceServiceByGoogle;
+import com.capstone.all4seoul.place.service.PlaceServiceByExternalApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +49,11 @@ public class PlaceController {
      */
     @PostMapping("/places/google")
     public PlaceSearchResponseByGoogle searchPlacesByGoogle(@RequestBody PlaceSearchRequest placeSearchRequest) {
-        return PlaceServiceByGoogle.searchPlaces(placeSearchRequest);
+        return PlaceServiceByExternalApi.searchPlaces(placeSearchRequest);
+    }
+
+    @GetMapping("/places/seoulData")
+    public PlaceSearchResponseBySeoulDataApi searchPlacesBySeoulDataApi() {
+        return PlaceServiceByExternalApi.searchPlacesBySeoulDataApi();
     }
 }
