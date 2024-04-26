@@ -12,9 +12,10 @@ import SignupPage from './pages/Signup';
 import LandingPage from './pages/Landing';
 import PlaceDetailPage from './pages/Detail';
 import MyPage from './pages/MyPage';
-import MyArticles from './components/mypage/myarticles';
-import Bookmarked from './components/mypage/bookmarked';
-import ChangeInfo from './components/mypage/change-info';
+import MyArticlesPage from './components/mypage/myarticles';
+import BookmarkedPage from './components/mypage/bookmarked';
+import ChangeInfoPage from './components/mypage/change-info';
+import { BookmarkProvider } from './state/bookmark-context';
 
 function App() {
   const router = createBrowserRouter([
@@ -33,16 +34,20 @@ function App() {
           path: '/mypage',
           element: <MyPage />,
           children: [
-            { path: '/mypage/myarticles', element: <MyArticles /> },
-            { path: '/mypage/bookmarked', element: <Bookmarked /> },
-            { path: '/mypage/change-info', element: <ChangeInfo /> },
+            { path: '/mypage/myarticles', element: <MyArticlesPage /> },
+            { path: '/mypage/bookmarked', element: <BookmarkedPage /> },
+            { path: '/mypage/change-info', element: <ChangeInfoPage /> },
           ],
         },
       ],
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <BookmarkProvider>
+      <RouterProvider router={router} />
+    </BookmarkProvider>
+  );
 }
 
 export default App;
