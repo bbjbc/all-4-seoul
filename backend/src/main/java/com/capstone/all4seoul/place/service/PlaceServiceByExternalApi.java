@@ -2,12 +2,13 @@ package com.capstone.all4seoul.place.service;
 
 import com.capstone.all4seoul.place.dto.request.PlaceSearchRequest;
 import com.capstone.all4seoul.place.dto.response.PlaceSearchResponseByGoogle;
+import com.capstone.all4seoul.place.dto.response.PlaceSearchResponseBySeoulDataApi;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class PlaceServiceByGoogle {
+public class PlaceServiceByExternalApi {
 
     private static String googleApiKey = "AIzaSyDQ4l4GsWb9nJpXCzfXV7igshaJ8U1aopE";
 
