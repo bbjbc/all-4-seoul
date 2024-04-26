@@ -8,7 +8,7 @@ function PlaceGrid({ places }) {
     <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       {places.map((place) => (
         <li key={place.NO} className="animate-slidein">
-          <PlaceItem {...place} />
+          <PlaceItem id={place.NO} {...place} />
         </li>
       ))}
     </ul>

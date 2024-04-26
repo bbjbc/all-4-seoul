@@ -1,42 +1,62 @@
 import React from 'react';
-
 import { useNavigate } from 'react-router-dom';
+import propTypes from 'prop-types';
+import { FaStar } from 'react-icons/fa';
+import { useBookmark } from '../../state/bookmark-context';
 
-import PropTypes from 'prop-types';
-
-function PlaceItem({ name, category, images }) {
+function PlaceItem({ id, name, category, images }) {
   const navigation = useNavigate();
+  const { bookmarks, addBookmark, removeBookmark } = useBookmark();
 
   const handleClick = () => {
     const encodedName = encodeURIComponent(name);
     navigation(`/list/${encodedName}`);
   };
 
+  const toggleBookmark = () => {
+    if (bookmarks.some((bookmark) => bookmark.id === id)) {
+      removeBookmark(id);
+    } else {
+      addBookmark({ id, name, category, images });
+    }
+  };
+
+  const isBookmarked = bookmarks.some((bookmark) => bookmark.id === id);
+
   return (
-    <article
-      className="flex cursor-pointer flex-col items-center rounded-xl bg-white shadow-xl"
-      onClick={handleClick}
-      role="presentation"
-    >
-      <header className="h-auto w-auto overflow-hidden">
-        <img
-          src={images}
-          alt={name}
-          className="h-full w-full rounded-t-xl object-cover"
-        />
-      </header>
-      <div className="p-4 text-center">
-        <p className="text-sm text-gray-600">{category}</p>
-        <h2 className="mt-2 text-xl font-semibold">{name}</h2>
-      </div>
-    </article>
+    <>
+      <FaStar
+        className={`absolute right-6 top-6 z-50 cursor-pointer`}
+        color={`${isBookmarked ? 'yellow' : 'white'}`}
+        size={30}
+        onClick={toggleBookmark}
+      />
+      <article
+        className="flex cursor-pointer flex-col items-center rounded-xl bg-white shadow-xl"
+        onClick={handleClick}
+        role="presentation"
+      >
+        <header className="h-auto w-auto overflow-hidden">
+          <img
+            src={images}
+            alt={name}
+            className="h-full w-full rounded-t-xl object-cover"
+          />
+        </header>
+        <div className="p-4 text-center">
+          <p className="text-sm text-gray-600">{category}</p>
+          <h2 className="mt-2 text-xl font-semibold">{name}</h2>
+        </div>
+      </article>
+    </>
   );
 }
 
 PlaceItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  images: PropTypes.string.isRequired,
+  id: propTypes.string.isRequired,
+  name: propTypes.string.isRequired,
+  category: propTypes.string.isRequired,
+  images: propTypes.string.isRequired,
 };
 
 export default PlaceItem;
