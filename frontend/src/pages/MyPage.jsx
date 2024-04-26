@@ -6,7 +6,7 @@ import MyPageLayout from '../components/mypage/mypage-layout';
 
 function MyPage() {
   return (
-    <div className="relative flex h-screen items-center justify-center overflow-hidden">
+    <div className="relative flex h-screen justify-center overflow-hidden">
       <img
         className="absolute inset-0 z-0 h-full w-full object-cover opacity-10"
         src={logo}

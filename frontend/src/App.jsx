@@ -12,9 +12,9 @@ import SignupPage from './pages/Signup';
 import LandingPage from './pages/Landing';
 import PlaceDetailPage from './pages/Detail';
 import MyPage from './pages/MyPage';
-import MyArticlesPage from './components/mypage/myarticles';
-import BookmarkedPage from './components/mypage/bookmarked';
-import ChangeInfoPage from './components/mypage/change-info';
+import MyArticles from './components/mypage/myarticles';
+import Bookmarked from './components/mypage/bookmarked';
+import ChangeInfo from './components/mypage/change-info';
 
 function App() {
   const router = createBrowserRouter([
@@ -29,10 +29,15 @@ function App() {
         { path: '/signup', element: <SignupPage /> },
         { path: '/list', element: <ListPage /> },
         { path: '/list/:id', element: <PlaceDetailPage /> },
-        { path: '/mypage', element: <MyPage /> },
-        { path: '/mypage/myarticles', element: <MyArticlesPage /> },
-        { path: '/mypage/bookmarked', element: <BookmarkedPage /> },
-        { path: '/mypage/change-info', element: <ChangeInfoPage /> },
+        {
+          path: '/mypage',
+          element: <MyPage />,
+          children: [
+            { path: '/mypage/myarticles', element: <MyArticles /> },
+            { path: '/mypage/bookmarked', element: <Bookmarked /> },
+            { path: '/mypage/change-info', element: <ChangeInfo /> },
+          ],
+        },
       ],
     },
   ]);
