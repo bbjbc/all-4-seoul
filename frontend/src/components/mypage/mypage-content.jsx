@@ -23,11 +23,7 @@ function MyPageContent({ currentPath }) {
       content = <MyInfo />;
   }
 
-  return (
-    <div className="relative mt-5 flex h-screen justify-center overflow-hidden">
-      {content}
-    </div>
-  );
+  return <div>{content}</div>;
 }
 
 MyPageContent.propTypes = {

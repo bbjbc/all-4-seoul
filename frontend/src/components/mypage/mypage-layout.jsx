@@ -8,10 +8,12 @@ function MyPageLayout() {
   const location = useLocation();
 
   return (
-    <div className="mb-6 mt-20 items-center">
-      <MyPageNav />
-      <MyPageContent currentPath={location.pathname} />
-    </div>
+    <>
+      <div className="mb-6 mt-20 w-auto">
+        <MyPageNav />
+        <MyPageContent currentPath={location.pathname} />
+      </div>
+    </>
   );
 }
 
