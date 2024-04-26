@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 public class PlaceServiceByExternalApi {
 
     private static String googleApiKey = "AIzaSyDQ4l4GsWb9nJpXCzfXV7igshaJ8U1aopE";
+    private static String seoulDataApiKey = "47725179416177663634557a734f45";
 
     public static PlaceSearchResponseByGoogle searchPlaces(PlaceSearchRequest placeSearchRequest) {
         String url = "https://places.googleapis.com/v1/places:searchNearby";
@@ -32,6 +33,24 @@ public class PlaceServiceByExternalApi {
         );
 
         // 응답 처리
+        return responseEntity.getBody();
+    }
+
+    public static PlaceSearchResponseBySeoulDataApi searchPlacesBySeoulDataApi() {
+        RestTemplate restTemplate = new RestTemplate();
+
+        String keyword = "광화문·덕수궁";
+        String url = "http://openapi.seoul.go.kr:8088/" + seoulDataApiKey + "/json/citydata/1/5/" + keyword;
+
+        ResponseEntity<PlaceSearchResponseBySeoulDataApi> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                PlaceSearchResponseBySeoulDataApi.class
+        );
+
+        String areaCongestLevel = responseEntity.getBody().getCityData().getLivePopulation().get(0).getAreaCongestLevel();
+
         return responseEntity.getBody();
     }
 }
