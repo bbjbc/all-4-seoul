@@ -49,8 +49,6 @@ public class PlaceServiceByExternalApi {
                 PlaceSearchResponseBySeoulDataApi.class
         );
 
-        String areaCongestLevel = responseEntity.getBody().getCityData().getLivePopulation().get(0).getAreaCongestLevel();
-
         return responseEntity.getBody();
     }
 }
