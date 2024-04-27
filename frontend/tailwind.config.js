@@ -56,6 +56,17 @@ module.exports = {
             animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
           },
         },
+        swingandscale: {
+          '0%': {
+            transform: 'rotate(0deg) scale(1)',
+          },
+          '50%': {
+            transform: 'rotate(90deg) scale(1.1)',
+          },
+          '100%': {
+            transform: 'rotate(-90deg) scale(0.9)',
+          },
+        },
       },
       animation: {
         slidein: 'slidein 1s forwards',
@@ -64,6 +75,7 @@ module.exports = {
         bounce: 'bounce 1.5s infinite',
         expand: 'expand 0.3s ease-in-out',
         collapse: 'collapse 0.3s ease-in-out',
+        swingandscale: 'swingandscale 1s ease-in-out forwards',
       },
     },
   },
