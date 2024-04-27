@@ -21,7 +21,7 @@ public class PlaceSearchResponseBySeoulDataApi {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Result {
+    static class Result {
         @JsonProperty("RESULT.CODE")
         private String resultCode;
         @JsonProperty("RESULT.MESSAGE")
@@ -31,7 +31,7 @@ public class PlaceSearchResponseBySeoulDataApi {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CityData {
+    static class CityData {
         @JsonProperty("AREA_NM")
         private String areaName;
         @JsonProperty("AREA_CD")
@@ -62,7 +62,7 @@ public class PlaceSearchResponseBySeoulDataApi {
         @Getter
         @NoArgsConstructor
         @AllArgsConstructor
-        public static class LivePopulationStatus {
+        static class LivePopulationStatus {
             @JsonProperty("AREA_CONGEST_LVL")
             private String areaCongestLevel;
             @JsonProperty("AREA_CONGEST_MSG")
@@ -107,7 +107,7 @@ public class PlaceSearchResponseBySeoulDataApi {
             @Getter
             @NoArgsConstructor
             @AllArgsConstructor
-            public static class ForecastPopulation {
+            static class ForecastPopulation {
                 @JsonProperty("FCST_TIME")
                 private String forecastTime;
                 @JsonProperty("FCST_CONGEST_LVL")
@@ -212,7 +212,7 @@ public class PlaceSearchResponseBySeoulDataApi {
         @Getter
         @NoArgsConstructor
         @AllArgsConstructor
-        public class Sub {
+        static class Sub {
             @JsonProperty("SUB_STN_NM")
             private String substationName;
             @JsonProperty("SUB_STN_LINE")
@@ -260,7 +260,7 @@ public class PlaceSearchResponseBySeoulDataApi {
         @Getter
         @NoArgsConstructor
         @AllArgsConstructor
-        public class Bus {
+        static class Bus {
             @JsonProperty("BUS_RESULT_MSG")
             private String BUS_RESULT_MSG;
             @JsonProperty("BUS_STN_ID")
