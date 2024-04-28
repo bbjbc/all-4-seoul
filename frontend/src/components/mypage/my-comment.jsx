@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
-import { FaUserCircle, FaTrashAlt } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
 
+import { FaUserCircle, FaTrashAlt } from 'react-icons/fa';
+import { useReview } from '../../state/review-context';
 import Modal from '../modal/modal';
 import ModalPortal from '../modal/modal-portal';
-import { dummyComments } from './dummy-data';
+
+function reviewToComment(review) {
+  return {
+    id: review.id,
+    author: review.author,
+    content: review.content,
+    selectedButtons: review.selectedButtons,
+    date: review.date,
+  };
+}
 
 function MyCommentPage() {
-  const [comments, setComments] = useState(dummyComments);
+  const { reviews, removeReview } = useReview();
+  const [comments, setComments] = useState(reviews.map(reviewToComment));
   const [selectedCommentId, setSelectedCommentId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // 댓글 목록이 변경될 때마다 comments 상태 업데이트
+  useEffect(() => {
+    setComments(reviews.map(reviewToComment));
+  }, [reviews]);
 
   const handleDelete = (id) => {
     setSelectedCommentId(id);
@@ -16,15 +32,12 @@ function MyCommentPage() {
   };
 
   const handleConfirmDelete = () => {
-    const updatedComments = comments.filter(
-      (comment) => comment.id !== selectedCommentId,
-    );
-    setComments(updatedComments);
+    removeReview(selectedCommentId);
     setIsModalOpen(false);
     setSelectedCommentId(null);
   };
 
-  const handleCancelDelete = () => {
+  const modalCloseHandler = () => {
     setIsModalOpen(false);
     setSelectedCommentId(null);
   };
@@ -41,12 +54,23 @@ function MyCommentPage() {
               {comments.map((comment) => (
                 <li
                   key={comment.id}
-                  className="flex items-center py-4 text-left"
+                  className="flex items-start py-4 text-left"
                 >
                   <FaUserCircle className="mr-4 text-3xl" size={30} />
-                  <div className="flex flex-col">
-                    <p className="text-lg font-semibold">{comment.place}</p>
+                  <div className="flex flex-1 flex-col">
+                    <p className="text-lg font-semibold">{comment.author}</p>
                     <p className="mt-1 text-sm">{comment.content}</p>
+                    <div className="mt-1 flex flex-wrap gap-1">
+                      {comment.selectedButtons &&
+                        comment.selectedButtons.map((button, index) => (
+                          <span
+                            key={index}
+                            className="rounded-md bg-sky-200 px-2 py-1 text-xs"
+                          >
+                            {button}
+                          </span>
+                        ))}
+                    </div>
                     <p className="mt-1 text-xs text-gray-500">{comment.date}</p>
                   </div>
 
@@ -70,7 +94,7 @@ function MyCommentPage() {
 
       {isModalOpen && (
         <ModalPortal>
-          <Modal onClose={handleCancelDelete} height="auto">
+          <Modal onClose={modalCloseHandler} height="auto">
             <div className="rounded-lg bg-white p-4">
               <p>정말 삭제하시겠습니까?</p>
               <div className="mt-4 flex justify-center gap-4">
@@ -82,7 +106,7 @@ function MyCommentPage() {
                 </button>
                 <button
                   className="rounded-lg bg-gray-200 px-4 py-2 transition-all duration-200 ease-in-out hover:bg-gray-300"
-                  onClick={handleCancelDelete}
+                  onClick={modalCloseHandler}
                 >
                   아니오
                 </button>
