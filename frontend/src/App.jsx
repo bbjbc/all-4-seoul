@@ -17,6 +17,7 @@ import MyCommentPage from './components/mypage/my-comment';
 import BookmarkedPage from './components/mypage/bookmarked';
 import ChangeInfoPage from './components/mypage/change-info';
 import { BookmarkProvider } from './state/bookmark-context';
+import { ReviewProvider } from './state/review-context';
 
 function App() {
   const router = createBrowserRouter([
@@ -46,9 +47,11 @@ function App() {
   ]);
 
   return (
-    <BookmarkProvider>
-      <RouterProvider router={router} />
-    </BookmarkProvider>
+    <ReviewProvider>
+      <BookmarkProvider>
+        <RouterProvider router={router} />
+      </BookmarkProvider>
+    </ReviewProvider>
   );
 }
 

@@ -5,13 +5,14 @@ import { useForm } from 'react-hook-form';
 import propTypes from 'prop-types';
 import reviewImg from '../../../assets/detail-background/review.jpg';
 import SubmitButton from '../../button/submit-button';
-import { virtualButtons, dummyReviews } from '../dummy-data';
+import { useReview } from '../../../state/review-context';
+import { virtualButtons } from '../dummy-data';
 import { FaUserCircle } from 'react-icons/fa';
 
 function Review({ reviewRef }) {
   const { register, handleSubmit, reset } = useForm();
+  const { reviews, addReview } = useReview();
   const [selectedButtons, setSelectedButtons] = useState([]);
-  const [reviews, setReviews] = useState(dummyReviews);
   const [submitButtonText, setSubmitButtonText] = useState(
     '적어도 한 가지 항목을 선택해주세요.',
   );
@@ -35,18 +36,16 @@ function Review({ reviewRef }) {
     data.selectedButtons = selectedButtons;
     data.date = new Date().toLocaleString();
     console.log(data);
-    setSelectedButtons([]);
-    setReviews([
-      ...reviews,
-      {
-        id: reviews.length + 1,
-        author: 'User' + (reviews.length + 1),
-        content: data.reviewText,
-        selectedButtons: data.selectedButtons,
-        date: data.date,
-      },
-    ]);
 
+    addReview({
+      id: reviews.length + Math.random(100 * 1000),
+      author: 'User' + (reviews.length + 1),
+      content: data.reviewText,
+      selectedButtons: data.selectedButtons,
+      date: data.date,
+    });
+
+    setSelectedButtons([]);
     reset();
   };
 
