@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { FaUserCircle, FaTrashAlt } from 'react-icons/fa';
 import { useReview } from '../../state/review-context';
 import Modal from '../modal/modal';
@@ -12,6 +14,7 @@ function reviewToComment(review) {
     content: review.content,
     selectedButtons: review.selectedButtons,
     date: review.date,
+    name: review.name,
   };
 }
 
@@ -58,7 +61,14 @@ function MyCommentPage() {
                 >
                   <FaUserCircle className="mr-4 text-3xl" size={30} />
                   <div className="flex flex-1 flex-col">
-                    <p className="text-lg font-semibold">{comment.author}</p>
+                    <p className="text-lg font-semibold">
+                      <Link
+                        to={`/list/${comment.name}`}
+                        className="hover:font-gmarketbold hover:text-blue-950"
+                      >
+                        {comment.name}
+                      </Link>
+                    </p>
                     <p className="mt-1 text-sm">{comment.content}</p>
                     <div className="mt-1 flex flex-wrap gap-1">
                       {comment.selectedButtons &&
