@@ -74,7 +74,7 @@ function PlaceDetailPage() {
         <ParkingInfo parkingRef={parkingRef} name={decodedName} />
       </DetailLayout>
       <DetailLayout>
-        <Review reviewRef={reviewRef} />
+        <Review reviewRef={reviewRef} name={decodedName} />
       </DetailLayout>
     </>
   );

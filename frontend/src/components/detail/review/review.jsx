@@ -9,7 +9,7 @@ import { useReview } from '../../../state/review-context';
 import { virtualButtons } from '../dummy-data';
 import { FaUserCircle } from 'react-icons/fa';
 
-function Review({ reviewRef }) {
+function Review({ reviewRef, name }) {
   const { register, handleSubmit, reset } = useForm();
   const { reviews, addReview } = useReview();
   const [selectedButtons, setSelectedButtons] = useState([]);
@@ -17,6 +17,7 @@ function Review({ reviewRef }) {
     '적어도 한 가지 항목을 선택해주세요.',
   );
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [placeFilteredReviews, setPlaceFilteredReviews] = useState([]);
 
   useEffect(() => {
     if (selectedButtons.length) {
@@ -27,6 +28,11 @@ function Review({ reviewRef }) {
       setSubmitButtonText('적어도 한 가지 항목을 선택해주세요.');
     }
   }, [selectedButtons]);
+
+  useEffect(() => {
+    const filteredPlace = reviews.filter((review) => review.name === name);
+    setPlaceFilteredReviews(filteredPlace);
+  }, [reviews, name]);
 
   const onSubmit = (data) => {
     if (!selectedButtons.length) {
@@ -43,6 +49,7 @@ function Review({ reviewRef }) {
       content: data.reviewText,
       selectedButtons: data.selectedButtons,
       date: data.date,
+      name: name,
     });
 
     setSelectedButtons([]);
@@ -129,9 +136,9 @@ function Review({ reviewRef }) {
 
           <aside className="max-h-[600px] w-2/6 overflow-y-auto rounded-md bg-neutral-50 p-3 shadow-lg">
             <h2 className="mb-4 text-left font-gmarketbold text-xl">
-              리뷰 목록 ({reviews.length}개)
+              리뷰 목록 ({placeFilteredReviews.length}개)
             </h2>
-            {reviews.map((review) => (
+            {placeFilteredReviews.map((review) => (
               <div
                 key={review.id}
                 className="mb-3 flex w-full flex-col items-start border-b p-2"
@@ -165,6 +172,7 @@ function Review({ reviewRef }) {
 
 Review.propTypes = {
   reviewRef: propTypes.object.isRequired,
+  name: propTypes.string.isRequired,
 };
 
 export default Review;
