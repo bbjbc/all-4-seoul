@@ -13,8 +13,11 @@ export const BookmarkProvider = ({ children }) => {
     setBookmarks([...bookmarks, bookmark]);
   };
 
-  const removeBookmark = (id) => {
-    setBookmarks(bookmarks.filter((bookmark) => bookmark.id !== id));
+  const removeBookmark = (ids) => {
+    const idsToRemove = Array.isArray(ids) ? ids : [ids];
+    setBookmarks(
+      bookmarks.filter((bookmark) => !idsToRemove.includes(bookmark.id)),
+    );
   };
 
   return (
