@@ -31,7 +31,7 @@ function MyCommentPage() {
 
   return (
     <>
-      <div className="relative z-10 flex w-full flex-col items-center justify-start">
+      <div className="relative z-10 flex w-full animate-slidein flex-col items-center justify-start">
         <div className="my-10 flex h-[500px] w-full flex-col items-center justify-start overflow-y-auto rounded-xl bg-white py-4 shadow-lg">
           <p className="px-12 text-xl font-extrabold">
             작성한 글 목록 ({comments.length}개)

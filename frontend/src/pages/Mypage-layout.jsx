@@ -9,7 +9,7 @@ function MyPageLayout() {
   return (
     <>
       <BackgroundLayout>
-        <div className="mb-6 mt-20 w-3/5">
+        <div className="mb-6 mt-20 w-1/2">
           <MyPageNav />
           <Outlet />
         </div>

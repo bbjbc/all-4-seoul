@@ -4,7 +4,7 @@ import MyPageButton from './mypage-button';
 
 function MyPageNav() {
   return (
-    <div className="relative z-10 rounded-lg bg-gray-100 py-1 font-gmarketbold shadow-lg">
+    <div className="relative z-10 rounded-lg bg-gray-100 px-2 py-1 font-gmarketbold shadow-lg">
       <div className="flex justify-center gap-3">
         <MyPageButton to="/mypage">내 정보</MyPageButton>
         <MyPageButton to="/mypage/comment">내 댓글</MyPageButton>

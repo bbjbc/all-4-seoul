@@ -13,8 +13,8 @@ function MyPageButton({ to, children }) {
         to={to}
         className={
           isActive
-            ? 'flex scale-105 rounded-lg bg-emerald-400 px-16 py-2 text-black'
-            : 'flex transform rounded-lg bg-white px-16 py-2 text-stone-500 transition duration-300 ease-in-out hover:scale-105 hover:bg-emerald-200 hover:text-black'
+            ? 'flex scale-105 rounded-lg bg-emerald-400 px-14 py-2 text-black'
+            : 'flex transform rounded-lg bg-white px-14 py-2 text-stone-500 transition duration-300 ease-in-out hover:scale-105 hover:bg-emerald-200 hover:text-black'
         }
       >
         {children}
