@@ -43,9 +43,17 @@ function Review({ reviewRef, name }) {
     data.date = new Date().toLocaleString();
     console.log(data);
 
+    const isLoggedIn = () => {
+      return !!localStorage.getItem('id');
+    };
+
+    const authorName = isLoggedIn()
+      ? localStorage.getItem('id')
+      : `익명 ${reviews.length + 1}`;
+
     addReview({
       id: reviews.length + Math.random(100 * 1000),
-      author: 'User' + (reviews.length + 1),
+      author: authorName,
       content: data.reviewText,
       selectedButtons: data.selectedButtons,
       date: data.date,
@@ -138,31 +146,37 @@ function Review({ reviewRef, name }) {
             <h2 className="mb-4 text-left font-gmarketbold text-xl">
               리뷰 목록 ({placeFilteredReviews.length}개)
             </h2>
-            {placeFilteredReviews.map((review) => (
-              <div
-                key={review.id}
-                className="mb-3 flex w-full flex-col items-start border-b p-2"
-              >
-                <div className="mb-1 flex items-center">
-                  <FaUserCircle size={30} className="mr-2 text-gray-600" />
-                  <strong>{review.author}</strong>
-                </div>
-                <p className="mb-1 text-left text-sm">{review.content}</p>
-                {review.selectedButtons && (
-                  <div className="mb-1 flex flex-wrap">
-                    {review.selectedButtons.map((buttonLabel, index) => (
-                      <span
-                        key={index}
-                        className="m-1 rounded-md bg-sky-200 px-2 py-1 text-xs"
-                      >
-                        {buttonLabel}
-                      </span>
-                    ))}
+            {!placeFilteredReviews.length ? (
+              <p className="text-md mt-10 animate-bounce text-center">
+                아직 작성된 리뷰가 없습니다.
+              </p>
+            ) : (
+              placeFilteredReviews.map((review) => (
+                <div
+                  key={review.id}
+                  className="mb-3 flex w-full flex-col items-start border-b p-2"
+                >
+                  <div className="mb-1 flex items-center">
+                    <FaUserCircle size={30} className="mr-2 text-gray-600" />
+                    <strong>{review.author}</strong>
                   </div>
-                )}
-                <p className="text-xs text-zinc-600">{review.date}</p>
-              </div>
-            ))}
+                  <p className="mb-1 text-left text-sm">{review.content}</p>
+                  {review.selectedButtons && (
+                    <div className="mb-1 flex flex-wrap">
+                      {review.selectedButtons.map((buttonLabel, index) => (
+                        <span
+                          key={index}
+                          className="m-1 rounded-md bg-sky-200 px-2 py-1 text-xs"
+                        >
+                          {buttonLabel}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <p className="text-xs text-zinc-600">{review.date}</p>
+                </div>
+              ))
+            )}
           </aside>
         </article>
       </section>
