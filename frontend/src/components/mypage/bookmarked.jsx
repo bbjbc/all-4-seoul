@@ -67,10 +67,12 @@ function BookmarkedPage() {
                       : ''
                   }`}
                   role="presentation"
-                  onClick={() => toggleSelectedBookmark(bookmark.id)}
                 >
                   {isDeleteMode && (
-                    <button className="absolute right-2 top-2 rounded-full bg-gray-200 px-2 py-1 text-xs text-gray-600 hover:bg-gray-300">
+                    <button
+                      className="absolute right-2 top-2 rounded-full bg-gray-200 px-2 py-1 text-xs text-gray-600 hover:bg-gray-300"
+                      onClick={() => toggleSelectedBookmark(bookmark.id)}
+                    >
                       {selectedBookmarks.includes(bookmark.id)
                         ? '선택 해제'
                         : '선택'}
