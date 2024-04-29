@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import { FaUserCircle, FaTrashAlt } from 'react-icons/fa';
 import { useReview } from '../../state/review-context';
-import Modal from '../modal/modal';
-import ModalPortal from '../modal/modal-portal';
 
 function reviewToComment(review) {
   return {
@@ -21,28 +20,26 @@ function reviewToComment(review) {
 function MyCommentPage() {
   const { reviews, removeReview } = useReview();
   const [comments, setComments] = useState(reviews.map(reviewToComment));
-  const [selectedCommentId, setSelectedCommentId] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // 댓글 목록이 변경될 때마다 comments 상태 업데이트
   useEffect(() => {
     setComments(reviews.map(reviewToComment));
   }, [reviews]);
 
   const handleDelete = (id) => {
-    setSelectedCommentId(id);
-    setIsModalOpen(true);
-  };
-
-  const handleConfirmDelete = () => {
-    removeReview(selectedCommentId);
-    setIsModalOpen(false);
-    setSelectedCommentId(null);
-  };
-
-  const modalCloseHandler = () => {
-    setIsModalOpen(false);
-    setSelectedCommentId(null);
+    Swal.fire({
+      title: '정말 삭제하시겠습니까?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: '예',
+      cancelButtonText: '아니오',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeReview(id);
+        Swal.fire('삭제되었습니다!', '', 'success');
+      }
+    });
   };
 
   return (
@@ -101,30 +98,6 @@ function MyCommentPage() {
           )}
         </div>
       </div>
-
-      {isModalOpen && (
-        <ModalPortal>
-          <Modal onClose={modalCloseHandler} height="auto">
-            <div className="rounded-lg bg-white p-4">
-              <p>정말 삭제하시겠습니까?</p>
-              <div className="mt-4 flex justify-center gap-4">
-                <button
-                  className="rounded-lg bg-red-500 px-4 py-2 text-white transition-all duration-200 ease-in-out hover:bg-red-700"
-                  onClick={handleConfirmDelete}
-                >
-                  예
-                </button>
-                <button
-                  className="rounded-lg bg-gray-200 px-4 py-2 transition-all duration-200 ease-in-out hover:bg-gray-300"
-                  onClick={modalCloseHandler}
-                >
-                  아니오
-                </button>
-              </div>
-            </div>
-          </Modal>
-        </ModalPortal>
-      )}
     </>
   );
 }
