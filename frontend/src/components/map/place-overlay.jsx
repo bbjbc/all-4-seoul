@@ -1,41 +1,56 @@
 import React from 'react';
 
-import propTypes from 'prop-types';
-
 import { Link } from 'react-router-dom';
 
+import propTypes from 'prop-types';
+
+import { useBookmark } from '../../state/bookmark-context';
 import ModalPortal from '../modal/modal-portal';
 import Modal from '../modal/modal';
-import food from '../../assets/overlay/food.jpg';
-import cafe from '../../assets/overlay/cafe.jpg';
-import culture from '../../assets/overlay/culture.jpg';
-import gas from '../../assets/overlay/gas.jpg';
-import parking from '../../assets/overlay/parking.jpg';
-import attractions from '../../assets/overlay/attractions.jpg';
 import { SlLocationPin } from 'react-icons/sl';
 import { GrPhone } from 'react-icons/gr';
 import { GiRoad } from 'react-icons/gi';
+import { FaStar } from 'react-icons/fa';
 
 function PlaceOverlay({ place, onClose }) {
+  const { bookmarks, addBookmark, removeBookmark, images } = useBookmark();
+  const isBookmarked = bookmarks.some(
+    (bookmark) => bookmark.id === place.id && bookmark.type === 'placeOverlay',
+  );
+
+  const toggleBookmark = () => {
+    const bookmarkData = {
+      place_name: place.place_name,
+      id: place.id,
+      type: 'placeOverlay',
+      image: image,
+    };
+    if (isBookmarked) {
+      removeBookmark(place.id);
+    } else {
+      addBookmark(bookmarkData);
+    }
+  };
+
   let image = null;
   switch (place.category_group_name) {
     case '카페':
-      image = cafe;
+      image = images.cafe;
       break;
     case '주차장':
-      image = parking;
+      image = images.parking;
       break;
     case '주유소,충전소':
-      image = gas;
+      image = images.gas;
       break;
     case '음식점':
-      image = food;
+      image = images.food;
       break;
     case '관광명소':
-      image = attractions;
+      image = images.attractions;
       break;
     case '문화시설':
-      image = culture;
+      image = images.culture;
       break;
     default:
       image = null;
@@ -46,9 +61,17 @@ function PlaceOverlay({ place, onClose }) {
     <ModalPortal>
       <Modal onClose={onClose} height="h-[600px]">
         <article className="overflow-y-auto p-5">
-          <h1 className="mb-6 text-center font-gmarketbold text-3xl text-gray-800">
-            {place.place_name}
-          </h1>
+          <div className="mb-6 flex items-center">
+            <FaStar
+              className="z-50 mr-2 cursor-pointer hover:animate-swingandscale"
+              color={`${isBookmarked ? 'yellow' : 'gray'}`}
+              size={40}
+              onClick={toggleBookmark}
+            />
+            <h1 className="text-center font-gmarketbold text-3xl text-gray-800">
+              {place.place_name}
+            </h1>
+          </div>
 
           <div className="mb-4 space-y-2 rounded-md bg-green-200 px-6 py-5 text-stone-900">
             <div className="text-lg font-bold">{place.category_group_name}</div>
