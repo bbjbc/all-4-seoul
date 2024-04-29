@@ -17,9 +17,7 @@ function PlaceItem({ id, name, category, images }) {
     navigation(`/list/${encodedName}`);
   };
 
-  const isLoggedIn = () => {
-    return !!localStorage.getItem('id');
-  };
+  const isLoggedIn = () => !!localStorage.getItem('id');
 
   const toggleBookmark = () => {
     if (!isLoggedIn()) {
@@ -44,7 +42,7 @@ function PlaceItem({ id, name, category, images }) {
       setShowBookmarkMessage(true);
       setTimeout(() => setShowBookmarkMessage(false), 2000);
     } else {
-      addBookmark({ id, name, category, images });
+      addBookmark({ id, name, category, images, type: 'placeItem' });
       setShowBookmarkMessage(true);
       setTimeout(() => setShowBookmarkMessage(false), 2000);
     }
