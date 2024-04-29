@@ -78,14 +78,31 @@ function BookmarkedPage() {
                         : '선택'}
                     </button>
                   )}
-                  <img
-                    src={bookmark.images}
-                    alt={bookmark.name}
-                    className="h-36 w-auto rounded-t-xl object-cover"
-                  />
-                  <div className="p-2 text-center">
-                    <p className="text-sm font-semibold">{bookmark.name}</p>
-                  </div>
+                  {bookmark.type === 'placeItem' ? (
+                    <>
+                      <img
+                        src={bookmark.images}
+                        alt={bookmark.name}
+                        className="h-36 w-auto rounded-t-xl object-cover"
+                      />
+                      <div className="p-2 text-center">
+                        <p className="text-sm font-semibold">{bookmark.name}</p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={bookmark.image}
+                        alt={bookmark.name}
+                        className="h-36 w-auto rounded-t-xl object-cover"
+                      />
+                      <div className="p-2 text-center">
+                        <p className="text-sm font-semibold">
+                          {bookmark.place_name}
+                        </p>
+                      </div>
+                    </>
+                  )}
                 </div>
               ))}
             </div>
