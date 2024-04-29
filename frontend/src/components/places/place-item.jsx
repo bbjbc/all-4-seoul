@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 import propTypes from 'prop-types';
 import { FaStar } from 'react-icons/fa';
 import { useBookmark } from '../../state/bookmark-context';
@@ -14,7 +17,28 @@ function PlaceItem({ id, name, category, images }) {
     navigation(`/list/${encodedName}`);
   };
 
+  const isLoggedIn = () => {
+    return !!localStorage.getItem('id');
+  };
+
   const toggleBookmark = () => {
+    if (!isLoggedIn()) {
+      Swal.fire({
+        title: 'Watch Out!',
+        text: '로그인 후 이용해주세요!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '로그인하기',
+        cancelButtonText: '싫어요',
+        cancelButtonColor: '#d33',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigation('/login');
+        }
+      });
+      return;
+    }
+
     if (bookmarks.some((bookmark) => bookmark.id === id)) {
       removeBookmark(id);
       setShowBookmarkMessage(true);
@@ -43,7 +67,7 @@ function PlaceItem({ id, name, category, images }) {
       )}
 
       <FaStar
-        className="hover:animate-swingandscale absolute right-6 top-6 z-50 cursor-pointer"
+        className="absolute right-6 top-6 z-50 cursor-pointer hover:animate-swingandscale"
         color={`${isBookmarked ? 'yellow' : 'white'}`}
         size={40}
         onClick={toggleBookmark}
