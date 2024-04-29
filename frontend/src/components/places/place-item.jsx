@@ -43,7 +43,7 @@ function PlaceItem({ id, name, category, images }) {
       )}
 
       <FaStar
-        className="hover:animate-swingandscale absolute right-6 top-6 z-50 cursor-pointer"
+        className="absolute right-6 top-6 z-50 cursor-pointer hover:animate-swingandscale"
         color={`${isBookmarked ? 'yellow' : 'white'}`}
         size={40}
         onClick={toggleBookmark}
