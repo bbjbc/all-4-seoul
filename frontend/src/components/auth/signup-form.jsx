@@ -1,7 +1,7 @@
 import React from 'react';
-
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useUser } from '../../state/user-context';
 
 import IdInput from '../../components/input/id-input';
 import PasswordInput from '../../components/input/password-input';
@@ -12,6 +12,9 @@ import Option from '../../components/input/option';
 import SubmitButton from '../../components/button/submit-button';
 
 function SignupForm() {
+  const navigate = useNavigate();
+  const { setUserInfo } = useUser();
+
   const {
     register,
     handleSubmit,
@@ -22,6 +25,10 @@ function SignupForm() {
 
   const onSubmit = (data) => {
     console.log(data);
+    setUserInfo(data);
+    localStorage.setItem('id', JSON.stringify(data));
+    alert('회원가입이 완료되었습니다!');
+    navigate('/login');
   };
 
   return (

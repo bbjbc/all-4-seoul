@@ -18,6 +18,7 @@ import BookmarkedPage from './components/mypage/bookmarked';
 import ChangeInfoPage from './components/mypage/change-info';
 import { BookmarkProvider } from './state/bookmark-context';
 import { ReviewProvider } from './state/review-context';
+import { UserProvider } from './state/user-context';
 
 function App() {
   const router = createBrowserRouter([
@@ -47,11 +48,13 @@ function App() {
   ]);
 
   return (
-    <ReviewProvider>
-      <BookmarkProvider>
-        <RouterProvider router={router} />
-      </BookmarkProvider>
-    </ReviewProvider>
+    <UserProvider>
+      <ReviewProvider>
+        <BookmarkProvider>
+          <RouterProvider router={router} />
+        </BookmarkProvider>
+      </ReviewProvider>
+    </UserProvider>
   );
 }
 

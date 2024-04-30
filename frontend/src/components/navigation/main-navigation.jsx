@@ -1,16 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { NavLink } from 'react-router-dom';
+import { useUser } from '../../state/user-context';
 
 import logo from '../../assets/올포서울로고.jpg';
 import SearchButton from '../button/search-button';
 
 function NavBar() {
-  const id = localStorage.getItem('id');
+  const { isLoggedIn, setIsLoggedIn } = useUser();
+  const { navigate } = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('id');
-    window.location.reload();
+    setIsLoggedIn(false);
+    navigate('/home');
   };
 
   return (
@@ -46,7 +49,7 @@ function NavBar() {
           </NavLink>
           <SearchButton />
 
-          {id ? (
+          {isLoggedIn ? (
             <>
               <NavLink
                 to="/mypage"
