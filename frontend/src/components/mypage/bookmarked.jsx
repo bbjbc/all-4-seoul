@@ -67,23 +67,42 @@ function BookmarkedPage() {
                       : ''
                   }`}
                   role="presentation"
-                  onClick={() => toggleSelectedBookmark(bookmark.id)}
                 >
                   {isDeleteMode && (
-                    <button className="absolute right-2 top-2 rounded-full bg-gray-200 px-2 py-1 text-xs text-gray-600 hover:bg-gray-300">
+                    <button
+                      className="absolute right-2 top-2 rounded-full bg-gray-200 px-2 py-1 text-xs text-gray-600 hover:bg-gray-300"
+                      onClick={() => toggleSelectedBookmark(bookmark.id)}
+                    >
                       {selectedBookmarks.includes(bookmark.id)
                         ? '선택 해제'
                         : '선택'}
                     </button>
                   )}
-                  <img
-                    src={bookmark.images}
-                    alt={bookmark.name}
-                    className="h-36 w-auto rounded-t-xl object-cover"
-                  />
-                  <div className="p-2 text-center">
-                    <p className="text-sm font-semibold">{bookmark.name}</p>
-                  </div>
+                  {bookmark.type === 'placeItem' ? (
+                    <>
+                      <img
+                        src={bookmark.images}
+                        alt={bookmark.name}
+                        className="h-36 w-auto rounded-t-xl object-cover"
+                      />
+                      <div className="p-2 text-center">
+                        <p className="text-sm font-semibold">{bookmark.name}</p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={bookmark.image}
+                        alt={bookmark.name}
+                        className="h-36 w-auto rounded-t-xl object-cover"
+                      />
+                      <div className="p-2 text-center">
+                        <p className="text-sm font-semibold">
+                          {bookmark.place_name}
+                        </p>
+                      </div>
+                    </>
+                  )}
                 </div>
               ))}
             </div>
