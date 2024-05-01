@@ -1,8 +1,9 @@
 import React from 'react';
 
-import propTypes from 'prop-types';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 
 import { useBookmark } from '../../state/bookmark-context';
 import ModalPortal from '../modal/modal-portal';
@@ -10,13 +11,33 @@ import Modal from '../modal/modal';
 import { FaStar } from 'react-icons/fa';
 
 function ListPlaceOverlay({ place, onClose }) {
+  const navigation = useNavigate();
   const { bookmarks, addBookmark, removeBookmark } = useBookmark();
   const isBookmarked = bookmarks.some(
     (bookmark) =>
       bookmark.id === place.NO && bookmark.type === 'listPlaceOverlay',
   );
 
+  const isLoggedIn = () => !!localStorage.getItem('id');
+
   const toggleBookmark = () => {
+    if (!isLoggedIn()) {
+      Swal.fire({
+        title: '로그인 후 이용해주세요!',
+        text: '북마크를 사용하려면 로그인이 필요합니다.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '로그인하기',
+        cancelButtonText: '싫어요',
+        cancelButtonColor: '#d33',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigation('/login');
+        }
+      });
+      return;
+    }
+
     const bookmarkData = {
       name: place.name,
       id: place.NO,
@@ -25,8 +46,27 @@ function ListPlaceOverlay({ place, onClose }) {
     };
     if (isBookmarked) {
       removeBookmark(place.NO);
+      Swal.fire({
+        icon: 'success',
+        title: '북마크 삭제 완료',
+        text: `${place.name}이(가) 북마크에서 삭제되었습니다.`,
+      });
     } else {
       addBookmark(bookmarkData);
+      Swal.fire({
+        icon: 'success',
+        title: '북마크 추가 완료',
+        text: `${place.name}이(가) 북마크에 추가되었습니다.`,
+        showCancelButton: true,
+        confirmButtonText: '북마크 페이지로 이동',
+        cancelButtonText: '확인',
+        cancelButtonColor: '#d33',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          onClose();
+          navigation('/mypage/bookmarked');
+        }
+      });
     }
   };
 

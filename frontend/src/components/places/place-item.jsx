@@ -22,8 +22,8 @@ function PlaceItem({ id, name, category, images }) {
   const toggleBookmark = () => {
     if (!isLoggedIn()) {
       Swal.fire({
-        title: 'Watch Out!',
-        text: '로그인 후 이용해주세요!',
+        title: '로그인 후 이용해주세요!',
+        text: '북마크를 사용하려면 로그인이 필요합니다.',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: '로그인하기',
