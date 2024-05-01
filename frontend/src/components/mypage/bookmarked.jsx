@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import Swal from 'sweetalert2';
+
 import { useBookmark } from '../../state/bookmark-context';
 import { FaTrashAlt } from 'react-icons/fa';
 
@@ -26,9 +28,21 @@ function BookmarkedPage() {
   };
 
   const deleteSelectedBookmarks = () => {
-    removeBookmark(selectedBookmarks);
-    setSelectedBookmarks([]);
-    setIsDeleteMode(false);
+    Swal.fire({
+      title: '선택 항목 삭제',
+      text: '정말로 선택한 항목을 삭제하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeBookmark(selectedBookmarks);
+        setSelectedBookmarks([]);
+        setIsDeleteMode(false);
+        Swal.fire('삭제 완료', '선택한 항목이 삭제되었습니다.', 'success');
+      }
+    });
   };
 
   const toggleDeleteMode = () => {
