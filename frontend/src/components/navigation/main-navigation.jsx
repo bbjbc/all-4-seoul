@@ -9,11 +9,12 @@ import SearchButton from '../button/search-button';
 
 function NavBar() {
   const { isLoggedIn, setIsLoggedIn } = useUser();
-  const { navigate } = useNavigate();
+  const navigation = useNavigate();
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    navigate('/home');
+    localStorage.removeItem('id');
+    navigation('/home');
   };
 
   return (
