@@ -20,12 +20,13 @@ function LoginForm() {
   const onSubmit = (data) => {
     console.log(data);
     const { id, password } = data;
-    const storedUserInfo = JSON.parse(localStorage.getItem('id'));
+    const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
     const storedId = storedUserInfo ? storedUserInfo.id : null;
     const storedPassword = storedUserInfo ? storedUserInfo.password : null;
     if (id === storedId && password === storedPassword) {
       navigate('/home');
       setIsLoggedIn(true);
+      localStorage.setItem('id', id);
     } else {
       alert('아이디 또는 비밀번호가 일치하지 않습니다.');
     }

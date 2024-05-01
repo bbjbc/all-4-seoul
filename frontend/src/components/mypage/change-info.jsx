@@ -25,7 +25,7 @@ function ChangeInfoPage() {
 
   useEffect(() => {
     // 로컬 스토리지에서 사용자 정보를 불러와 userInfo 업데이트
-    const storedUserInfo = JSON.parse(localStorage.getItem('id'));
+    const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (storedUserInfo) {
       setUserInfo(storedUserInfo);
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 function MyInfoPage() {
-  const storedUserInfo = JSON.parse(localStorage.getItem('id'));
+  const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
 
   // 생일을 날짜 객체로 변환
   const birthDate = storedUserInfo ? new Date(storedUserInfo.birth) : null;
