@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
+import { useUser } from '../state/user-context';
 import MyPageNav from '../components/mypage/mypage-nav';
 import BackgroundLayout from '../components/mypage/background-layout';
 
 function MyPageLayout() {
+  const { isLoggedIn } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/login');
+    }
+  }, [isLoggedIn, navigate]);
+
+  if (!isLoggedIn) {
+    return null;
+  }
+
   return (
     <>
       <BackgroundLayout>
