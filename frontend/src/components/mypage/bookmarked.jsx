@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import Swal from 'sweetalert2';
+
 import { useBookmark } from '../../state/bookmark-context';
 import { FaTrashAlt } from 'react-icons/fa';
 
@@ -26,9 +28,21 @@ function BookmarkedPage() {
   };
 
   const deleteSelectedBookmarks = () => {
-    removeBookmark(selectedBookmarks);
-    setSelectedBookmarks([]);
-    setIsDeleteMode(false);
+    Swal.fire({
+      title: '선택 항목 삭제',
+      text: '정말로 선택한 항목을 삭제하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeBookmark(selectedBookmarks);
+        setSelectedBookmarks([]);
+        setIsDeleteMode(false);
+        Swal.fire('삭제 완료', '선택한 항목이 삭제되었습니다.', 'success');
+      }
+    });
   };
 
   const toggleDeleteMode = () => {
@@ -78,7 +92,7 @@ function BookmarkedPage() {
                         : '선택'}
                     </button>
                   )}
-                  {bookmark.type === 'placeItem' ? (
+                  {bookmark.type === 'placeItem' && (
                     <>
                       <img
                         src={bookmark.images}
@@ -89,7 +103,8 @@ function BookmarkedPage() {
                         <p className="text-sm font-semibold">{bookmark.name}</p>
                       </div>
                     </>
-                  ) : (
+                  )}
+                  {bookmark.type === 'placeOverlay' && (
                     <>
                       <img
                         src={bookmark.image}
@@ -100,6 +115,18 @@ function BookmarkedPage() {
                         <p className="text-sm font-semibold">
                           {bookmark.place_name}
                         </p>
+                      </div>
+                    </>
+                  )}
+                  {bookmark.type === 'listPlaceOverlay' && (
+                    <>
+                      <img
+                        src={bookmark.images}
+                        alt={bookmark.name}
+                        className="h-36 w-auto rounded-t-xl object-cover"
+                      />
+                      <div className="p-2 text-center">
+                        <p className="text-sm font-semibold">{bookmark.name}</p>
                       </div>
                     </>
                   )}
