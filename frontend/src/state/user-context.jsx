@@ -43,13 +43,14 @@ export function UserProvider({ children }) {
     localStorage.setItem('userInfo', JSON.stringify(updatedUsers));
   };
 
-  const setUserInfo = (data) => {
+  const setUserInfo = (data, newId) => {
     const updatedUsers = users.map((user) =>
-      user.id === data.id ? { ...user, ...data } : user,
+      user.id === currentUser.id ? { ...user, ...data, id: newId } : user,
     );
     setUsers(updatedUsers);
-    setCurrentUser(data);
+    setCurrentUser({ ...data, id: newId });
     localStorage.setItem('userInfo', JSON.stringify(updatedUsers));
+    localStorage.setItem('id', newId);
   };
 
   return (

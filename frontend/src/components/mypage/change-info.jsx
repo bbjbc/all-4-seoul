@@ -28,13 +28,7 @@ function ChangeInfoPage() {
     const newData = { ...currentUser, ...data };
     const newId = data.id;
 
-    setUserInfo((prevUserInfo) => {
-      const updatedInfo = { ...prevUserInfo, ...newData };
-      localStorage.setItem('userInfo', JSON.stringify(updatedInfo));
-      return updatedInfo;
-    });
-
-    localStorage.setItem('id', newId);
+    setUserInfo(newData, newId);
 
     alert('회원정보가 성공적으로 변경되었습니다.');
     navigate('/mypage');
