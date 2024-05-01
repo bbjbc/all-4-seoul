@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useUser } from '../../state/user-context';
 
+import { useUser } from '../../state/user-context';
 import IdInput from '../../components/input/id-input';
 import PasswordInput from '../../components/input/password-input';
 import PasswordConfirmInput from '../../components/input/password-confirm-input';
@@ -12,7 +13,7 @@ import Option from '../../components/input/option';
 import SubmitButton from '../../components/button/submit-button';
 
 function ChangeInfoPage() {
-  const { userInfo, setUserInfo } = useUser();
+  const { currentUser, setUserInfo } = useUser();
   const navigate = useNavigate();
 
   const {
@@ -23,18 +24,18 @@ function ChangeInfoPage() {
     getValues,
   } = useForm({ mode: 'onBlur' });
 
-  useEffect(() => {
-    // 로컬 스토리지에서 사용자 정보를 불러와 userInfo 업데이트
-    const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
-    if (storedUserInfo) {
-      setUserInfo(storedUserInfo);
-    }
-  }, [setUserInfo]);
-
   const onSubmit = (data) => {
-    const newData = { ...userInfo, ...data };
-    setUserInfo(newData);
-    localStorage.setItem('id', JSON.stringify(newData));
+    const newData = { ...currentUser, ...data };
+    const newId = data.id;
+
+    setUserInfo((prevUserInfo) => {
+      const updatedInfo = { ...prevUserInfo, ...newData };
+      localStorage.setItem('userInfo', JSON.stringify(updatedInfo));
+      return updatedInfo;
+    });
+
+    localStorage.setItem('id', newId);
+
     alert('회원정보가 성공적으로 변경되었습니다.');
     navigate('/mypage');
   };
@@ -49,24 +50,24 @@ function ChangeInfoPage() {
           className="mt-6 w-full table-fixed text-lg"
           onSubmit={handleSubmit(onSubmit)}
         >
-          {userInfo && (
+          {currentUser && (
             <>
               <IdInput
                 register={register}
                 errors={errors}
-                defaultValue={userInfo.id}
+                defaultValue={currentUser.id}
                 disabled
               />
               <NameInput
                 register={register}
                 errors={errors}
-                defaultValue={userInfo.name}
+                defaultValue={currentUser.name}
                 disabled
               />
               <PasswordInput
                 register={register}
                 errors={errors}
-                defaultValue={userInfo.password}
+                defaultValue={currentUser.password}
               />
               <PasswordConfirmInput
                 register={register}
@@ -78,13 +79,13 @@ function ChangeInfoPage() {
                 label="Birth"
                 placeholder="생년월일을 입력해주세요."
                 control={control}
-                defaultValue={new Date(userInfo.birth)}
+                defaultValue={new Date(currentUser.birth)}
               />
               <Option
                 label="MBTI"
                 id="mbti"
                 register={register}
-                defaultValue={userInfo.mbti}
+                defaultValue={currentUser.mbti}
               >
                 <option value="ISTJ">ISTJ</option>
                 <option value="ISFJ">ISFJ</option>
@@ -107,7 +108,7 @@ function ChangeInfoPage() {
                 label="Gender"
                 id="gender"
                 register={register}
-                defaultValue={userInfo.gender}
+                defaultValue={currentUser.gender}
               >
                 <option value="male">Male</option>
                 <option value="female">Female</option>

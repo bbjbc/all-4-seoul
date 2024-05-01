@@ -13,7 +13,8 @@ import SubmitButton from '../../components/button/submit-button';
 
 function SignupForm() {
   const navigate = useNavigate();
-  const { setUserInfo } = useUser();
+  const { registerUser, users } = useUser();
+  const usersArray = users || [];
 
   const {
     register,
@@ -24,11 +25,14 @@ function SignupForm() {
   } = useForm({ mode: 'onBlur' });
 
   const onSubmit = (data) => {
-    console.log(data);
-    const storedUserInfo = JSON.parse(localStorage.getItem('userInfo')) || [];
-    const updatedUserInfo = [...storedUserInfo, data];
-    localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
-    setUserInfo(data);
+    const idExists =
+      usersArray.length > 0 && usersArray.some((user) => user.id === data.id);
+    if (idExists) {
+      alert('이미 존재하는 ID입니다. 다른 ID를 선택해주세요.');
+      return;
+    }
+
+    registerUser(data);
     alert('회원가입이 완료되었습니다!');
     navigate('/login');
   };

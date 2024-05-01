@@ -1,19 +1,18 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+
 import { useUser } from '../../state/user-context';
-
 import logo from '../../assets/올포서울로고.jpg';
 import SearchButton from '../button/search-button';
 
 function NavBar() {
-  const { isLoggedIn, setIsLoggedIn } = useUser();
+  const { isLoggedIn, logout } = useUser();
+
   const navigation = useNavigate();
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('id');
+    logout();
     navigation('/home');
   };
 
@@ -65,7 +64,7 @@ function NavBar() {
               <NavLink
                 to="/home"
                 onClick={handleLogout}
-                className="rounded-lgpx-2 flex items-center text-black hover:text-cyan-900"
+                className="flex items-center rounded-lg px-2 text-black hover:text-cyan-900"
               >
                 로그아웃
               </NavLink>
@@ -76,7 +75,7 @@ function NavBar() {
               className={({ isActive }) =>
                 isActive
                   ? 'flex items-center rounded-lg px-2 text-blue-950 hover:text-purple-800'
-                  : 'flex items-center rounded-lg px-2  text-black hover:text-cyan-900'
+                  : 'flex items-center rounded-lg px-2 text-black hover:text-cyan-900'
               }
             >
               로그인

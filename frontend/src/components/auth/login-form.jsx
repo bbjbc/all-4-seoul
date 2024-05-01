@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useUser } from '../../state/user-context';
 
+import { useUser } from '../../state/user-context';
 import Input from '../input/input';
 import SubmitButton from '../button/submit-button';
 
 function LoginForm() {
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useUser();
+  const { login } = useUser();
 
   const {
     register,
@@ -18,18 +18,16 @@ function LoginForm() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     const { id, password } = data;
-    const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const storedUsers = JSON.parse(localStorage.getItem('userInfo')) || [];
 
-    if (storedUserInfo && storedUserInfo.length > 0) {
-      const user = storedUserInfo.find(
+    if (storedUsers && storedUsers.length > 0) {
+      const user = storedUsers.find(
         (user) => user.id === id && user.password === password,
       );
       if (user) {
+        login(id);
         navigate('/home');
-        setIsLoggedIn(true);
-        localStorage.setItem('id', id);
       } else {
         alert('아이디 또는 비밀번호가 일치하지 않습니다.');
       }

@@ -3,9 +3,9 @@ import React from 'react';
 import { useUser } from '../../state/user-context';
 
 function MyInfoPage() {
-  const { userInfo } = useUser();
+  const { currentUser } = useUser();
 
-  const birthDate = userInfo ? new Date(userInfo.birth) : null;
+  const birthDate = currentUser ? new Date(currentUser.birth) : null;
 
   const formatDate = (date) => {
     if (!date) return '';
@@ -21,16 +21,16 @@ function MyInfoPage() {
         <h2 className="my-5 ml-5 text-right text-3xl font-semibold">
           기본 정보
         </h2>
-        {userInfo ? (
+        {currentUser ? (
           <table className="mt-6 w-full table-fixed text-lg">
             <tbody>
               <tr className="border-b">
                 <td className="py-3">ID :</td>
-                <td className="py-3 text-left">{userInfo.id}</td>
+                <td className="py-3 text-left">{currentUser.id}</td>
               </tr>
               <tr className="border-b">
                 <td className="py-3">Name :</td>
-                <td className="py-3 text-left">{userInfo.name}</td>
+                <td className="py-3 text-left">{currentUser.name}</td>
               </tr>
               <tr className="border-b">
                 <td className="py-3">BIRTH :</td>
@@ -38,11 +38,11 @@ function MyInfoPage() {
               </tr>
               <tr className="border-b">
                 <td className="py-3">MBTI :</td>
-                <td className="py-3 text-left">{userInfo.mbti}</td>
+                <td className="py-3 text-left">{currentUser.mbti}</td>
               </tr>
               <tr className="border-b">
                 <td className="py-3">GENDER :</td>
-                <td className="py-3 text-left">{userInfo.gender}</td>
+                <td className="py-3 text-left">{currentUser.gender}</td>
               </tr>
             </tbody>
           </table>
