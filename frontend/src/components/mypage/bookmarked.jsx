@@ -92,7 +92,7 @@ function BookmarkedPage() {
                         : '선택'}
                     </button>
                   )}
-                  {bookmark.type === 'placeItem' ? (
+                  {bookmark.type === 'placeItem' && (
                     <>
                       <img
                         src={bookmark.images}
@@ -103,7 +103,8 @@ function BookmarkedPage() {
                         <p className="text-sm font-semibold">{bookmark.name}</p>
                       </div>
                     </>
-                  ) : (
+                  )}
+                  {bookmark.type === 'placeOverlay' && (
                     <>
                       <img
                         src={bookmark.image}
@@ -114,6 +115,18 @@ function BookmarkedPage() {
                         <p className="text-sm font-semibold">
                           {bookmark.place_name}
                         </p>
+                      </div>
+                    </>
+                  )}
+                  {bookmark.type === 'listPlaceOverlay' && (
+                    <>
+                      <img
+                        src={bookmark.images}
+                        alt={bookmark.name}
+                        className="h-36 w-auto rounded-t-xl object-cover"
+                      />
+                      <div className="p-2 text-center">
+                        <p className="text-sm font-semibold">{bookmark.name}</p>
                       </div>
                     </>
                   )}

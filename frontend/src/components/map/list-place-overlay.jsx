@@ -4,17 +4,48 @@ import propTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
+import { useBookmark } from '../../state/bookmark-context';
 import ModalPortal from '../modal/modal-portal';
 import Modal from '../modal/modal';
+import { FaStar } from 'react-icons/fa';
 
 function ListPlaceOverlay({ place, onClose }) {
+  const { bookmarks, addBookmark, removeBookmark } = useBookmark();
+  const isBookmarked = bookmarks.some(
+    (bookmark) =>
+      bookmark.id === place.NO && bookmark.type === 'listPlaceOverlay',
+  );
+
+  const toggleBookmark = () => {
+    const bookmarkData = {
+      name: place.name,
+      id: place.NO,
+      type: 'listPlaceOverlay',
+      images: place.images,
+    };
+    if (isBookmarked) {
+      removeBookmark(place.NO);
+    } else {
+      addBookmark(bookmarkData);
+    }
+  };
+
   return (
     <ModalPortal>
       <Modal onClose={onClose} height="h-4/5">
         <article className="overflow-y-auto p-5" key={place.NO}>
-          <h1 className="mb-6 text-center font-gmarketbold text-3xl text-gray-800">
-            {place.name}
-          </h1>
+          <div className="mb-6 flex items-center">
+            <FaStar
+              className="z-50 mr-2 cursor-pointer hover:animate-swingandscale"
+              color={`${isBookmarked ? 'yellow' : 'gray'}`}
+              size={40}
+              onClick={toggleBookmark}
+            />
+            <h1 className="text-center font-gmarketbold text-3xl text-gray-800">
+              {place.name}
+            </h1>
+          </div>
+
           <div className="mb-4 space-y-2 rounded-md bg-green-200 px-6 py-5 text-stone-900">
             <div className="text-lg font-bold">{place.category}</div>
             <div className="text-sm">{place.AREA_CD}</div>
