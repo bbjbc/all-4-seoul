@@ -25,8 +25,10 @@ function SignupForm() {
 
   const onSubmit = (data) => {
     console.log(data);
+    const storedUserInfo = JSON.parse(localStorage.getItem('userInfo')) || [];
+    const updatedUserInfo = [...storedUserInfo, data];
+    localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
     setUserInfo(data);
-    localStorage.setItem('userInfo', JSON.stringify(data));
     alert('회원가입이 완료되었습니다!');
     navigate('/login');
   };

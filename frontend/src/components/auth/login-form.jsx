@@ -21,14 +21,20 @@ function LoginForm() {
     console.log(data);
     const { id, password } = data;
     const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const storedId = storedUserInfo ? storedUserInfo.id : null;
-    const storedPassword = storedUserInfo ? storedUserInfo.password : null;
-    if (id === storedId && password === storedPassword) {
-      navigate('/home');
-      setIsLoggedIn(true);
-      localStorage.setItem('id', id);
+
+    if (storedUserInfo && storedUserInfo.length > 0) {
+      const user = storedUserInfo.find(
+        (user) => user.id === id && user.password === password,
+      );
+      if (user) {
+        navigate('/home');
+        setIsLoggedIn(true);
+        localStorage.setItem('id', id);
+      } else {
+        alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+      }
     } else {
-      alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+      alert('가입된 회원이 아닙니다.');
     }
   };
 

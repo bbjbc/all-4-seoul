@@ -1,12 +1,12 @@
 import React from 'react';
 
+import { useUser } from '../../state/user-context';
+
 function MyInfoPage() {
-  const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+  const { userInfo } = useUser();
 
-  // 생일을 날짜 객체로 변환
-  const birthDate = storedUserInfo ? new Date(storedUserInfo.birth) : null;
+  const birthDate = userInfo ? new Date(userInfo.birth) : null;
 
-  // 날짜 객체를 "년-월-일" 형식으로 변환
   const formatDate = (date) => {
     if (!date) return '';
     const year = date.getFullYear();
@@ -21,16 +21,16 @@ function MyInfoPage() {
         <h2 className="my-5 ml-5 text-right text-3xl font-semibold">
           기본 정보
         </h2>
-        {storedUserInfo ? (
+        {userInfo ? (
           <table className="mt-6 w-full table-fixed text-lg">
             <tbody>
               <tr className="border-b">
                 <td className="py-3">ID :</td>
-                <td className="py-3 text-left">{storedUserInfo.id}</td>
+                <td className="py-3 text-left">{userInfo.id}</td>
               </tr>
               <tr className="border-b">
                 <td className="py-3">Name :</td>
-                <td className="py-3 text-left">{storedUserInfo.name}</td>
+                <td className="py-3 text-left">{userInfo.name}</td>
               </tr>
               <tr className="border-b">
                 <td className="py-3">BIRTH :</td>
@@ -38,11 +38,11 @@ function MyInfoPage() {
               </tr>
               <tr className="border-b">
                 <td className="py-3">MBTI :</td>
-                <td className="py-3 text-left">{storedUserInfo.mbti}</td>
+                <td className="py-3 text-left">{userInfo.mbti}</td>
               </tr>
               <tr className="border-b">
                 <td className="py-3">GENDER :</td>
-                <td className="py-3 text-left">{storedUserInfo.gender}</td>
+                <td className="py-3 text-left">{userInfo.gender}</td>
               </tr>
             </tbody>
           </table>
