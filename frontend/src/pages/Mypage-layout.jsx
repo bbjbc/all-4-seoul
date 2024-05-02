@@ -11,7 +11,8 @@ function MyPageLayout() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    const storedId = localStorage.getItem('id');
+    if (!isLoggedIn && !storedId) {
       navigate('/login');
     }
   }, [isLoggedIn, navigate]);
