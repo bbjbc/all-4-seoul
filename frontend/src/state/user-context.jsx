@@ -1,4 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+
+import Swal from 'sweetalert2';
+
 import PropTypes from 'prop-types';
 
 const UserContext = createContext();
@@ -38,9 +41,21 @@ export function UserProvider({ children }) {
   };
 
   const registerUser = (userData) => {
+    const idExists = users.some((user) => user.id === userData.id);
+
+    if (idExists) {
+      Swal.fire({
+        icon: 'error',
+        title: '회원가입 실패',
+        text: '이미 존재하는 아이디입니다.',
+      });
+      return;
+    }
+
     const updatedUsers = [...users, userData];
     setUsers(updatedUsers);
     localStorage.setItem('userInfo', JSON.stringify(updatedUsers));
+    return true;
   };
 
   const setUserInfo = (data, newId) => {

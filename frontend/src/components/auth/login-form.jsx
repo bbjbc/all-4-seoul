@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 import { useUser } from '../../state/user-context';
 import Input from '../input/input';
@@ -29,10 +30,20 @@ function LoginForm() {
         login(id);
         navigate('/home');
       } else {
-        alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+        Swal.fire({
+          icon: 'error',
+          title: '로그인 실패',
+          text: '아이디 또는 비밀번호가 일치하지 않습니다.',
+          confirmButtonText: '확인',
+        });
       }
     } else {
-      alert('가입된 회원이 아닙니다.');
+      Swal.fire({
+        icon: 'error',
+        title: '로그인 실패',
+        text: '가입된 회원이 아닙니다.',
+        confirmButtonText: '확인',
+      });
     }
   };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useUser } from '../../state/user-context';
+import Swal from 'sweetalert2';
 
 import IdInput from '../../components/input/id-input';
 import PasswordInput from '../../components/input/password-input';
@@ -13,8 +14,7 @@ import SubmitButton from '../../components/button/submit-button';
 
 function SignupForm() {
   const navigate = useNavigate();
-  const { registerUser, users } = useUser();
-  const usersArray = users || [];
+  const { registerUser } = useUser();
 
   const {
     register,
@@ -24,17 +24,20 @@ function SignupForm() {
     getValues,
   } = useForm({ mode: 'onBlur' });
 
-  const onSubmit = (data) => {
-    const idExists =
-      usersArray.length > 0 && usersArray.some((user) => user.id === data.id);
-    if (idExists) {
-      alert('이미 존재하는 ID입니다. 다른 ID를 선택해주세요.');
-      return;
-    }
+  const onSubmit = async (data) => {
+    const registrationSuccess = await registerUser(data);
 
-    registerUser(data);
-    alert('회원가입이 완료되었습니다!');
-    navigate('/login');
+    if (registrationSuccess) {
+      Swal.fire({
+        icon: 'success',
+        title: '회원가입이 완료되었습니다!',
+        text: '로그인 페이지로 이동합니다.',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/login');
+        }
+      });
+    }
   };
 
   return (
