@@ -8,16 +8,18 @@ function MyPageButton({ to, children }) {
   const isActive = location.pathname === to;
 
   return (
-    <div className="flex items-center justify-center space-x-3">
+    <div className="mb-2">
       <NavLink
         to={to}
         className={
           isActive
-            ? 'flex scale-105 rounded-lg bg-emerald-400 px-14 py-2 text-black'
-            : 'flex transform rounded-lg bg-white px-14 py-2 text-stone-500 transition duration-300 ease-in-out hover:scale-105 hover:bg-emerald-200 hover:text-black'
+            ? 'flex items-center rounded-lg bg-orange-50 px-4 py-2 text-lg font-extrabold transition duration-300 hover:bg-gray-100'
+            : 'flex items-center rounded-lg bg-white px-4 py-2 text-lg transition duration-300 hover:bg-gray-100'
         }
       >
-        {children}
+        <span className={isActive ? 'border-b-4 border-yellow-400' : undefined}>
+          {children}
+        </span>
       </NavLink>
     </div>
   );

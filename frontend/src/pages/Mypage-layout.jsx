@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
-
 import { Outlet, useNavigate } from 'react-router-dom';
-
 import { useUser } from '../state/user-context';
 import MyPageNav from '../components/mypage/mypage-nav';
 import BackgroundLayout from '../components/mypage/background-layout';
 
 function MyPageLayout() {
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn, currentUser } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,9 +22,17 @@ function MyPageLayout() {
   return (
     <>
       <BackgroundLayout>
-        <div className="mb-6 mt-20 w-1/2">
-          <MyPageNav />
-          <Outlet />
+        <div className="flex h-screen w-full items-center justify-center">
+          <div className="mx-auto w-full max-w-screen-xl">
+            <div className="mt-4 flex h-[500px] items-center justify-center px-4 sm:px-6 lg:px-8">
+              <div className="w-2/6 p-4">
+                <MyPageNav username={currentUser.name} />
+              </div>
+              <div className="w-4/6 p-4">
+                <Outlet />
+              </div>
+            </div>
+          </div>
         </div>
       </BackgroundLayout>
     </>
