@@ -17,35 +17,38 @@ function MyInfoPage() {
 
   return (
     <div className="relative z-10 flex w-full animate-slidein flex-col items-center justify-center">
-      <div className="my-10 flex h-[500px] w-full flex-col items-center justify-start overflow-y-auto rounded-xl bg-white py-4 shadow-lg">
-        <h2 className="my-5 ml-5 text-right text-3xl font-semibold">
-          기본 정보
-        </h2>
+      <div className="my-10 flex h-[500px] w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-lg">
         {currentUser ? (
-          <table className="mt-6 w-full table-fixed text-lg">
-            <tbody>
-              <tr className="border-b">
-                <td className="py-3">ID :</td>
-                <td className="py-3 text-left">{currentUser.id}</td>
-              </tr>
-              <tr className="border-b">
-                <td className="py-3">Name :</td>
-                <td className="py-3 text-left">{currentUser.name}</td>
-              </tr>
-              <tr className="border-b">
-                <td className="py-3">BIRTH :</td>
-                <td className="py-3 text-left">{formatDate(birthDate)}</td>
-              </tr>
-              <tr className="border-b">
-                <td className="py-3">MBTI :</td>
-                <td className="py-3 text-left">{currentUser.mbti}</td>
-              </tr>
-              <tr className="border-b">
-                <td className="py-3">GENDER :</td>
-                <td className="py-3 text-left">{currentUser.gender}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="w-full rounded-xl border p-4 shadow-lg">
+            <h3 className="text-left text-gray-500">기본정보</h3>
+            <ul className="text-left">
+              <li className="flex items-center border-gray-200 py-2">
+                <img
+                  className="mr-4 rounded-full"
+                  src="https://phinf.pstatic.net/contact/20191213_151/1576231006104cC7Kd_JPEG/KakaoTalk_20191105_193719253.jpg?type=s160"
+                  width="56"
+                  height="56"
+                  alt="내 프로필 이미지"
+                />
+                <div className="flex flex-col">
+                  <div className="font-bold">{currentUser.name}</div>
+                  <div className="text-sm text-gray-500">{currentUser.id}</div>
+                </div>
+              </li>
+              <li className="flex items-center border-t border-gray-200 py-4">
+                <span className="mx-4 text-gray-500">생일 :</span>
+                <span className="text-gray-500">{formatDate(birthDate)}</span>
+              </li>
+              <li className="flex items-center border-t border-gray-200 py-4">
+                <span className="mx-4 text-gray-500">MBTI :</span>
+                <span className="text-gray-500">{currentUser.mbti}</span>
+              </li>
+              <li className="flex items-center border-t border-gray-200 py-4">
+                <span className="mx-4 text-gray-500">성별 :</span>
+                <span className="text-gray-500">{currentUser.gender}</span>
+              </li>
+            </ul>
+          </div>
         ) : (
           <p className="text-lg">로그인이 필요합니다.</p>
         )}
