@@ -1,5 +1,7 @@
 import React from 'react';
 
+import axios from 'axios';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
@@ -20,31 +22,26 @@ function LoginForm() {
 
   const onSubmit = (data) => {
     const { id, password } = data;
-    const storedUsers = JSON.parse(localStorage.getItem('userInfo')) || [];
 
-    if (storedUsers && storedUsers.length > 0) {
-      const user = storedUsers.find(
-        (user) => user.id === id && user.password === password,
-      );
-      if (user) {
+    axios
+      .post('http://localhost:8080/api/login', {
+        loginId: id,
+        loginPassword: password,
+      })
+      .then((response) => {
+        console.log(response);
         login(id);
         navigate('/home');
-      } else {
+      })
+      .catch(() => {
+        console.error('어림도없지');
         Swal.fire({
           icon: 'error',
           title: '로그인 실패',
           text: '아이디 또는 비밀번호가 일치하지 않습니다.',
           confirmButtonText: '확인',
         });
-      }
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: '로그인 실패',
-        text: '가입된 회원이 아닙니다.',
-        confirmButtonText: '확인',
       });
-    }
   };
 
   return (
