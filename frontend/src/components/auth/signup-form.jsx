@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useUser } from '../../state/user-context';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 import IdInput from '../../components/input/id-input';
 import PasswordInput from '../../components/input/password-input';
@@ -11,10 +12,10 @@ import NameInput from '../../components/input/name-input';
 import DateInput from '../../components/input/date-input';
 import Option from '../../components/input/option';
 import SubmitButton from '../../components/button/submit-button';
+import NicknameInput from '../input/nickname-input';
 
 function SignupForm() {
   const navigate = useNavigate();
-  const { registerUser } = useUser();
 
   const {
     register,
@@ -25,19 +26,38 @@ function SignupForm() {
   } = useForm({ mode: 'onBlur' });
 
   const onSubmit = async (data) => {
-    const registrationSuccess = await registerUser(data);
-
-    if (registrationSuccess) {
-      Swal.fire({
-        icon: 'success',
-        title: '회원가입이 완료되었습니다!',
-        text: '로그인 페이지로 이동합니다.',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate('/login');
-        }
+    const { id, password, name, birth, mbti, gender, nickname } = data;
+    axios
+      .post('http://localhost:8080/users', {
+        loginId: id,
+        loginPassword: password,
+        username: name,
+        birth: birth,
+        mbti: mbti,
+        gender: gender,
+        nickname: nickname,
+      })
+      .then((response) => {
+        console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: '회원가입이 완료되었습니다!',
+          text: '로그인 페이지로 이동합니다.',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/login');
+          }
+        });
+      })
+      .catch(() => {
+        console.error('어림도없지');
+        Swal.fire({
+          icon: 'error',
+          title: '회원가입 실패',
+          text: '이미 존재하는 아이디입니다.',
+          confirmButtonText: '확인',
+        });
       });
-    }
   };
 
   return (
@@ -54,6 +74,7 @@ function SignupForm() {
         getValues={getValues}
       />
       <NameInput register={register} errors={errors} />
+      <NicknameInput register={register} errors={errors} />
       <DateInput
         id="birth"
         label="Birth"
@@ -80,8 +101,8 @@ function SignupForm() {
         <option value="ENTJ">ENTJ</option>
       </Option>
       <Option label="Gender" id="gender" register={register}>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
       </Option>
 
       <p className="p-3">
