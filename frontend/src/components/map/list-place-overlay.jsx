@@ -9,6 +9,7 @@ import { useBookmark } from '../../state/bookmark-context';
 import ModalPortal from '../modal/modal-portal';
 import Modal from '../modal/modal';
 import { FaStar } from 'react-icons/fa';
+import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 
 function ListPlaceOverlay({ place, onClose }) {
   const navigation = useNavigate();
@@ -17,11 +18,10 @@ function ListPlaceOverlay({ place, onClose }) {
     (bookmark) =>
       bookmark.id === place.NO && bookmark.type === 'listPlaceOverlay',
   );
-
-  const isLoggedIn = () => !!localStorage.getItem('id');
+  const { isLoggedIn } = useAuthWithCookies();
 
   const toggleBookmark = () => {
-    if (!isLoggedIn()) {
+    if (!isLoggedIn) {
       Swal.fire({
         title: '로그인 후 이용해주세요!',
         text: '북마크를 사용하려면 로그인이 필요합니다.',

@@ -12,6 +12,7 @@ import { SlLocationPin } from 'react-icons/sl';
 import { GrPhone } from 'react-icons/gr';
 import { GiRoad } from 'react-icons/gi';
 import { FaStar } from 'react-icons/fa';
+import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 
 function PlaceOverlay({ place, onClose }) {
   const navigation = useNavigate();
@@ -19,11 +20,10 @@ function PlaceOverlay({ place, onClose }) {
   const isBookmarked = bookmarks.some(
     (bookmark) => bookmark.id === place.id && bookmark.type === 'placeOverlay',
   );
-
-  const isLoggedIn = () => !!localStorage.getItem('id');
+  const { isLoggedIn } = useAuthWithCookies();
 
   const toggleBookmark = () => {
-    if (!isLoggedIn()) {
+    if (!isLoggedIn) {
       Swal.fire({
         title: '로그인 후 이용해주세요!',
         text: '북마크를 사용하려면 로그인이 필요합니다.',
