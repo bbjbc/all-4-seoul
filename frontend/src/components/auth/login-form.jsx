@@ -1,8 +1,11 @@
 import React from 'react';
+
 import axios from 'axios';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+
 import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 import Input from '../input/input';
 import SubmitButton from '../button/submit-button';
@@ -31,17 +34,10 @@ function LoginForm() {
           withCredentials: true,
         },
       );
-
-      if (response.status === 202) {
-        const cookieString = response.headers['Set-Cookie'];
-        console.log(cookieString);
-        const cookiesArray = cookieString.split(';');
-        const sessionId = cookiesArray[0].split('=')[1];
-        login(sessionId);
-        navigate('/home');
-      } else {
-        throw new Error('로그인 실패');
-      }
+      console.log(response);
+      const cookieString = document.cookie;
+      login(cookieString);
+      navigate('/home');
     } catch (error) {
       console.error('로그인 실패', error);
       Swal.fire({
