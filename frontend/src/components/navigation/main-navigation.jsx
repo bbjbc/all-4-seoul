@@ -1,5 +1,7 @@
 import React from 'react';
 
+import axios from 'axios';
+
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
@@ -13,7 +15,15 @@ function NavBar() {
 
   const handleLogout = () => {
     logout();
-    navigation('/home');
+    axios
+      .post('http://localhost:8080/api/logout')
+      .then((response) => {
+        console.log(response);
+        navigation('/home');
+      })
+      .catch((error) => {
+        console.error('로그아웃 실패', error);
+      });
   };
 
   return (

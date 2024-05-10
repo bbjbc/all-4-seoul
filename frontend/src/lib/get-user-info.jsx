@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 export async function getUserInfo(userId) {
-  const authToken = document.cookie
+  const sessionId = document.cookie
     .split('; ')
-    .find((row) => row.startsWith('authToken='));
-  if (!authToken) {
+    .find((row) => row.startsWith('sessionId='));
+  if (!sessionId) {
     return null;
   }
 
   try {
     const response = await axios.get(`http://localhost:8080/users/${userId}`, {
       headers: {
-        Authorization: `Bearer ${authToken.split('=')[1]}`,
+        Authorization: `Bearer ${sessionId.split('=')[1]}`,
       },
     });
     return response.data;

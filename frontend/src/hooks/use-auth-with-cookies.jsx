@@ -1,16 +1,16 @@
 import { useCookies } from 'react-cookie';
 
 export function useAuthWithCookies() {
-  const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
+  const [cookies, setCookie, removeCookie] = useCookies(['sessionId']);
 
-  const isLoggedIn = !!cookies.authToken;
+  const isLoggedIn = !!cookies.sessionId;
 
   const login = (token) => {
-    setCookie('authToken', token);
+    setCookie('sessionId', token);
   };
 
   const logout = () => {
-    removeCookie('authToken');
+    removeCookie('sessionId');
   };
 
   return { isLoggedIn, login, logout };
