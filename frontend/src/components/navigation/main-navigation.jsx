@@ -2,12 +2,12 @@ import React from 'react';
 
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { useUser } from '../../state/user-context';
+import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 import logo from '../../assets/올포서울로고.jpg';
 import SearchButton from '../button/search-button';
 
 function NavBar() {
-  const { isLoggedIn, logout } = useUser();
+  const { isLoggedIn, logout } = useAuthWithCookies();
 
   const navigation = useNavigate();
 

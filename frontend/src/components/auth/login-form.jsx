@@ -6,13 +6,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 
-import { useUser } from '../../state/user-context';
+import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 import Input from '../input/input';
 import SubmitButton from '../button/submit-button';
 
 function LoginForm() {
   const navigate = useNavigate();
-  const { login } = useUser();
+  const { login } = useAuthWithCookies();
 
   const {
     register,

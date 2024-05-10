@@ -6,21 +6,21 @@ import Swal from 'sweetalert2';
 import propTypes from 'prop-types';
 import { FaStar } from 'react-icons/fa';
 import { useBookmark } from '../../state/bookmark-context';
+import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 
 function PlaceItem({ id, name, category, images }) {
   const navigation = useNavigate();
   const [showBookmarkMessage, setShowBookmarkMessage] = useState(false);
   const { bookmarks, addBookmark, removeBookmark } = useBookmark();
+  const { isLoggedIn } = useAuthWithCookies();
 
   const handleClick = () => {
     const encodedName = encodeURIComponent(name);
     navigation(`/list/${encodedName}`);
   };
 
-  const isLoggedIn = () => !!localStorage.getItem('id');
-
   const toggleBookmark = () => {
-    if (!isLoggedIn()) {
+    if (!isLoggedIn) {
       Swal.fire({
         title: '로그인 후 이용해주세요!',
         text: '북마크를 사용하려면 로그인이 필요합니다.',

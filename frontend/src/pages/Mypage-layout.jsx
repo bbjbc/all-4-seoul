@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
+
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useUser } from '../state/user-context';
+
+import { useAuthWithCookies } from '../hooks/use-auth-with-cookies';
 import MyPageNav from '../components/mypage/mypage-nav';
 import BackgroundLayout from '../components/mypage/background-layout';
 
 function MyPageLayout() {
-  const { isLoggedIn, currentUser } = useUser();
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthWithCookies();
 
   useEffect(() => {
-    const storedId = localStorage.getItem('id');
-    if (!isLoggedIn && !storedId) {
+    if (!isLoggedIn) {
       navigate('/login');
     }
   }, [isLoggedIn, navigate]);
@@ -26,7 +27,7 @@ function MyPageLayout() {
           <div className="mx-auto w-full max-w-screen-xl">
             <div className="mt-4 flex h-[500px] items-center justify-center px-4 sm:px-6 lg:px-8">
               <div className="w-2/6 p-4">
-                <MyPageNav username={currentUser.name} />
+                <MyPageNav />
               </div>
               <div className="w-4/6 p-4">
                 <Outlet />
