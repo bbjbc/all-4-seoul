@@ -1,18 +1,16 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
-
 import { FaUserCircle } from 'react-icons/fa';
 import MyPageButton from './mypage-button';
 import MypagePhrase from './mypage-phrase';
 
-function MyPageNav({ username }) {
+function MyPageNav() {
   return (
     <>
       <main className="relative z-10 rounded-lg bg-white p-4 py-10 shadow-2xl">
         <div className="mb-4 flex flex-col items-center gap-4">
           <FaUserCircle className="mr-2 text-3xl" size={70} />
-          <div className="font-gmarketbold text-xl">{username}</div>
+          <div className="font-gmarketbold text-xl">피어나</div>
         </div>
         <div className="relative z-10 mb-6">
           <MyPageButton to="/mypage">내 정보</MyPageButton>
@@ -30,9 +28,5 @@ function MyPageNav({ username }) {
     </>
   );
 }
-
-MyPageNav.propTypes = {
-  username: PropTypes.string.isRequired,
-};
 
 export default MyPageNav;

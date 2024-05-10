@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { useUser } from '../../state/user-context';
+import { getUserInfo } from '../../lib/get-user-info';
 
 function MyInfoPage() {
-  const { currentUser } = useUser();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const userId = '1';
+
+  useEffect(() => {
+    async function fetchUserInfo() {
+      const userInfo = await getUserInfo(userId);
+      setCurrentUser(userInfo);
+    }
+    fetchUserInfo();
+  }, []);
 
   const birthDate = currentUser ? new Date(currentUser.birth) : null;
 
@@ -17,10 +27,10 @@ function MyInfoPage() {
 
   return (
     <div className="relative z-10 flex w-full animate-slidein flex-col items-center justify-center">
-      <div className="my-10 flex h-[500px] w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-lg">
+      <div className="my-10 flex h-auto w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-lg">
         {currentUser ? (
-          <div className="w-full rounded-xl border p-4 shadow-lg">
-            <h3 className="text-left text-gray-500">기본정보</h3>
+          <div className="w-full rounded-xl p-4 shadow-lg">
+            <h3 className="text-left font-gmarketbold text-xl">기본정보</h3>
             <ul className="text-left">
               <li className="flex items-center border-gray-200 py-2">
                 <img
@@ -31,21 +41,31 @@ function MyInfoPage() {
                   alt="내 프로필 이미지"
                 />
                 <div className="flex flex-col">
-                  <div className="font-bold">{currentUser.name}</div>
-                  <div className="text-sm text-gray-500">{currentUser.id}</div>
+                  <div className="font-bold">{currentUser.userName}</div>
+                  <div className="text-sm text-gray-500">
+                    {currentUser.loginId}
+                  </div>
                 </div>
               </li>
               <li className="flex items-center border-t border-gray-200 py-4">
-                <span className="mx-4 text-gray-500">생일 :</span>
-                <span className="text-gray-500">{formatDate(birthDate)}</span>
+                <span className="mx-4">이름 :</span>
+                <span>{currentUser.userName}</span>
               </li>
               <li className="flex items-center border-t border-gray-200 py-4">
-                <span className="mx-4 text-gray-500">MBTI :</span>
-                <span className="text-gray-500">{currentUser.mbti}</span>
+                <span className="mx-4">생일 :</span>
+                <span>{formatDate(birthDate)}</span>
               </li>
               <li className="flex items-center border-t border-gray-200 py-4">
-                <span className="mx-4 text-gray-500">성별 :</span>
-                <span className="text-gray-500">{currentUser.gender}</span>
+                <span className="mx-4">MBTI :</span>
+                <span>{currentUser.mbti}</span>
+              </li>
+              <li className="flex items-center border-t border-gray-200 py-4">
+                <span className="mx-4">성별 :</span>
+                <span>{currentUser.gender}</span>
+              </li>
+              <li className="flex items-center border-t border-gray-200 py-4">
+                <span className="mx-4">별명 :</span>
+                <span>{currentUser.nickname}</span>
               </li>
             </ul>
           </div>
