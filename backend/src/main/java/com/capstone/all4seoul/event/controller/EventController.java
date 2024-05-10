@@ -5,6 +5,7 @@ import com.capstone.all4seoul.event.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/events")
 public class EventController {
 
     private final EventService eventService;
@@ -20,7 +22,7 @@ public class EventController {
     /**
      * 이벤트 단건 조회
      */
-    @GetMapping("/events/{eventId}")
+    @GetMapping("/{eventId}")
     public DetailEventResponse listDetailEvent(@PathVariable Long eventId) {
         return eventService.findById(eventId);
     }
@@ -28,7 +30,7 @@ public class EventController {
     /**
      * 이벤트 전체 조회
      */
-    @GetMapping("/events")
+    @GetMapping("")
     public List<DetailEventResponse> listAllEvents() {
         return eventService.findAll();
     }
@@ -36,7 +38,7 @@ public class EventController {
     /**
      * 특정 기간 내 이벤트 목록 조회
      */
-    @GetMapping("/events/period")
+    @GetMapping("/period")
     public List<DetailEventResponse> listEventsByPeriod(
             @RequestParam LocalDateTime startDateTime,
             @RequestParam LocalDateTime endDateTime
@@ -47,7 +49,7 @@ public class EventController {
     /**
      * 특정 좌표 기준 반경 내 이벤트 목록 조회
      */
-    @GetMapping("/events/location")
+    @GetMapping("/location")
     public List<DetailEventResponse> listEventsByLocation(
             @RequestParam Double x,
             @RequestParam Double y,
