@@ -1,13 +1,9 @@
 import React from 'react';
-
 import axios from 'axios';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
-
 import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
-// import { useUser } from '../../state/user-context';
 import Input from '../input/input';
 import SubmitButton from '../button/submit-button';
 
@@ -21,28 +17,40 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { id, password } = data;
 
-    axios
-      .post('http://localhost:8080/api/login', {
-        loginId: id,
-        loginPassword: password,
-      })
-      .then((response) => {
-        console.log(response);
-        login(id);
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/api/login',
+        {
+          loginId: id,
+          loginPassword: password,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      if (response.status === 202) {
+        const cookieString = response.headers['Set-Cookie'];
+        console.log(cookieString);
+        const cookiesArray = cookieString.split(';');
+        const sessionId = cookiesArray[0].split('=')[1];
+        login(sessionId);
         navigate('/home');
-      })
-      .catch(() => {
-        console.error('어림도없지');
-        Swal.fire({
-          icon: 'error',
-          title: '로그인 실패',
-          text: '아이디 또는 비밀번호가 일치하지 않습니다.',
-          confirmButtonText: '확인',
-        });
+      } else {
+        throw new Error('로그인 실패');
+      }
+    } catch (error) {
+      console.error('로그인 실패', error);
+      Swal.fire({
+        icon: 'error',
+        title: '로그인 실패',
+        text: '아이디 또는 비밀번호가 일치하지 않습니다.',
+        confirmButtonText: '확인',
       });
+    }
   };
 
   return (

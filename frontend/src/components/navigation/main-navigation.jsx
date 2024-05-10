@@ -1,24 +1,22 @@
 import React from 'react';
-
 import axios from 'axios';
-
 import { NavLink, useNavigate } from 'react-router-dom';
-
-import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 import logo from '../../assets/올포서울로고.jpg';
 import SearchButton from '../button/search-button';
+import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 
 function NavBar() {
   const { isLoggedIn, logout } = useAuthWithCookies();
-
   const navigation = useNavigate();
 
   const handleLogout = () => {
-    logout();
     axios
-      .post('http://localhost:8080/api/logout')
+      .post('http://localhost:8080/api/logout', null, {
+        withCredentials: true,
+      })
       .then((response) => {
         console.log(response);
+        logout();
         navigation('/home');
       })
       .catch((error) => {
@@ -71,13 +69,12 @@ function NavBar() {
               >
                 마이페이지
               </NavLink>
-              <NavLink
-                to="/home"
+              <button
                 onClick={handleLogout}
                 className="flex items-center rounded-lg px-2 text-black hover:text-cyan-900"
               >
                 로그아웃
-              </NavLink>
+              </button>
             </>
           ) : (
             <NavLink
