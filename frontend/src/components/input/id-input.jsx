@@ -2,7 +2,7 @@ import React from 'react';
 
 import propTypes from 'prop-types';
 
-function IdInput({ register, errors }) {
+function IdInput({ register, errors, disabled }) {
   return (
     <div className="mb-6">
       <label
@@ -21,6 +21,7 @@ function IdInput({ register, errors }) {
           minLength: { value: 5, message: '아이디는 5자 이상이어야 합니다.' },
           maxLength: { value: 20, message: '아이디는 20자가 최대입니다.' },
         })}
+        disabled={disabled}
       />
       {errors.id && (
         <p className="mt-3 text-xs text-red-500">{errors.id.message}</p>
@@ -32,6 +33,7 @@ function IdInput({ register, errors }) {
 IdInput.propTypes = {
   register: propTypes.func.isRequired,
   errors: propTypes.object.isRequired,
+  disabled: propTypes.bool,
 };
 
 export default IdInput;
