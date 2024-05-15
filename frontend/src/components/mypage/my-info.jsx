@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getUserInfo } from '../../lib/get-user-info'; // Importing getUserInfo function
+
+import { getUserInfo } from '../../lib/get-user-info';
 
 function MyInfoPage() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -7,7 +8,7 @@ function MyInfoPage() {
   useEffect(() => {
     async function fetchUserInfo() {
       try {
-        const userInfo = await getUserInfo(); // getUserInfo 함수를 사용하여 사용자 정보를 가져옵니다.
+        const userInfo = await getUserInfo();
         setCurrentUser(userInfo);
       } catch (error) {
         console.error('사용자 정보를 가져오는 데 실패했습니다.', error);
