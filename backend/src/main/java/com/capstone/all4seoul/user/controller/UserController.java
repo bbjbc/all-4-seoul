@@ -8,6 +8,7 @@ import com.capstone.all4seoul.user.dto.request.JoinUserRequest;
 import com.capstone.all4seoul.user.dto.request.UpdateUserRequest;
 import com.capstone.all4seoul.user.dto.response.DetailUserResponse;
 import com.capstone.all4seoul.user.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -114,12 +115,30 @@ public class UserController {
     /**
      * 북마크한 장소 목록 조회
      */
+//    @GetMapping("/users/bookmarks")
+//    public List<DetailPlaceResponse> findBookmarkedPlaces(@RequestBody FindBookmarkedPlacesRequest request) {
+//        User user = userService.findById(request.getUserId());
+//
+//        return userService.findBookmarkedPlaces(user);
+//    }
     @GetMapping("/users/bookmarks")
-    public List<DetailPlaceResponse> findBookmarkedPlaces(@RequestBody FindBookmarkedPlacesRequest request) {
-        User user = userService.findById(request.getUserId());
+    public ResponseEntity<List<DetailPlaceResponse>> findBookmarkedPlaces(HttpServletRequest request) {
+        // 세션에서 userId 추출
+        Long userId = (Long) request.getSession().getAttribute("userId");
 
-        return userService.findBookmarkedPlaces(user);
+        // userId를 사용하여 북마크된 장소 목록 조회
+        User user = userService.findById(userId);
+        List<DetailPlaceResponse> bookmarkedPlaces = userService.findBookmarkedPlaces(user);
+
+        // 북마크된 장소 목록이 비어있는 경우
+        if (bookmarkedPlaces.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        // 북마크된 장소 목록을 ResponseEntity의 body에 설정하여 반환
+        return ResponseEntity.ok(bookmarkedPlaces);
     }
+
 
     /**
      * 북마크 제거
