@@ -49,7 +49,7 @@ function ChangeInfoPage() {
 
   const onSubmit = async (data) => {
     try {
-      await patchUserInfo(data, 'dsadsadasd');
+      await patchUserInfo(data);
 
       Swal.fire({
         icon: 'success',
