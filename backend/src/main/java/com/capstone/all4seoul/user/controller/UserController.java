@@ -39,6 +39,7 @@ public class UserController {
         return ResponseEntity.created(URI.create("users/" + userId)).build();
     }
 
+    // 프론트 -> 백 회원정보 요청
     @GetMapping("/user-info")
     public ResponseEntity<DetailUserResponse> getUserInfo(HttpSession session) {
         Long userId = (Long) session.getAttribute("userId");
@@ -58,7 +59,6 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
-
 
     /**
      * 사용자 단건 조회
@@ -86,6 +86,20 @@ public class UserController {
 
         return ResponseEntity.noContent().build();
     }
+
+    // 프론트 -> 백 회원수정 요청
+    @PatchMapping("/user-info")
+    public ResponseEntity<Object> updateUser(HttpSession session, @RequestBody UpdateUserRequest request) {
+        Long userId = (Long) session.getAttribute("userId");
+
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        userService.updateUser(userId, request);
+        return ResponseEntity.noContent().build();
+    }
+
 
     /**
      * 북마크 추가
