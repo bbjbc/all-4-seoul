@@ -7,7 +7,7 @@ export async function patchUserInfo(data) {
       data,
       {
         withCredentials: true, // 쿠키를 자동으로 포함하여 요청합니다.
-      }
+      },
     );
     return response.data;
   } catch (error) {
