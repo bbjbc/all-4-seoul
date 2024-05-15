@@ -24,7 +24,10 @@ VALUES (1, 'Place One', '01012345678', '광교산로 뭐시기', 127.002, 37.002
 INSERT INTO bookmarks (user_id, place_id)
 VALUES (1, 1),
        (1, 2),
-       (2, 1);
+       (2, 1),
+       (4, 1),
+       (4, 2);
+
 
 -- events 테이블에 더미 데이터 추가
 INSERT INTO events (event_id, name, start_date, end_date, price, place_id, x, y)
