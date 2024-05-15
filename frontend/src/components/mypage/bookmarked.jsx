@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
-
 import Swal from 'sweetalert2';
-
 import { useBookmark } from '../../state/bookmark-context';
 import { FaTrashAlt } from 'react-icons/fa';
+import { getUserBookmarksInfo } from '../../lib/get-user-bookmarks-info';
 
 function BookmarkedPage() {
-  const { bookmarks, removeBookmark } = useBookmark();
+  const { removeBookmark } = useBookmark();
+  const [bookmarks, setBookmarks] = useState([]);
   const [selectedBookmarks, setSelectedBookmarks] = useState([]);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
 
   useEffect(() => {
-    if (!isDeleteMode) {
-      setSelectedBookmarks([]);
+    fetchBookmarks();
+  }, []);
+
+  const fetchBookmarks = async () => {
+    const data = await getUserBookmarksInfo();
+    if (data) {
+      setBookmarks(data);
     }
-  }, [isDeleteMode]);
+  };
 
   const toggleSelectedBookmark = (id) => {
     setSelectedBookmarks((prevSelectedBookmarks) => {
@@ -93,32 +98,6 @@ function BookmarkedPage() {
                     </button>
                   )}
                   {bookmark.type === 'placeItem' && (
-                    <>
-                      <img
-                        src={bookmark.images}
-                        alt={bookmark.name}
-                        className="h-36 w-auto rounded-t-xl object-cover"
-                      />
-                      <div className="p-2 text-center">
-                        <p className="text-sm font-semibold">{bookmark.name}</p>
-                      </div>
-                    </>
-                  )}
-                  {bookmark.type === 'placeOverlay' && (
-                    <>
-                      <img
-                        src={bookmark.image}
-                        alt={bookmark.name}
-                        className="h-36 w-auto rounded-t-xl object-cover"
-                      />
-                      <div className="p-2 text-center">
-                        <p className="text-sm font-semibold">
-                          {bookmark.place_name}
-                        </p>
-                      </div>
-                    </>
-                  )}
-                  {bookmark.type === 'listPlaceOverlay' && (
                     <>
                       <img
                         src={bookmark.images}
