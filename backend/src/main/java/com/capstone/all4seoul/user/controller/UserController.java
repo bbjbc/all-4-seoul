@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
@@ -26,6 +27,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -33,7 +35,7 @@ public class UserController {
     /**
      * 회원 가입
      */
-    @PostMapping("/users")
+    @PostMapping("")
     public ResponseEntity<Object> join(@RequestBody JoinUserRequest request) {
         Long userId = userService.join(request);
 
@@ -64,7 +66,7 @@ public class UserController {
     /**
      * 사용자 단건 조회
      */
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public DetailUserResponse listDetailUser(@PathVariable Long userId) {
         return DetailUserResponse.of(userService.findById(userId));
     }
@@ -72,7 +74,7 @@ public class UserController {
     /**
      * 사용자 리스트 조회
      */
-    @GetMapping("/users")
+    @GetMapping("")
     public List<DetailUserResponse> findAll() {
 
         return userService.findAll();
@@ -81,7 +83,7 @@ public class UserController {
     /**
      * 회원 수정
      */
-    @PatchMapping("/users/{userId}")
+    @PatchMapping("/{userId}")
     public ResponseEntity<Object> updateUser(@PathVariable Long userId, @RequestBody UpdateUserRequest request) {
         userService.updateUser(userId, request);
 
@@ -105,7 +107,7 @@ public class UserController {
     /**
      * 북마크 추가
      */
-    @PostMapping("/users/bookmarks")
+    @PostMapping("/bookmarks")
     public ResponseEntity<Void> addBookmark(@RequestBody DeleteBookmarkRequest request) {
         Long bookmarkId = userService.addBookmark(request);
 
@@ -115,13 +117,13 @@ public class UserController {
     /**
      * 북마크한 장소 목록 조회
      */
-//    @GetMapping("/users/bookmarks")
+//    @GetMapping("/bookmarks")
 //    public List<DetailPlaceResponse> findBookmarkedPlaces(@RequestBody FindBookmarkedPlacesRequest request) {
 //        User user = userService.findById(request.getUserId());
 //
 //        return userService.findBookmarkedPlaces(user);
 //    }
-    @GetMapping("/users/bookmarks")
+    @GetMapping("/bookmarks")
     public ResponseEntity<List<DetailPlaceResponse>> findBookmarkedPlaces(HttpServletRequest request) {
         // 세션에서 userId 추출
         Long userId = (Long) request.getSession().getAttribute("userId");
@@ -143,7 +145,7 @@ public class UserController {
     /**
      * 북마크 제거
      */
-    @DeleteMapping("/users/bookmarks")
+    @DeleteMapping("/bookmarks")
     public void deleteBookmark(@RequestBody DeleteBookmarkRequest request) {
         userService.deleteBookmark(request);
     }
@@ -151,7 +153,7 @@ public class UserController {
     /**
      * 회원 삭제
      */
-    @DeleteMapping("/users/{userId}")
+    @DeleteMapping("/{userId}")
     public ResponseEntity<Object> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userService.findById(userId));
 
