@@ -42,7 +42,7 @@ public class Place {
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 
-    @Column(name = "phone_number", nullable = false, unique = true, length = 11)
+    @Column(name = "phone_number", nullable = false, unique = true, length = 20)
     private String phoneNumber;
 
     @Column(name = "address", nullable = false)
@@ -72,7 +72,8 @@ public class Place {
             String phoneNumber,
             String address,
             Double x,
-            Double y
+            Double y,
+            Category category
     ) {
         Place place = new Place();
 
@@ -83,8 +84,8 @@ public class Place {
         place.address = address;
         place.x = x;
         place.y = y;
-        place.websiteUri = "http://www.naver.com";
-        place.category = Category.CAFE;
+        place.websiteUri = null;
+        place.category = category;
 
         return place;
     }
