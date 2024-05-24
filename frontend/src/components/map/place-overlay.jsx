@@ -109,13 +109,14 @@ function PlaceOverlay({ place, onClose }) {
               onClick={toggleBookmark}
             />
             <h1 className="text-center font-gmarketbold text-3xl text-gray-800">
-              {place.place_name}
+              {place.places[0].displayName}
             </h1>
           </div>
 
           <div className="mb-4 space-y-2 rounded-md bg-green-200 px-6 py-5 text-stone-900">
             <div className="text-lg font-bold">{place.category_group_name}</div>
             <div className="text-sm">{place.category_name}</div>
+            <div className="text-sm">{place.places[0].websiteUri}</div>
           </div>
 
           <div className="text-md mb-4 space-y-4 text-gray-700">

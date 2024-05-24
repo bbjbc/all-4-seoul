@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import axios from 'axios';
+
 import MapCategory from './map-category';
 import PlaceOverlay from './place-overlay';
 import { fetchDataAndDisplayPolygons } from '../../lib/fetch-data';
@@ -312,6 +314,27 @@ function KakaoMap() {
     // 마커 클릭 시 장소 정보를 표시하는 함수
     const displayPlaceInfo = (place) => {
       setSelectedPlace(place);
+      // 장소 이름을 통해 추가 정보를 요청
+      console.log(place.place_name);
+      const placeName = decodeURIComponent(place.place_name);
+
+      axios
+        .get(`http://localhost:8080/api/places/google/${placeName}`)
+        .then((response) => {
+          const additionalInfo = response.data;
+
+          // 응답 데이터를 포함하여 선택된 장소 정보를 업데이트
+          const updatedPlace = {
+            ...place,
+            ...additionalInfo,
+          };
+
+          // 업데이트된 정보를 설정
+          setSelectedPlace(updatedPlace);
+        })
+        .catch((error) => {
+          console.error('장소 정보를 가져오는 데 오류가 발생했습니다!', error);
+        });
     };
 
     // 카테고리 클릭 시 이벤트 추가 함수
