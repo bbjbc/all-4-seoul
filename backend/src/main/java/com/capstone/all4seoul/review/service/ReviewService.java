@@ -8,7 +8,7 @@ import com.capstone.all4seoul.review.domain.Review;
 import com.capstone.all4seoul.review.dto.request.CreateReviewRequestForEvent;
 import com.capstone.all4seoul.review.dto.request.CreateReviewRequestForPlace;
 import com.capstone.all4seoul.review.dto.request.UpdateReviewRequest;
-import com.capstone.all4seoul.review.dto.response.DetailReviewResponse;
+import com.capstone.all4seoul.review.dto.response.ReviewResponse;
 import com.capstone.all4seoul.review.repository.ReviewRepository;
 import com.capstone.all4seoul.user.domain.User;
 import com.capstone.all4seoul.user.repository.UserRepository;
@@ -59,24 +59,24 @@ public class ReviewService {
                 .orElseThrow(() -> new EntityNotFoundException("리뷰를 찾을 수 없습니다."));
     }
 
-    public List<DetailReviewResponse> findAll() {
+    public List<ReviewResponse> findAll() {
         return reviewRepository.findAll()
                 .stream()
-                .map(DetailReviewResponse::of)
+                .map(ReviewResponse::of)
                 .toList();
     }
 
-    public List<DetailReviewResponse> findReviewsByPlace(Long placeId) {
+    public List<ReviewResponse> findReviewsByPlace(Long placeId) {
         return reviewRepository.findByPlaceId(placeId)
                 .stream()
-                .map(DetailReviewResponse::of)
+                .map(ReviewResponse::of)
                 .toList();
     }
 
-    public List<DetailReviewResponse> findReviewsByEvent(Long eventId) {
+    public List<ReviewResponse> findReviewsByEvent(Long eventId) {
         return reviewRepository.findByEventId(eventId)
                 .stream()
-                .map(DetailReviewResponse::of)
+                .map(ReviewResponse::of)
                 .toList();
     }
 

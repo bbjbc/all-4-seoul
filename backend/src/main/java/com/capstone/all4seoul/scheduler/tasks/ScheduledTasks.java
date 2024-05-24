@@ -1,6 +1,6 @@
 package com.capstone.all4seoul.scheduler.tasks;
 
-import com.capstone.all4seoul.place.dto.response.PlaceSearchResponseBySeoulDataApi;
+import com.capstone.all4seoul.place.dto.response.externalApi.PlaceSearchResponseBySeoulDataApi;
 import com.capstone.all4seoul.seoulCityData.charger.domain.ChargerDetail;
 import com.capstone.all4seoul.seoulCityData.charger.domain.ChargerStation;
 import com.capstone.all4seoul.seoulCityData.charger.repository.ChargerDetailRepository;
@@ -26,14 +26,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component

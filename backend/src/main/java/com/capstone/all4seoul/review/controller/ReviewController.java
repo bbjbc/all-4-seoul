@@ -3,7 +3,7 @@ package com.capstone.all4seoul.review.controller;
 import com.capstone.all4seoul.review.dto.request.CreateReviewRequestForEvent;
 import com.capstone.all4seoul.review.dto.request.CreateReviewRequestForPlace;
 import com.capstone.all4seoul.review.dto.request.UpdateReviewRequest;
-import com.capstone.all4seoul.review.dto.response.DetailReviewResponse;
+import com.capstone.all4seoul.review.dto.response.ReviewResponse;
 import com.capstone.all4seoul.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +47,7 @@ public class ReviewController {
      * 장소에 따른 리뷰 목록 조회
      */
     @GetMapping("/places/{placeId}/reviews")
-    public List<DetailReviewResponse> listReviewsByPlace(@PathVariable Long placeId) {
+    public List<ReviewResponse> listReviewsByPlace(@PathVariable Long placeId) {
         return reviewService.findReviewsByPlace(placeId);
     }
 
@@ -55,7 +55,7 @@ public class ReviewController {
      * 이벤트에 따른 리뷰 목록 조회
      */
     @GetMapping("/events/{eventId}/reviews")
-    public List<DetailReviewResponse> listReviewsByEvent(@PathVariable Long eventId) {
+    public List<ReviewResponse> listReviewsByEvent(@PathVariable Long eventId) {
         return reviewService.findReviewsByEvent(eventId);
     }
 
@@ -63,7 +63,7 @@ public class ReviewController {
      * 라뷰 전체 조회
      */
     @GetMapping("/reviews")
-    public List<DetailReviewResponse> findAll() {
+    public List<ReviewResponse> findAll() {
         return reviewService.findAll();
     }
 
