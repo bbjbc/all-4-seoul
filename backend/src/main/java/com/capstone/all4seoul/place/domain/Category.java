@@ -1,5 +1,8 @@
 package com.capstone.all4seoul.place.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum Category {
     PARKING_LOT("PK6", "주차장"),
     GAS_STATION("OL7", "주유소"),
