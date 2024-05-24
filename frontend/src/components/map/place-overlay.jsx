@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import propTypes from 'prop-types';
@@ -10,9 +10,9 @@ import ModalPortal from '../modal/modal-portal';
 import Modal from '../modal/modal';
 import { SlLocationPin } from 'react-icons/sl';
 import { GrPhone } from 'react-icons/gr';
-import { GiRoad } from 'react-icons/gi';
 import { FaStar } from 'react-icons/fa';
 import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
+import './star.css';
 
 function PlaceOverlay({ place, onClose }) {
   const navigation = useNavigate();
@@ -97,9 +97,20 @@ function PlaceOverlay({ place, onClose }) {
       break;
   }
 
+  const getStarRating = (rating) => {
+    const percentage = (rating / 5) * 100;
+    return (
+      <div className="star-rating">
+        <div className="star-rating-top" style={{ width: `${percentage}%` }}>
+          {'★★★★★'}
+        </div>
+        <div className="star-rating-bottom">{'★★★★★'}</div>
+      </div>
+    );
+  };
   return (
     <ModalPortal>
-      <Modal onClose={onClose} height="h-[600px]">
+      <Modal onClose={onClose} height="h-[600px]" width="w-[800px]">
         <article className="overflow-y-auto p-5">
           <div className="mb-6 flex items-center">
             <FaStar
@@ -109,53 +120,66 @@ function PlaceOverlay({ place, onClose }) {
               onClick={toggleBookmark}
             />
             <h1 className="text-center font-gmarketbold text-3xl text-gray-800">
-              {place.places[0].displayName}
+              {place.displayNameText}
             </h1>
           </div>
 
           <div className="mb-4 space-y-2 rounded-md bg-green-200 px-6 py-5 text-stone-900">
             <div className="text-lg font-bold">{place.category_group_name}</div>
             <div className="text-sm">{place.category_name}</div>
-            <div className="text-sm">{place.places[0].websiteUri}</div>
+            <div className="flex items-center text-sm">
+              {getStarRating(place.rating)}
+              <span className="ml-2">
+                {place.rating} (총 {place.userRatingCount}개)
+              </span>
+            </div>
           </div>
 
           <div className="text-md mb-4 space-y-4 text-gray-700">
             <span className="flex flex-row gap-4 font-semibold">
               <GrPhone size={20} />
-              {place.phone === ''
+              {place.nationalPhoneNumber === ''
                 ? '전화번호 정보가 존재하지 않습니다.'
-                : place.phone}
+                : place.nationalPhoneNumber}
             </span>
             <span className="flex flex-row gap-4 font-semibold">
               <SlLocationPin size={20} />
-              {place.address_name === ''
+              {place.formattedAddress === ''
                 ? '주소 정보가 존재하지 않습니다.'
-                : place.address_name}
-            </span>
-            <span className="flex flex-row gap-4 font-semibold">
-              <GiRoad size={20} />
-              {place.road_address_name === ''
-                ? '도로명 주소 정보가 존재하지 않습니다.'
-                : place.road_address_name}
+                : place.formattedAddress}
             </span>
           </div>
 
-          {image && (
+          {place.firstPhotoUri ? (
             <div className="mb-4">
               <img
-                src={image}
+                src={`https:${place.firstPhotoUri}`}
                 alt={place.place_name}
                 className="h-96 w-full rounded-lg object-cover shadow-md"
               />
             </div>
-          )}
-          <Link to={`/list/${place.place_name}`}>
-            <div className="flex w-full justify-end text-center">
-              <div className="w-full rounded-md bg-green-500 p-2 text-stone-900 transition-all duration-200 ease-in-out hover:bg-green-400">
-                상세 페이지 보기
-              </div>
+          ) : (
+            <div className="mb-4 text-center text-gray-500">
+              사진 정보가 존재하지 않습니다.
             </div>
-          </Link>
+          )}
+
+          {place.reviews && place.reviews.length > 0 && (
+            <div className="mb-4">
+              <h2 className="mb-2 text-lg font-semibold">
+                사용자 리뷰 ({place.reviews.length}개)
+              </h2>
+              {place.reviews.map((review, index) => (
+                <div key={index} className="mb-2">
+                  <div className="mb-1 flex items-center">
+                    <span className="font-semibold">{review.displayName}</span>
+                    <span className="ml-2">{getStarRating(review.rating)}</span>
+                  </div>
+                  <p className="text-sm text-gray-700">{review.text}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </article>
       </Modal>
     </ModalPortal>
