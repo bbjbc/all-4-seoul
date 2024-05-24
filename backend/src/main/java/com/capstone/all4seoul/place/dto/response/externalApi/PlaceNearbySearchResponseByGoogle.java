@@ -1,4 +1,4 @@
-package com.capstone.all4seoul.place.dto.response;
+package com.capstone.all4seoul.place.dto.response.externalApi;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlaceSearchResponseByGoogle {
+public class PlaceNearbySearchResponseByGoogle {
 
     private List<Result> places;
 

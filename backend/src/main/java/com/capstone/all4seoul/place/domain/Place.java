@@ -12,7 +12,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -42,7 +44,7 @@ public class Place {
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 
-    @Column(name = "phone_number", nullable = false, unique = true, length = 11)
+    @Column(name = "phone_number", nullable = false, unique = true, length = 20)
     private String phoneNumber;
 
     @Column(name = "address", nullable = false)
@@ -61,18 +63,27 @@ public class Place {
     @Enumerated(EnumType.STRING)
     private Category category;
 
+    @Column(name = "rating")
+    private double rating;
+
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Bookmark> bookmarks = new HashSet<>();
 
-    public static Place createPlace(
+    @OneToOne
+    @JoinColumn(name = "major_place_id")
+    private MajorPlace majorPlace;
 
+    public static Place createPlace(
             List<Event> events,
             String name,
             List<Review> reviews,
             String phoneNumber,
             String address,
             Double x,
-            Double y
+            Double y,
+            Category category,
+//            double rating,
+            MajorPlace majorPlace
     ) {
         Place place = new Place();
 
@@ -83,8 +94,10 @@ public class Place {
         place.address = address;
         place.x = x;
         place.y = y;
-        place.websiteUri = "http://www.naver.com";
-        place.category = Category.CAFE;
+        place.websiteUri = null;
+        place.category = category;
+//        place.rating = rating;
+        place.majorPlace = majorPlace;
 
         return place;
     }

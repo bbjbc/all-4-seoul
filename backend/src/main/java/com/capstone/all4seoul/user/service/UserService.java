@@ -4,7 +4,7 @@ import com.capstone.all4seoul.bookmark.domain.Bookmark;
 import com.capstone.all4seoul.bookmark.dto.request.DeleteBookmarkRequest;
 import com.capstone.all4seoul.bookmark.repository.BookmarkRepository;
 import com.capstone.all4seoul.place.domain.Place;
-import com.capstone.all4seoul.place.dto.response.DetailPlaceResponse;
+import com.capstone.all4seoul.place.dto.response.MultiPlaceResponse;
 import com.capstone.all4seoul.place.repository.PlaceRepository;
 import com.capstone.all4seoul.user.domain.User;
 import com.capstone.all4seoul.user.dto.request.JoinUserRequest;
@@ -91,12 +91,13 @@ public class UserService {
         return savedBookmark.getId();
     }
 
-    public List<DetailPlaceResponse> findBookmarkedPlaces(User user) {
-        return user.getBookmarks().getBookmarks()
-                .stream()
-                .map(Bookmark::getPlace)
-                .map(DetailPlaceResponse::of)
-                .toList();
+    public MultiPlaceResponse findBookmarkedPlaces(User user) {
+        return MultiPlaceResponse.of(
+                user.getBookmarks().getBookmarks()
+                        .stream()
+                        .map(Bookmark::getPlace)
+                        .toList()
+        );
     }
 
     @Transactional
