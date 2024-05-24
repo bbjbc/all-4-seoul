@@ -2,7 +2,7 @@ package com.capstone.all4seoul.event.dto.response;
 
 import com.capstone.all4seoul.event.domain.Event;
 import com.capstone.all4seoul.place.domain.Place;
-import com.capstone.all4seoul.review.dto.response.DetailReviewResponse;
+import com.capstone.all4seoul.review.dto.response.ReviewResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ public class DetailEventResponse {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private int price;
-    private List<DetailReviewResponse> reviews;
+    private List<ReviewResponse> reviews;
     private EventPlaceInfo eventPlaceInfo; // 문화행사가 일어나는 장소에 관한 데이터
 
     public static DetailEventResponse of(Event event) {
@@ -30,7 +30,7 @@ public class DetailEventResponse {
         detailEventResponse.price = event.getPrice();
         detailEventResponse.reviews = event.getReviews()
                 .stream()
-                .map(DetailReviewResponse::of)
+                .map(ReviewResponse::of)
                 .toList();
         detailEventResponse.eventPlaceInfo = EventPlaceInfo.of(event.getPlace());
 
