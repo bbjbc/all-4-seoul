@@ -159,25 +159,54 @@ function PlaceOverlay({ place, onClose }) {
               />
             </div>
           ) : (
-            <div className="mb-4 text-center text-gray-500">
+            <div className="mb-4 mt-12 animate-bounce text-center text-gray-500">
               사진 정보가 존재하지 않습니다.
             </div>
           )}
 
           {place.reviews && place.reviews.length > 0 && (
-            <div className="mb-4">
+            <div className="mb-4 mt-12 rounded-lg bg-slate-50 p-4 shadow-lg">
               <h2 className="mb-2 text-lg font-semibold">
                 사용자 리뷰 ({place.reviews.length}개)
               </h2>
-              {place.reviews.map((review, index) => (
-                <div key={index} className="mb-2">
-                  <div className="mb-1 flex items-center">
-                    <span className="font-semibold">{review.displayName}</span>
-                    <span className="ml-2">{getStarRating(review.rating)}</span>
+              {place.reviews.map((review, index) => {
+                // 한국 날짜로 변환
+                const publishDate = new Date(
+                  review.publishTime,
+                ).toLocaleDateString('ko-KR', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                });
+
+                // 작성한 지 얼마나 되었는지 계산
+                const publishYearAgo =
+                  new Date().getFullYear() -
+                  new Date(review.publishTime).getFullYear();
+                const relativePublishTimeDescription =
+                  publishYearAgo > 0
+                    ? `${publishYearAgo}년 전`
+                    : '작성한 지 얼마 안 됨';
+
+                return (
+                  <div
+                    key={index}
+                    className="mb-4 rounded-lg bg-white p-4 shadow-md"
+                  >
+                    <div className="mb-2 flex items-center">
+                      <span className="mr-2 font-semibold">
+                        {review.displayName}
+                      </span>
+                      <span>{getStarRating(review.rating)}</span>
+                    </div>
+                    <p className="mb-1 text-sm text-gray-700">{review.text}</p>
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>{publishDate}</span>
+                      <span>{relativePublishTimeDescription}</span>
+                    </div>
                   </div>
-                  <p className="text-sm text-gray-700">{review.text}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </article>
