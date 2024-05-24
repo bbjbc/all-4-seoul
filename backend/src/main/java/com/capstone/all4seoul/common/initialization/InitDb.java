@@ -1,7 +1,9 @@
 package com.capstone.all4seoul.common.initialization;
 
+import com.capstone.all4seoul.place.domain.MajorPlace;
 import com.capstone.all4seoul.place.domain.Place;
 import com.capstone.all4seoul.place.domain.Category; // 필요에 따라 적절한 패키지를 import
+import com.capstone.all4seoul.place.repository.MajorPlaceRepository;
 import com.capstone.all4seoul.place.repository.PlaceRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +29,8 @@ public class InitDb {
 
     @PostConstruct
     public void init() {
-        this.initService.saveExtractedParkingLotData();
+        this.initService.saveCrawledPlaces();
+        this.initService.saveMajorPlaces();
     }
 
     @Component
@@ -35,6 +38,7 @@ public class InitDb {
     static class InitService {
         private static final Logger log = LoggerFactory.getLogger(InitDb.InitService.class);
         private final PlaceRepository placeRepository;
+        private final MajorPlaceRepository majorPlaceRepository;
 
         private final String[] categories = new String[]{
                 "관광명소", "맛집", "문화시설", "주유소", "주차장", "카페"
@@ -45,7 +49,7 @@ public class InitDb {
         /**
          * 각 카테고리에 해당하는 CSV 파일을 로드하고 데이터를 처리하는 메서드
          */
-        public void saveExtractedParkingLotData() {
+        public void saveCrawledPlaces() {
             for (String category : categories) {
                 String csvFile = "crawledPlaces/" + category + ".csv";
                 loadPlacesFromCsv(csvFile);
@@ -75,13 +79,16 @@ public class InitDb {
                     List<Place> places = new ArrayList<>();
                     for (CSVRecord csvRecord : csvParser) {
                         String name = csvRecord.get(0);
-                        String degree = csvRecord.get(1); // 필요시 사용
+//                        double degree = Double.parseDouble(csvRecord.get(1)); // 필요시 사용
                         String address = csvRecord.get(2);
                         String tel = csvRecord.get(3);
 
                         // Placeholder for x and y coordinates
                         double x = 0.0; // 실제 데이터로 대체 필요
                         double y = 0.0; // 실제 데이터로 대체 필요
+
+                        MajorPlace majorPlace = majorPlaceRepository.findFirstByAreaNameContains(name)
+                                .orElse(null); // 만약 주요장소라면 추가 정보 삽입, 아니라면 null 삽입
 
                         Place place = Place.createPlace(
                                 new ArrayList<>(), // 초기 이벤트 리스트
@@ -91,11 +98,12 @@ public class InitDb {
                                 address,
                                 x,
                                 y,
-                                category
+                                category,
+//                                degree,
+                                majorPlace
                         );
 
                         places.add(place);
-                        log.info("Loaded place: {}", place);
                     }
 
                     placeRepository.saveAll(places);
@@ -134,6 +142,44 @@ public class InitDb {
                     return Category.CAFE;
                 default:
                     throw new IllegalArgumentException("Invalid category name: " + categoryName);
+            }
+        }
+
+        /**
+         * 서울시 115개 주요 장소 초기화
+         */
+        private void saveMajorPlaces() {
+            String filePath = "majorPlaces/seoulCityMajorPlaces.csv";
+            try {
+                ClassPathResource resource = new ClassPathResource(filePath);
+                if (!resource.exists()) {
+                    log.warn("CSV file not found: {}", filePath);
+                    return;
+                }
+
+                try (Reader reader = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8));
+                     CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader())) {
+
+                    for (CSVRecord csvRecord : csvParser) {
+                        String category = csvRecord.get(0);
+                        String areaCode = csvRecord.get(2);
+                        String areaName = csvRecord.get(3);
+                        String areaEnglishName = csvRecord.get(4);
+
+                        MajorPlace majorPlace = MajorPlace.createMajorPlace(
+                                category,
+                                areaCode,
+                                areaName,
+                                areaEnglishName
+                        );
+
+                        log.info("Loaded majorPlace: {}", majorPlace);
+                        majorPlaceRepository.save(majorPlace);
+                    }
+                    log.info("All places saved successfully from CSV: {}", filePath);
+                }
+            } catch (Exception e) {
+                log.error("Error reading CSV file: {}", filePath, e);
             }
         }
     }
