@@ -28,6 +28,7 @@ const markerImages = {
 function KakaoMap() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [listSelectedPlace, setListSelectedPlace] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const mapOption = {
@@ -313,6 +314,7 @@ function KakaoMap() {
 
     // 마커 클릭 시 장소 정보를 표시하는 함수
     const displayPlaceInfo = (place) => {
+      setLoading(true);
       setSelectedPlace(place);
       // 장소 이름을 통해 추가 정보를 요청
       const placeName = decodeURIComponent(place.place_name);
@@ -320,6 +322,7 @@ function KakaoMap() {
       axios
         .get(`http://localhost:8080/api/places/google/${placeName}`)
         .then((response) => {
+          setLoading(false);
           const additionalInfo = response.data;
           console.log(additionalInfo);
 
@@ -341,8 +344,7 @@ function KakaoMap() {
 
           // 첫 번째 사진의 photoUri에 접근
           const firstPhotoUri =
-            additionalInfo.places[0]?.photos?.[0]?.authorAttributions[0]
-              ?.photoUri || '';
+            additionalInfo.places[0]?.photos?.[0]?.photoUri || '';
 
           // rating 평균
           const rating = additionalInfo.places[0]?.rating || 0;
@@ -378,6 +380,7 @@ function KakaoMap() {
           console.log('장소 정보를 가져왔습니다.', updatedPlace);
         })
         .catch((error) => {
+          setLoading(false);
           console.error('장소 정보를 가져오는 데 오류가 발생했습니다!', error);
         });
     };
@@ -421,6 +424,7 @@ function KakaoMap() {
         <PlaceOverlay
           place={selectedPlace}
           onClose={() => setSelectedPlace(null)}
+          loading={loading}
         />
       )}
       {listSelectedPlace && (
