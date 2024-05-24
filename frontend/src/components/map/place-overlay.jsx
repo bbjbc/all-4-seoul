@@ -12,7 +12,7 @@ import { SlLocationPin } from 'react-icons/sl';
 import { GrPhone } from 'react-icons/gr';
 import { FaStar } from 'react-icons/fa';
 import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
-import './star.css';
+import '../../style/star.css';
 
 function PlaceOverlay({ place, onClose }) {
   const navigation = useNavigate();
@@ -97,6 +97,7 @@ function PlaceOverlay({ place, onClose }) {
       break;
   }
 
+  // 별점 표시
   const getStarRating = (rating) => {
     const percentage = (rating / 5) * 100;
     return (
@@ -108,6 +109,7 @@ function PlaceOverlay({ place, onClose }) {
       </div>
     );
   };
+
   return (
     <ModalPortal>
       <Modal onClose={onClose} height="h-[600px]" width="w-[800px]">
@@ -164,12 +166,13 @@ function PlaceOverlay({ place, onClose }) {
             </div>
           )}
 
-          {place.reviews && place.reviews.length > 0 && (
-            <div className="mb-4 mt-12 rounded-lg bg-slate-50 p-4 shadow-lg">
-              <h2 className="mb-2 text-lg font-semibold">
-                사용자 리뷰 ({place.reviews.length}개)
-              </h2>
-              {place.reviews.map((review, index) => {
+          {/* 리뷰 정보 */}
+          <div className="mb-4 mt-12 rounded-lg bg-slate-50 p-4 shadow-lg">
+            <h2 className="mb-2 text-lg font-semibold">
+              사용자 리뷰 ({(place.reviews && place.reviews.length) || 0}개)
+            </h2>
+            {place.reviews && place.reviews.length > 0 ? (
+              place.reviews.map((review, index) => {
                 // 한국 날짜로 변환
                 const publishDate = new Date(
                   review.publishTime,
@@ -206,9 +209,13 @@ function PlaceOverlay({ place, onClose }) {
                     </div>
                   </div>
                 );
-              })}
-            </div>
-          )}
+              })
+            ) : (
+              <div className="text-sm text-gray-500">
+                리뷰가 존재하지 않습니다.
+              </div>
+            )}
+          </div>
         </article>
       </Modal>
     </ModalPortal>
