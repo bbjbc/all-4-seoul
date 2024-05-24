@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import propTypes from 'prop-types';
 
-function Modal({ children, onClose, height }) {
+function Modal({ children, onClose, height, width }) {
   const [isVisible, setIsVisible] = useState(true);
   height = height || 'h-[500px]';
 
@@ -33,7 +33,7 @@ function Modal({ children, onClose, height }) {
       role="presentation"
     >
       <div
-        className={`relative flex ${height} transform flex-col rounded-lg bg-white p-8 pt-10`}
+        className={`relative flex ${height} ${width} transform flex-col rounded-lg bg-white p-8 pt-10`}
       >
         <button
           onClick={handleClose}
@@ -51,6 +51,7 @@ Modal.propTypes = {
   children: propTypes.node.isRequired,
   onClose: propTypes.func.isRequired,
   height: propTypes.string,
+  width: propTypes.string,
 };
 
 export default Modal;
