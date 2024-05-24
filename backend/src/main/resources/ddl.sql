@@ -1,10 +1,10 @@
--- 테이블 삭제 전 외래 키 제약 조건 삭제
-ALTER TABLE bookmarks DROP FOREIGN KEY FK_bookmarks_users;
-ALTER TABLE bookmarks DROP FOREIGN KEY FK_bookmarks_places;
-ALTER TABLE events DROP FOREIGN KEY FK_events_places;
-ALTER TABLE reviews DROP FOREIGN KEY FK_reviews_users;
-ALTER TABLE reviews DROP FOREIGN KEY FK_reviews_places;
-ALTER TABLE reviews DROP FOREIGN KEY FK_reviews_events;
+# -- 테이블 삭제 전 외래 키 제약 조건 삭제
+# ALTER TABLE bookmarks DROP FOREIGN KEY FK_bookmarks_users;
+# ALTER TABLE bookmarks DROP FOREIGN KEY FK_bookmarks_places;
+# ALTER TABLE events DROP FOREIGN KEY FK_events_places;
+# ALTER TABLE reviews DROP FOREIGN KEY FK_reviews_users;
+# ALTER TABLE reviews DROP FOREIGN KEY FK_reviews_places;
+# ALTER TABLE reviews DROP FOREIGN KEY FK_reviews_events;
 
 -- 테이블 삭제
 DROP TABLE IF EXISTS reviews;
@@ -30,11 +30,13 @@ CREATE TABLE users
 CREATE TABLE places
 (
     place_id     BIGINT       NOT NULL AUTO_INCREMENT,
+    major_place_id BIGINT,
     name         VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20)  NOT NULL,
     address      VARCHAR(255) NOT NULL,
     x            DOUBLE       NOT NULL,
     y            DOUBLE       NOT NULL,
+    rating DOUBLE,
     website_uri  VARCHAR(255),
     category     ENUM('PARKING_LOT', 'GAS_STATION', 'CULTURE_FACILITY', 'TOURIST_ATTRACTION', 'RESTAURANT', 'CAFE') NOT NULL,
     PRIMARY KEY (place_id)

@@ -16,9 +16,9 @@ values (5, 'admin1', 'admin1', 'pochetino', '2023-10-30 05:45:08', 'ESFJ',
         'Male', 'ddad');
 
 -- places 테이블에 더미 데이터 추가
-INSERT INTO places (place_id, name, phone_number, address, x, y, website_uri, category)
-VALUES (1, 'Place One', '01012345678', '광교산로 뭐시기', 127.002, 37.002, 'https://www.example.com/place1', 'PARKING_LOT'),
-       (2, 'Place Two', '01087654321', '보정로 30', 127.002, 37.003, 'https://www.example.com/place2', 'PARKING_LOT');
+INSERT INTO places (place_id, name, phone_number, address, x, y, rating, website_uri, category)
+VALUES (1, 'Place One', '01012345678', '광교산로 뭐시기', 127.002, 37.002, 4.0, 'https://www.example.com/place1', 'PARKING_LOT'),
+       (2, 'Place Two', '01087654321', '보정로 30', 127.002, 37.003, 4.8, 'https://www.example.com/place2', 'PARKING_LOT');
       
 -- bookmarks 테이블 더미 데이터 추가
 INSERT INTO bookmarks (user_id, place_id)

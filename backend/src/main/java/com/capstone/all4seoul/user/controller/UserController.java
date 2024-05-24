@@ -2,7 +2,7 @@ package com.capstone.all4seoul.user.controller;
 
 import com.capstone.all4seoul.bookmark.dto.request.DeleteBookmarkRequest;
 import com.capstone.all4seoul.bookmark.dto.request.FindBookmarkedPlacesRequest;
-import com.capstone.all4seoul.place.dto.response.DetailPlaceResponse;
+import com.capstone.all4seoul.place.dto.response.MultiPlaceResponse;
 import com.capstone.all4seoul.user.domain.User;
 import com.capstone.all4seoul.user.dto.request.JoinUserRequest;
 import com.capstone.all4seoul.user.dto.request.UpdateUserRequest;
@@ -124,7 +124,7 @@ public class UserController {
 //        return userService.findBookmarkedPlaces(user);
 //    }
     @GetMapping("/bookmarks")
-    public ResponseEntity<List<DetailPlaceResponse>> findBookmarkedPlaces(HttpServletRequest request) {
+    public ResponseEntity<List<PlaceResponse>> findBookmarkedPlaces(HttpServletRequest request) {
         // 세션에서 userId 추출
         Long userId = (Long) request.getSession().getAttribute("userId");
 
