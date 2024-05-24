@@ -11,6 +11,7 @@ import Modal from '../modal/modal';
 import { SlLocationPin } from 'react-icons/sl';
 import { GrPhone } from 'react-icons/gr';
 import { FaStar } from 'react-icons/fa';
+import { IoLinkSharp } from 'react-icons/io5';
 import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 import LoadingSpinner from '../button/loading-spinner';
 import quokka from '../../assets/quokka.gif';
@@ -165,8 +166,25 @@ function PlaceOverlay({ place, onClose, loading }) {
                     ? '주소 정보가 존재하지 않습니다.'
                     : place.formattedAddress}
                 </span>
+                <span className="flex flex-row gap-4 font-semibold">
+                  <IoLinkSharp size={20} />
+                  {place.websiteUri === '' ? (
+                    '웹사이트 URL 정보가 존재하지 않습니다.'
+                  ) : (
+                    <a
+                      href={place.websiteUri}
+                      target="_blank"
+                      rel="noreferrer"
+                      title={place.websiteUri}
+                      className="underline transition duration-300 hover:text-blue-500 hover:underline"
+                    >
+                      {place.displayNameText}
+                    </a>
+                  )}
+                </span>
               </div>
 
+              {/* 사진 정보 */}
               {place.firstPhotoUri ? (
                 <div className="mb-4">
                   <img

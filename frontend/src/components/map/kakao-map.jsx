@@ -349,6 +349,9 @@ function KakaoMap() {
           // rating 평균
           const rating = additionalInfo.places[0]?.rating || 0;
 
+          // 사이트 uri
+          const websiteUri = additionalInfo.places[0]?.websiteUri || '';
+
           // 리뷰 정보 가져오기
           const reviews = additionalInfo.places[0]?.reviews || [];
 
@@ -372,6 +375,7 @@ function KakaoMap() {
             nationalPhoneNumber,
             firstPhotoUri,
             rating,
+            websiteUri,
             reviews: extractedReviews,
           };
 
