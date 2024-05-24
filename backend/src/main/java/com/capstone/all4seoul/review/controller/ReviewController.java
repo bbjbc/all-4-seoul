@@ -48,7 +48,7 @@ public class ReviewController {
     /**
      * 장소에 따른 리뷰 목록 조회
      */
-    @GetMapping("/places/{placeId}/reviews")
+    @GetMapping("/places/{placeId}")
     public List<ReviewResponse> listReviewsByPlace(@PathVariable Long placeId) {
         return reviewService.findReviewsByPlace(placeId);
     }
@@ -56,7 +56,7 @@ public class ReviewController {
     /**
      * 이벤트에 따른 리뷰 목록 조회
      */
-    @GetMapping("/events/{eventId}/reviews")
+    @GetMapping("/events/{eventId}")
     public List<ReviewResponse> listReviewsByEvent(@PathVariable Long eventId) {
         return reviewService.findReviewsByEvent(eventId);
     }
@@ -64,7 +64,7 @@ public class ReviewController {
     /**
      * 라뷰 전체 조회
      */
-    @GetMapping("/reviews")
+    @GetMapping("")
     public List<ReviewResponse> findAll() {
         return reviewService.findAll();
     }
