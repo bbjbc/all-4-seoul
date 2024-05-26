@@ -9,20 +9,25 @@ function HomePage() {
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
+  // 3초 후 버튼 등장
   useEffect(() => {
-    // 3초 후 버튼 등장
     const buttonTimeout = setTimeout(() => {
       setIsButtonVisible(true);
     }, 3000);
 
-    // 5초 후 팝업 등장
-    const popupTimeout = setTimeout(() => {
-      setIsPopupVisible(true);
-    }, 5000);
-
     return () => {
       clearTimeout(buttonTimeout);
-      clearTimeout(popupTimeout);
+    };
+  }, []);
+
+  // 30초마다 팝업 띄움
+  useEffect(() => {
+    const popupInterval = setInterval(() => {
+      setIsPopupVisible(true);
+    }, 30000);
+
+    return () => {
+      clearTimeout(popupInterval);
     };
   }, []);
 
