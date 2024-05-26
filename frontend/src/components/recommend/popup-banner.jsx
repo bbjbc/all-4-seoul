@@ -13,7 +13,7 @@ function PopupBanner({ onClose }) {
 
     const autoCloseTimeout = setTimeout(() => {
       setIsShown(false);
-      setTimeout(onClose, 500);
+      setTimeout(onClose, 700);
     }, 10000); // 팝업 노출 이후 10초 후에 자동으로 닫힘
 
     return () => clearTimeout(autoCloseTimeout);
@@ -28,7 +28,7 @@ function PopupBanner({ onClose }) {
         <button
           onClick={() => {
             setIsShown(false);
-            setTimeout(onClose, 500);
+            setTimeout(onClose, 700);
           }}
           className="rounded-full bg-orange-300 px-2 py-1 hover:bg-red-400"
         >
