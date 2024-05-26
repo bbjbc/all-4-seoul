@@ -4,24 +4,34 @@ import propTypes from 'prop-types';
 
 import ListData from '../../../data/list-data';
 import LoadingSpinner from '../../button/loading-spinner';
+import quokka from '../../../assets/quokka.gif';
 
 function DetailItem({ decodedName }) {
   const [placeData, setPlaceData] = useState(null);
 
   useEffect(() => {
-    const selectedPlace = ListData.find(
-      (item) =>
-        item.name.trim().toLowerCase() === decodedName.trim().toLowerCase(),
-    );
-    if (selectedPlace) {
-      setPlaceData(selectedPlace);
-    } else {
-      console.error('Place not found');
-    }
+    const timer = setTimeout(() => {
+      const selectedPlace = ListData.find(
+        (item) =>
+          item.name.trim().toLowerCase() === decodedName.trim().toLowerCase(),
+      );
+      if (selectedPlace) {
+        setPlaceData(selectedPlace);
+      } else {
+        console.error('Place not found');
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, [decodedName]);
 
   if (!placeData) {
-    return <LoadingSpinner />;
+    return (
+      <div className="mt-20 flex flex-col items-center justify-center">
+        <img src={quokka} alt="로딩중" className="h-80 w-80 object-cover" />
+        <LoadingSpinner text="text-4xl" height="h-12" width="w-12" />
+      </div>
+    );
   }
 
   const { category, images, ENG_NM } = placeData;
