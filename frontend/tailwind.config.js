@@ -67,6 +67,47 @@ module.exports = {
             transform: 'rotate(-90deg) scale(0.9)',
           },
         },
+        swing: {
+          '0%': {
+            transform: 'rotate(0deg)',
+          },
+          '50%': {
+            transform: 'rotate(90deg)',
+          },
+          '100%': {
+            transform: 'rotate(-90deg)',
+          },
+        },
+        popupShow: {
+          '0%': {
+            transform: 'translateY(100%)',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+          },
+        },
+        popupHide: {
+          '0%': {
+            transform: 'translateY(0)',
+          },
+          '100%': {
+            transform: 'translateY(100%)',
+          },
+        },
+        slideinAndBounce: {
+          '0%': {
+            opacity: 0,
+            transform: 'translateX(-20px)',
+          },
+          '50%': {
+            opacity: 1,
+            transform: 'translateX(0)',
+          },
+          '100%': {
+            opacity: 1,
+            transform: 'translateX(0)',
+          },
+        },
       },
       animation: {
         slidein: 'slidein 1s forwards',
@@ -76,6 +117,10 @@ module.exports = {
         expand: 'expand 0.3s ease-in-out',
         collapse: 'collapse 0.3s ease-in-out',
         swingandscale: 'swingandscale 1s ease-in-out forwards',
+        swing: 'swing 1s ease-in-out infinite',
+        popupShow: 'popupShow 0.7s ease-in-out forwards',
+        popupHide: 'popupHide 0.7s ease-in-out forwards',
+        slideinAndBounce: 'slidein 1s forwards, bounce 1.5s infinite',
       },
     },
   },
