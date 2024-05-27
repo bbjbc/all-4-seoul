@@ -108,6 +108,16 @@ module.exports = {
             transform: 'translateX(0)',
           },
         },
+        gradientandBounceandslidein: {
+          '0%, 100%': {
+            backgroundSize: '200% 200%',
+            backgroundPosition: '0% 50%',
+          },
+          '50%': {
+            backgroundSize: '200% 200%',
+            backgroundPosition: '100% 50%',
+          },
+        },
       },
       animation: {
         slidein: 'slidein 1s forwards',
@@ -121,6 +131,8 @@ module.exports = {
         popupShow: 'popupShow 0.7s ease-in-out forwards',
         popupHide: 'popupHide 0.7s ease-in-out forwards',
         slideinAndBounce: 'slidein 1s forwards, bounce 1.5s infinite',
+        gradientandBounceandslidein:
+          'gradientandBounceandslidein 5s ease infinite, slidein 1s forwards, bounce 1s infinite',
       },
     },
   },
