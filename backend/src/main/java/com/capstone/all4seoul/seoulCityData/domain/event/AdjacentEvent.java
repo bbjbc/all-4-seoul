@@ -1,26 +1,12 @@
-package com.capstone.all4seoul.seoulCityData.event.domain;
+package com.capstone.all4seoul.seoulCityData.domain.event;
 
-import com.capstone.all4seoul.common.domain.BaseTimeEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Getter
-@Table(name = "adjacent_events")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AdjacentEvent extends BaseTimeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "adjacent_event_id")
-    private Long id;
-
+public class AdjacentEvent {
     private String name;
 
     private String period;

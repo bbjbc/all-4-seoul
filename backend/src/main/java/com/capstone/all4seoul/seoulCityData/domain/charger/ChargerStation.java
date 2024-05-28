@@ -1,14 +1,5 @@
-package com.capstone.all4seoul.seoulCityData.charger.domain;
+package com.capstone.all4seoul.seoulCityData.domain.charger;
 
-import com.capstone.all4seoul.common.domain.BaseTimeEntity;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +7,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
-@Table(name = "charger_stations")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChargerStation extends BaseTimeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "charger_station_id")
-    private Long id;
-
+public class ChargerStation {
     private String name;
 
     private String stationId;
@@ -46,7 +30,6 @@ public class ChargerStation extends BaseTimeEntity {
 
     private String kindDetail; // 충전소 장소 유형 (ex. 사업장, 공영주차장)
 
-    @OneToMany(mappedBy = "chargerStation", cascade = CascadeType.ALL)
     private List<ChargerDetail> chargerDetails = new ArrayList<>();
 
     public static ChargerStation createChargerStation(
@@ -59,7 +42,8 @@ public class ChargerStation extends BaseTimeEntity {
             String parkPay,
             String limitYn,
             String limitDetail,
-            String kindDetail
+            String kindDetail,
+            List<ChargerDetail> chargerDetails
     ) {
         ChargerStation chargerStation = new ChargerStation();
 
@@ -73,6 +57,7 @@ public class ChargerStation extends BaseTimeEntity {
         chargerStation.limitYn = limitYn;
         chargerStation.limitDetail = limitDetail;
         chargerStation.kindDetail = kindDetail;
+        chargerStation.chargerDetails = chargerDetails;
 
         return chargerStation;
     }
