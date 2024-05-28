@@ -1,4 +1,4 @@
-package com.capstone.all4seoul.seoulCityData;
+package com.capstone.all4seoul.seoulCityData.domain;
 
 import com.capstone.all4seoul.place.domain.Place;
 import jakarta.persistence.Column;
