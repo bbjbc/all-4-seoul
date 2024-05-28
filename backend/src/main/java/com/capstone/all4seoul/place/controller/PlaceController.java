@@ -9,7 +9,6 @@ import com.capstone.all4seoul.place.dto.response.externalApi.PlaceSearchResponse
 import com.capstone.all4seoul.place.dto.response.externalApi.PlaceTextSearchResponseByGoogle;
 import com.capstone.all4seoul.place.service.PlaceService;
 import com.capstone.all4seoul.place.service.PlaceServiceByExternalApi;
-import com.capstone.all4seoul.seoulCityData.event.repository.AdjacentEventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlaceController {
     private final PlaceService placeService;
     private final PlaceServiceByExternalApi placeServiceByExternalApi;
-    private final AdjacentEventRepository adjacentEventRepository;
 
     /**
      * 장소 단건 조회
