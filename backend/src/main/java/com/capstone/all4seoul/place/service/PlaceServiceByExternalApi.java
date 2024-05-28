@@ -2,6 +2,7 @@ package com.capstone.all4seoul.place.service;
 
 import com.capstone.all4seoul.place.dto.request.PlaceNearbySearchRequestByGoogle;
 import com.capstone.all4seoul.place.dto.request.PlaceSearchRequestWithTextQueryByGoogle;
+import com.capstone.all4seoul.place.dto.response.externalApi.PlaceImageSearchResponseByGoogle;
 import com.capstone.all4seoul.place.dto.response.externalApi.PlaceNearbySearchResponseByGoogle;
 import com.capstone.all4seoul.place.dto.response.externalApi.PlaceSearchResponseBySeoulDataApi;
 import com.capstone.all4seoul.place.dto.response.externalApi.PlaceTextSearchResponseByGoogle;
@@ -49,6 +50,22 @@ public class PlaceServiceByExternalApi {
                 requestEntity,
                 PlaceTextSearchResponseByGoogle.class
         );
+
+        // HTTP 요청 보내기
+
+
+        responseEntity.getBody().getPlaces().get(0).getPhotos()
+                .forEach(photo -> {
+                    String photoUrl = "https://places.googleapis.com/v1/" + photo.getName() + "/media?maxHeightPx=4800&maxWidthPx=4800&key=" + googleApiKey + "&skipHttpRedirect=true";
+
+                    ResponseEntity<PlaceImageSearchResponseByGoogle> photoUrlResponse = new RestTemplate().exchange(
+                            photoUrl,
+                            HttpMethod.GET,
+                            new HttpEntity<>(new HttpHeaders()),
+                            PlaceImageSearchResponseByGoogle.class
+                    );
+                    photo.setPhotoUri(photoUrlResponse.getBody().getPhotoUri());
+                });
 
         // 응답 처리
         return responseEntity.getBody();
