@@ -1,6 +1,6 @@
 package com.capstone.all4seoul.place.dto.response;
 
-import com.capstone.all4seoul.place.domain.MajorPlace;
+import com.capstone.all4seoul.seoulCityData.MajorPlace;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
