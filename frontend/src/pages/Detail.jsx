@@ -14,6 +14,7 @@ import Review from '../components/detail/review/review';
 
 function PlaceDetailPage() {
   const [activeCategory, setActiveCategory] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { id } = useParams();
   const decodedName = decodeURIComponent(id);
@@ -51,8 +52,8 @@ function PlaceDetailPage() {
           '리뷰 작성': reviewRef,
         }}
       />
-      <DetailLayout>
-        <DetailItem decodedName={decodedName} />
+      <DetailLayout isLoading={isLoading}>
+        <DetailItem decodedName={decodedName} setIsLoading={setIsLoading} />
       </DetailLayout>
       <DetailLayout>
         <RealTimePopulation

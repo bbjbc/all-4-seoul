@@ -6,7 +6,7 @@ import ListData from '../../../data/list-data';
 import LoadingSpinner from '../../button/loading-spinner';
 import quokka from '../../../assets/quokka.gif';
 
-function DetailItem({ decodedName }) {
+function DetailItem({ decodedName, setIsLoading }) {
   const [placeData, setPlaceData] = useState(null);
 
   useEffect(() => {
@@ -17,13 +17,15 @@ function DetailItem({ decodedName }) {
       );
       if (selectedPlace) {
         setPlaceData(selectedPlace);
+        setIsLoading(false);
       } else {
         console.error('Place not found');
+        setIsLoading(false);
       }
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [decodedName]);
+  }, [decodedName, setIsLoading]);
 
   if (!placeData) {
     return (
@@ -60,6 +62,7 @@ function DetailItem({ decodedName }) {
 
 DetailItem.propTypes = {
   decodedName: propTypes.string.isRequired,
+  setIsLoading: propTypes.func.isRequired,
 };
 
 export default DetailItem;
