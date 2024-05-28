@@ -3,6 +3,7 @@ package com.capstone.all4seoul.place.dto.response.externalApi;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -58,6 +59,7 @@ public class PlaceTextSearchResponseByGoogle {
         }
 
         @Getter
+        @Setter
         @NoArgsConstructor
         @AllArgsConstructor
         public static class Photo {
@@ -65,6 +67,7 @@ public class PlaceTextSearchResponseByGoogle {
             private Long widthPx;
             private Long heightPx;
             private String name;
+            private String photoUri;
         }
 
         @Getter
