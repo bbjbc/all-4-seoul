@@ -3,7 +3,7 @@ package com.capstone.all4seoul.place.domain;
 import com.capstone.all4seoul.bookmark.domain.Bookmark;
 import com.capstone.all4seoul.event.domain.Event;
 import com.capstone.all4seoul.review.domain.Review;
-import com.capstone.all4seoul.seoulCityData.MajorPlace;
+import com.capstone.all4seoul.seoulCityData.domain.MajorPlace;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

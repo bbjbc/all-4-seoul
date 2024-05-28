@@ -1,6 +1,6 @@
 package com.capstone.all4seoul.common.initialization;
 
-import com.capstone.all4seoul.seoulCityData.MajorPlace;
+import com.capstone.all4seoul.seoulCityData.domain.MajorPlace;
 import com.capstone.all4seoul.place.domain.Place;
 import com.capstone.all4seoul.place.domain.Category; // 필요에 따라 적절한 패키지를 import
 import com.capstone.all4seoul.place.repository.MajorPlaceRepository;
