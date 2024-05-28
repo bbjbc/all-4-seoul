@@ -19,7 +19,8 @@ function PlaceItem({ id, name, category, images }) {
     navigation(`/list/${encodedName}`);
   };
 
-  const toggleBookmark = () => {
+  const toggleBookmark = (e) => {
+    e.stopPropagation();
     if (!isLoggedIn) {
       Swal.fire({
         title: '로그인 후 이용해주세요!',
@@ -52,30 +53,33 @@ function PlaceItem({ id, name, category, images }) {
 
   return (
     <>
-      {showBookmarkMessage && (
-        <div
-          className={`absolute left-6 top-6 animate-slidein rounded-md ${isBookmarked ? 'bg-green-500' : 'bg-red-500'} p-2 text-white shadow-md`}
-        >
-          <p className="text-md font-semibold">
-            {isBookmarked
-              ? '북마크에 추가되었습니다!'
-              : '북마크에서 삭제되었습니다!'}
-          </p>
-        </div>
-      )}
-
-      <FaStar
-        className="absolute right-6 top-6 z-50 cursor-pointer hover:animate-swingandscale"
-        color={`${isBookmarked ? 'yellow' : 'white'}`}
-        size={40}
-        onClick={toggleBookmark}
-      />
-
       <article
-        className="flex cursor-pointer flex-col items-center rounded-xl bg-white shadow-xl"
+        className="flex cursor-pointer flex-col items-center rounded-xl bg-white shadow-xl duration-500 hover:scale-105"
         onClick={handleClick}
         role="presentation"
       >
+        {/* 북마크 메시지 */}
+        {showBookmarkMessage && (
+          <div
+            className={`absolute left-6 top-6 animate-slidein rounded-md ${isBookmarked ? 'bg-green-500' : 'bg-red-500'} p-2 text-white shadow-md`}
+          >
+            <p className="text-md font-semibold">
+              {isBookmarked
+                ? '북마크에 추가되었습니다!'
+                : '북마크에서 삭제되었습니다!'}
+            </p>
+          </div>
+        )}
+
+        {/* 북마크 버튼 */}
+        <FaStar
+          className="absolute right-6 top-6 z-50 cursor-pointer hover:animate-swingandscale"
+          color={`${isBookmarked ? 'yellow' : 'white'}`}
+          size={40}
+          onClick={toggleBookmark}
+        />
+
+        {/* 이미지 */}
         <header className="h-auto w-auto overflow-hidden">
           <img
             src={images}
@@ -83,6 +87,8 @@ function PlaceItem({ id, name, category, images }) {
             className="h-full w-full rounded-t-xl object-cover"
           />
         </header>
+
+        {/* 내용 */}
         <div className="p-4 text-center">
           <p className="text-sm text-gray-600">{category}</p>
           <h2 className="mt-2 text-xl font-semibold">{name}</h2>
