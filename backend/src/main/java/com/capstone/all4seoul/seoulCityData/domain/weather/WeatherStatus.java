@@ -1,14 +1,5 @@
-package com.capstone.all4seoul.seoulCityData.weather.domain;
+package com.capstone.all4seoul.seoulCityData.domain.weather;
 
-import com.capstone.all4seoul.common.domain.BaseTimeEntity;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +7,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
-@Table(name = "weather_statuses")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class WeatherStatus extends BaseTimeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "weather_status_id")
-    private Long id;
-
+public class WeatherStatus {
     private String time;
 
     private String temperature;
@@ -66,7 +50,6 @@ public class WeatherStatus extends BaseTimeEntity {
 
     private String airMessage;
 
-    @OneToMany(mappedBy = "weatherStatus", cascade = CascadeType.ALL)
     private List<WeatherForecast> weatherForecasts = new ArrayList<>();
 
     public static WeatherStatus createWeatherStatus(
@@ -89,7 +72,8 @@ public class WeatherStatus extends BaseTimeEntity {
             String airIndex,
             String airIndexMvl,
             String airIndexMain,
-            String airMessage
+            String airMessage,
+            List<WeatherForecast> weatherForecasts
     ) {
         WeatherStatus weatherStatus = new WeatherStatus();
 
@@ -113,6 +97,7 @@ public class WeatherStatus extends BaseTimeEntity {
         weatherStatus.airIndexMvl = airIndexMvl;
         weatherStatus.airIndexMain = airIndexMain;
         weatherStatus.airMessage = airMessage;
+        weatherStatus.weatherForecasts = weatherForecasts;
 
         return weatherStatus;
     }

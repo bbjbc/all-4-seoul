@@ -1,26 +1,12 @@
-package com.capstone.all4seoul.seoulCityData.parkingLot.domain;
+package com.capstone.all4seoul.seoulCityData.domain.parkingLot;
 
-import com.capstone.all4seoul.common.domain.BaseTimeEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Getter
-@Table(name = "parking_lots")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ParkingLot extends BaseTimeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "parking_lot_id")
-    private Long id;
-
+public class ParkingLot {
     private String name;
 
     private String code;
