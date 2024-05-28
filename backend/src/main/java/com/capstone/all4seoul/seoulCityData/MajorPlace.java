@@ -1,5 +1,6 @@
-package com.capstone.all4seoul.place.domain;
+package com.capstone.all4seoul.seoulCityData;
 
+import com.capstone.all4seoul.place.domain.Place;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
