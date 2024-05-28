@@ -1,7 +1,6 @@
 package com.capstone.all4seoul.user.controller;
 
 import com.capstone.all4seoul.bookmark.dto.request.DeleteBookmarkRequest;
-import com.capstone.all4seoul.bookmark.dto.request.FindBookmarkedPlacesRequest;
 import com.capstone.all4seoul.place.dto.response.MultiPlaceResponse;
 import com.capstone.all4seoul.user.domain.User;
 import com.capstone.all4seoul.user.dto.request.JoinUserRequest;
@@ -124,16 +123,16 @@ public class UserController {
 //        return userService.findBookmarkedPlaces(user);
 //    }
     @GetMapping("/bookmarks")
-    public ResponseEntity<List<PlaceResponse>> findBookmarkedPlaces(HttpServletRequest request) {
+    public ResponseEntity<MultiPlaceResponse> findBookmarkedPlaces(HttpServletRequest request) {
         // 세션에서 userId 추출
         Long userId = (Long) request.getSession().getAttribute("userId");
 
         // userId를 사용하여 북마크된 장소 목록 조회
         User user = userService.findById(userId);
-        List<DetailPlaceResponse> bookmarkedPlaces = userService.findBookmarkedPlaces(user);
+        MultiPlaceResponse bookmarkedPlaces = userService.findBookmarkedPlaces(user);
 
         // 북마크된 장소 목록이 비어있는 경우
-        if (bookmarkedPlaces.isEmpty()) {
+        if (bookmarkedPlaces.getPlaces().isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
