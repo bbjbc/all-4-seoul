@@ -45,7 +45,7 @@ function HomePage() {
 
       {isButtonVisible && (
         <button
-          className="animate-gradientandBounceandslidein hover:animate-gradientandBounceandslidein fixed bottom-6 right-6 z-10 rounded-full bg-gradient-to-r from-amber-600 via-yellow-500 to-red-500 px-4 py-2 text-white shadow-2xl hover:from-amber-600 hover:via-amber-300 hover:to-red-400"
+          className="fixed bottom-6 right-6 z-10 animate-gradientandBounceandslidein rounded-full bg-gradient-to-r from-amber-600 via-yellow-500 to-red-500 px-4 py-2 text-white shadow-2xl hover:animate-gradientandBounceandslidein hover:from-amber-600 hover:via-amber-300 hover:to-red-400"
           onClick={toggleRightSheet}
         >
           Today&apos;s PICK!
