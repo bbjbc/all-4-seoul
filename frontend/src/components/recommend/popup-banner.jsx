@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 
 import { IoIosArrowDown } from 'react-icons/io';
-import popupImg from '../../assets/popup.png';
+import RecommendContent from './recommend-content';
 
 function PopupBanner({ onClose }) {
   const [isShown, setIsShown] = useState(false);
@@ -21,10 +21,10 @@ function PopupBanner({ onClose }) {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 z-20 w-1/3 rounded-t-xl bg-amber-700 p-4 text-white shadow-lg transition-transform duration-500 ease-in-out ${isShown ? 'animate-popupShow' : 'animate-popupHide'}`}
+      className={`fixed bottom-0 left-0 z-20 w-[30%] rounded-t-xl bg-amber-600 p-4 text-white shadow-lg transition-transform duration-500 ease-in-out ${isShown ? 'animate-popupShow' : 'animate-popupHide'}`}
     >
       <div className="flex items-center justify-between border-b border-white p-2">
-        <h2 className="text-xl">☆안내 팝업 지나갑니다☆</h2>
+        <h2 className="text-xl">☆추천 팝업 지나갑니다☆</h2>
         <button
           onClick={() => {
             setIsShown(false);
@@ -35,12 +35,8 @@ function PopupBanner({ onClose }) {
           <IoIosArrowDown size={20} />
         </button>
       </div>
-      <div className="p-2 text-center">
-        <img
-          src={popupImg}
-          alt="popup"
-          className="mx-auto h-96 w-96 rounded-full pb-3"
-        />
+      <div className="p-2">
+        <RecommendContent />
         <span>
           회원님을 위해서 장소를 추천해 드릴게요! <br />
           (팝업을 닫으시고 오른쪽 하단 버튼을 눌러보세요!)
