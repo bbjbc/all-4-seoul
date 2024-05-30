@@ -19,15 +19,15 @@ public class MajorPlaceResponse {
 
     private String areaCode;
 
-    private List<LivePopulationStatus> livePopulationStatus;
+    private List<LivePopulationStatus> livePopulationStatuses; // DTO 만들어야댐
 
-    private List<ParkingLot> parkingLot;
+    private List<ParkingLot> parkingLots;
 
-    private List<ChargerStation> chargerStation;
+    private List<ChargerStation> chargerStations;
 
-    private List<WeatherStatus> weatherStatus;
+    private List<WeatherStatus> weatherStatuses;
 
-    private List<AdjacentEvent> adjacentEvent;
+    private List<AdjacentEvent> adjacentEvents;
 
 
     public static MajorPlaceResponse of(MajorPlace majorPlace) {
@@ -35,11 +35,11 @@ public class MajorPlaceResponse {
 
         majorPlaceResponse.areaName = majorPlace.getAreaName();
         majorPlaceResponse.areaCode = majorPlace.getAreaCode();
-        majorPlaceResponse.livePopulationStatus = majorPlace.getLivePopulationStatus();
-        majorPlaceResponse.parkingLot = majorPlace.getParkingLot();
-        majorPlaceResponse.chargerStation = majorPlace.getChargerStation();
-        majorPlaceResponse.weatherStatus = majorPlace.getWeatherStatus();
-        majorPlaceResponse.adjacentEvent = majorPlace.getAdjacentEvent();
+        majorPlaceResponse.livePopulationStatuses = majorPlace.getLivePopulationStatuses();
+        majorPlaceResponse.parkingLots = majorPlace.getParkingLots();
+        majorPlaceResponse.chargerStations = majorPlace.getChargerStations();
+        majorPlaceResponse.weatherStatuses = majorPlace.getWeatherStatuses();
+        majorPlaceResponse.adjacentEvents = majorPlace.getAdjacentEvents();
 
         return majorPlaceResponse;
     }
