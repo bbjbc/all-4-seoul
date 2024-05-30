@@ -82,4 +82,9 @@ public class ParkingLot {
 
         return parkingLot;
     }
+
+    public void setMajorPlace(MajorPlace majorPlace) {
+        this.majorPlace = majorPlace;
+        majorPlace.getParkingLots().add(this);
+    }
 }
