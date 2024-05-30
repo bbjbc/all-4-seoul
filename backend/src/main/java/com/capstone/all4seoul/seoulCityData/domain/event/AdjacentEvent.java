@@ -64,4 +64,9 @@ public class AdjacentEvent {
 
         return adjacentEvent;
     }
+
+    public void setMajorPlace(MajorPlace majorPlace) {
+        this.majorPlace = majorPlace;
+        majorPlace.getAdjacentEvents().add(this);
+    }
 }
