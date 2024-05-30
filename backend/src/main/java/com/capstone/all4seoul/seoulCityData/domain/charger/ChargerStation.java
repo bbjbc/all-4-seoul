@@ -2,6 +2,7 @@ package com.capstone.all4seoul.seoulCityData.domain.charger;
 
 import com.capstone.all4seoul.place.dto.response.externalApi.PlaceSearchResponseBySeoulDataApi;
 import com.capstone.all4seoul.seoulCityData.domain.MajorPlace;
+import com.capstone.all4seoul.seoulCityData.domain.population.LivePopulationStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -57,25 +58,31 @@ public class ChargerStation {
     @OneToMany(mappedBy = "chargerStation", cascade = CascadeType.ALL)
     private List<ChargerDetail> chargerDetails = new ArrayList<>();
 
-    public static ChargerStation createChargerStation(
+    public ChargerStation(
             PlaceSearchResponseBySeoulDataApi.CityData.ChargerStation fetchedChargerStation,
             List<ChargerDetail> chargerDetails
     ) {
-        ChargerStation chargerStation = new ChargerStation();
+        this.name = fetchedChargerStation.getName();
+        this.stationId = fetchedChargerStation.getStationId();
+        this.address = fetchedChargerStation.getAddress();
+        this.longitude = fetchedChargerStation.getLongitude();
+        this.latitude = fetchedChargerStation.getLatitude();
+        this.useTime = fetchedChargerStation.getUseTime();
+        this.parkPay = fetchedChargerStation.getParkPay();
+        this.limitYn = fetchedChargerStation.getLimitYn();
+        this.limitDetail = fetchedChargerStation.getLimitDetail();
+        this.kindDetail = fetchedChargerStation.getKindDetail();
+        setChargerDetails(chargerDetails);
+    }
 
-        chargerStation.name = fetchedChargerStation.getName();
-        chargerStation.stationId = fetchedChargerStation.getStationId();
-        chargerStation.address = fetchedChargerStation.getAddress();
-        chargerStation.longitude = fetchedChargerStation.getLongitude();
-        chargerStation.latitude = fetchedChargerStation.getLatitude();
-        chargerStation.useTime = fetchedChargerStation.getUseTime();
-        chargerStation.parkPay = fetchedChargerStation.getParkPay();
-        chargerStation.limitYn = fetchedChargerStation.getLimitYn();
-        chargerStation.limitDetail = fetchedChargerStation.getLimitDetail();
-        chargerStation.kindDetail = fetchedChargerStation.getKindDetail();
-        chargerStation.chargerDetails = chargerDetails;
+    public void setMajorPlace(MajorPlace majorPlace) {
+        this.majorPlace = majorPlace;
+        majorPlace.getChargerStations().add(this);
+    }
 
-        return chargerStation;
+    private void setChargerDetails(List<ChargerDetail> chargerDetails) {
+        chargerDetails.stream()
+                .forEach(chargerDetail -> chargerDetail.setChargerStation(this));
     }
 
     @Entity
@@ -108,6 +115,11 @@ public class ChargerStation {
             chargerDetail.status = fetchedChargerDetail.getStatus();
 
             return chargerDetail;
+        }
+
+        private void setChargerStation(ChargerStation chargerStation) {
+            this.chargerStation = chargerStation;
+            chargerStation.getChargerDetails().add(this);
         }
     }
 }
