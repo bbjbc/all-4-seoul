@@ -29,7 +29,7 @@ public class InitDb {
 
     @PostConstruct
     public void init() {
-        this.initService.saveCrawledPlaces();
+//        this.initService.saveCrawledPlaces();
 //        this.initService.saveMajorPlaces();
     }
 
@@ -166,7 +166,7 @@ public class InitDb {
                         String areaName = csvRecord.get(3);
                         String areaEnglishName = csvRecord.get(4);
 
-                        MajorPlace majorPlace = MajorPlace.createMajorPlace(
+                        MajorPlace majorPlace = new MajorPlace(
                                 category,
                                 areaCode,
                                 null,
