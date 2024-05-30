@@ -45,7 +45,7 @@ public class Place {
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 
-    @Column(name = "phone_number", nullable = false, unique = true, length = 20)
+    @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
     @Column(name = "address", nullable = false)
