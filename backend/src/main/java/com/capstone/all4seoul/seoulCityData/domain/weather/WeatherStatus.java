@@ -2,6 +2,7 @@ package com.capstone.all4seoul.seoulCityData.domain.weather;
 
 import com.capstone.all4seoul.place.dto.response.externalApi.PlaceSearchResponseBySeoulDataApi;
 import com.capstone.all4seoul.seoulCityData.domain.MajorPlace;
+import com.capstone.all4seoul.seoulCityData.domain.population.LivePopulationStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -77,35 +78,41 @@ public class WeatherStatus {
     @OneToMany(mappedBy = "weatherStatus", cascade = CascadeType.ALL)
     private List<WeatherForecast> weatherForecasts = new ArrayList<>();
 
-    public static WeatherStatus createWeatherStatus(
+    public WeatherStatus(
             PlaceSearchResponseBySeoulDataApi.CityData.WeatherStatus fetchedWeatherStatus,
             List<WeatherForecast> weatherForecasts
     ) {
-        WeatherStatus weatherStatus = new WeatherStatus();
+        this.time = fetchedWeatherStatus.getTime();
+        this.temperature = fetchedWeatherStatus.getTemperature();
+        this.sensibleTemperature = fetchedWeatherStatus.getSensibleTemperature();
+        this.maximumTemperature = fetchedWeatherStatus.getMaximumTemperature();
+        this.minimumTemperature = fetchedWeatherStatus.getMinimumTemperature();
+        this.humidity = fetchedWeatherStatus.getHumidity();
+        this.precipitation = fetchedWeatherStatus.getPrecipitation();
+        this.precipitationType = fetchedWeatherStatus.getPrecipitationType();
+        this.precipitationMessage = fetchedWeatherStatus.getPrecipitationMessage();
+        this.uvIndexLevel = fetchedWeatherStatus.getUvIndexLevel();
+        this.uvIndex = fetchedWeatherStatus.getUvIndex();
+        this.uvMessage = fetchedWeatherStatus.getUvMessage();
+        this.pm25Index = fetchedWeatherStatus.getPm25Index();
+        this.pm25 = fetchedWeatherStatus.getPm25();
+        this.pm10Index = fetchedWeatherStatus.getPm10Index();
+        this.pm10 = fetchedWeatherStatus.getPm10();
+        this.airIndex = fetchedWeatherStatus.getAirIndex();
+        this.airIndexMvl = fetchedWeatherStatus.getAirIndexMvl();
+        this.airIndexMain = fetchedWeatherStatus.getAirIndexMain();
+        this.airMessage = fetchedWeatherStatus.getAirMessage();
+        setWeatherForecasts(weatherForecasts);
+    }
 
-        weatherStatus.time = fetchedWeatherStatus.getTime();
-        weatherStatus.temperature = fetchedWeatherStatus.getTemperature();
-        weatherStatus.sensibleTemperature = fetchedWeatherStatus.getSensibleTemperature();
-        weatherStatus.maximumTemperature = fetchedWeatherStatus.getMaximumTemperature();
-        weatherStatus.minimumTemperature = fetchedWeatherStatus.getMinimumTemperature();
-        weatherStatus.humidity = fetchedWeatherStatus.getHumidity();
-        weatherStatus.precipitation = fetchedWeatherStatus.getPrecipitation();
-        weatherStatus.precipitationType = fetchedWeatherStatus.getPrecipitationType();
-        weatherStatus.precipitationMessage = fetchedWeatherStatus.getPrecipitationMessage();
-        weatherStatus.uvIndexLevel = fetchedWeatherStatus.getUvIndexLevel();
-        weatherStatus.uvIndex = fetchedWeatherStatus.getUvIndex();
-        weatherStatus.uvMessage = fetchedWeatherStatus.getUvMessage();
-        weatherStatus.pm25Index = fetchedWeatherStatus.getPm25Index();
-        weatherStatus.pm25 = fetchedWeatherStatus.getPm25();
-        weatherStatus.pm10Index = fetchedWeatherStatus.getPm10Index();
-        weatherStatus.pm10 = fetchedWeatherStatus.getPm10();
-        weatherStatus.airIndex = fetchedWeatherStatus.getAirIndex();
-        weatherStatus.airIndexMvl = fetchedWeatherStatus.getAirIndexMvl();
-        weatherStatus.airIndexMain = fetchedWeatherStatus.getAirIndexMain();
-        weatherStatus.airMessage = fetchedWeatherStatus.getAirMessage();
-        weatherStatus.weatherForecasts = weatherForecasts;
+    public void setMajorPlace(MajorPlace majorPlace) {
+        this.majorPlace = majorPlace;
+        majorPlace.getWeatherStatuses().add(this);
+    }
 
-        return weatherStatus;
+    private void setWeatherForecasts(List<WeatherForecast> weatherForecasts) {
+        weatherForecasts.stream()
+                .forEach(weatherForecast -> weatherForecast.setWeatherStatus(this));
     }
 
     @Entity
@@ -147,6 +154,11 @@ public class WeatherStatus {
             weatherForecast.skyStatus = fetchedForecast24Hour.getSkyStatus();
 
             return weatherForecast;
+        }
+
+        private void setWeatherStatus(WeatherStatus weatherStatus) {
+            this.weatherStatus = weatherStatus;
+            weatherStatus.getWeatherForecasts().add(this);
         }
     }
 
