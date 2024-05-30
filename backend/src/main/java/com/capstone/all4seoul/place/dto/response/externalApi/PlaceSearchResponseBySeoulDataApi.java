@@ -37,11 +37,11 @@ public class PlaceSearchResponseBySeoulDataApi {
         @JsonProperty("AREA_CD")
         private String areaCode;
         @JsonProperty("LIVE_PPLTN_STTS")
-        private List<LivePopulationStatus> livePopulationStatus;
+        private List<LivePopulationStatus> livePopulationStatuses;
         @JsonProperty("ROAD_TRAFFIC_STTS")
         private RoadTrafficStatus roadTrafficStatus;
         @JsonProperty("PRK_STTS")
-        private List<ParkingLots> adjacentParkingLots;
+        private List<ParkingLot> adjacentParkingLots;
         @JsonProperty("SUB_STTS")
         private List<Sub> SUB_STTS;
         @JsonProperty("BUS_STN_STTS")
@@ -51,7 +51,7 @@ public class PlaceSearchResponseBySeoulDataApi {
         @JsonProperty("SBIKE_STTS")
         private List<Object> SBIKE_STTS;
         @JsonProperty("WEATHER_STTS")
-        private List<WeatherStatus> weatherStatus;
+        private List<WeatherStatus> weatherStatuses;
         @JsonProperty("CHARGER_STTS")
         private List<ChargerStation> adjacentChargerStations;
         @JsonProperty("EVENT_STTS")
@@ -176,7 +176,7 @@ public class PlaceSearchResponseBySeoulDataApi {
         @Getter
         @NoArgsConstructor
         @AllArgsConstructor
-        public static class ParkingLots {
+        public static class ParkingLot {
             @JsonProperty("PRK_NM")
             private String name;
             @JsonProperty("PRK_CD")
