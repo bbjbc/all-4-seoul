@@ -13,24 +13,26 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PlaceResponse {
-    private Long id;
-    private int bookmarkCount;
-    private List<ReviewResponse> reviews;
+//    private Long id;
+//    private int bookmarkCount;
+//    private List<ReviewResponse> reviews;
     private PlaceTextSearchResponseByGoogle googleInfo;
     private MajorPlaceResponse majorPlace;
 
-    public static PlaceResponse of(Place place, PlaceTextSearchResponseByGoogle googleAdditionalInfo) {
+    public static PlaceResponse of(
+//            Place place,
+            PlaceTextSearchResponseByGoogle googleAdditionalInfo,
+            MajorPlaceResponse majorPlaceResponse
+    ) {
         PlaceResponse placeResponse = new PlaceResponse();
 
-        placeResponse.id = place.getId();
-        placeResponse.bookmarkCount = place.getBookmarks().size();
-        placeResponse.reviews = place.getReviews().stream()
-                .map(ReviewResponse::of)
-                .toList();
+//        placeResponse.id = place.getId();
+//        placeResponse.bookmarkCount = place.getBookmarks().size();
+//        placeResponse.reviews = place.getReviews().stream()
+//                .map(ReviewResponse::of)
+//                .toList();
         placeResponse.googleInfo = googleAdditionalInfo;
-        if (place.getMajorPlace() != null) {
-            placeResponse.majorPlace = MajorPlaceResponse.of(place.getMajorPlace());
-        }
+        placeResponse.majorPlace = majorPlaceResponse;
 
         return placeResponse;
     }
