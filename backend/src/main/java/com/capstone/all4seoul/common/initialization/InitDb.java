@@ -1,10 +1,10 @@
 package com.capstone.all4seoul.common.initialization;
 
-import com.capstone.all4seoul.seoulCityData.domain.MajorPlace;
+import com.capstone.all4seoul.place.domain.Category;
 import com.capstone.all4seoul.place.domain.Place;
-import com.capstone.all4seoul.place.domain.Category; // 필요에 따라 적절한 패키지를 import
-import com.capstone.all4seoul.place.repository.MajorPlaceRepository;
 import com.capstone.all4seoul.place.repository.PlaceRepository;
+import com.capstone.all4seoul.seoulCityData.domain.MajorPlace;
+import com.capstone.all4seoul.seoulCityData.repository.MajorPlaceRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
@@ -30,7 +30,7 @@ public class InitDb {
     @PostConstruct
     public void init() {
         this.initService.saveCrawledPlaces();
-        this.initService.saveMajorPlaces();
+//        this.initService.saveMajorPlaces();
     }
 
     @Component
@@ -169,8 +169,11 @@ public class InitDb {
                         MajorPlace majorPlace = MajorPlace.createMajorPlace(
                                 category,
                                 areaCode,
-                                areaName,
-                                areaEnglishName
+                                null,
+                                null,
+                                null,
+                                null,
+                                null
                         );
 
                         log.info("Loaded majorPlace: {}", majorPlace);
