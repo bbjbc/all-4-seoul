@@ -26,7 +26,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -35,10 +34,10 @@ import java.util.stream.Collectors;
 public class ScheduledTasks {
     private final MajorPlaceRepository majorPlaceRepository;
     private PlaceSearchResponseBySeoulDataApi.CityData cityData;
-    private static final int THREAD_COUNT = 50; // 스레드 풀의 크기
+    private static final int THREAD_COUNT = 100; // 스레드 풀의 크기
 
     /**
-     * 서울시 실시간 데이터 병렬 처리 관련 로직 -> 일시 보류 (DB부터 갈아엎어야 됨)
+     * 서울시 실시간 데이터 병렬 처리 관련 로직
      */
     @Scheduled(fixedRate = 30, timeUnit = TimeUnit.SECONDS)
     public void fetchAllData() {
@@ -60,23 +59,6 @@ public class ScheduledTasks {
         log.info("All data fetching tasks completed.");
     }
 
-//    private PlaceSearchResponseBySeoulDataApi.CityData fetchSeoulCityData(String keyword) {
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        String seoulDataApiKey = "47725179416177663634557a734f45";
-//        String url = "http://openapi.seoul.go.kr:8088/" + seoulDataApiKey + "/json/citydata/1/5/" + keyword;
-//
-//        ResponseEntity<PlaceSearchResponseBySeoulDataApi> response = restTemplate.exchange(
-//                url,
-//                HttpMethod.GET,
-//                null,
-//                PlaceSearchResponseBySeoulDataApi.class
-//        );
-//
-//        return Objects.requireNonNull(response.getBody()).getCityData();
-//    }
-
-    //    @Scheduled(fixedRate = 30, timeUnit = TimeUnit.SECONDS) // 1분마다 실행
     public String fetchSeoulCityData(String areaName) {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -92,7 +74,7 @@ public class ScheduledTasks {
 
         cityData = Objects.requireNonNull(responseEntity.getBody()).getCityData();
         majorPlaceRepository.save(
-                MajorPlace.createMajorPlace(
+                new MajorPlace(
                         cityData.getAreaName(),
                         cityData.getAreaCode(),
                         savePopulationStatus(),
@@ -144,7 +126,7 @@ public class ScheduledTasks {
                                     );
 
                             chargerStations.add(
-                                    ChargerStation.createChargerStation(
+                                    new ChargerStation(
                                             chargerStation,
                                             chargerDetails
                                     )
@@ -168,7 +150,7 @@ public class ScheduledTasks {
                                     );
 
                             livePopulationStatuses.add(
-                                    LivePopulationStatus.createLivePopulationStatus(
+                                    new LivePopulationStatus(
                                             livePopulationStatus,
                                             populationForecasts
                                     )
@@ -194,7 +176,7 @@ public class ScheduledTasks {
                                     );
 
                             weatherStatuses.add(
-                                    WeatherStatus.createWeatherStatus(
+                                    new WeatherStatus(
                                             weatherStatus,
                                             weatherForecasts
                                     )
