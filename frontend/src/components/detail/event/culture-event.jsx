@@ -101,7 +101,7 @@ function CultureEvent({ cultureRef, name, data = [] }) {
 CultureEvent.propTypes = {
   cultureRef: propTypes.object.isRequired,
   name: propTypes.string.isRequired,
-  data: propTypes.array.isRequired,
+  data: propTypes.array,
 };
 
 export default CultureEvent;
