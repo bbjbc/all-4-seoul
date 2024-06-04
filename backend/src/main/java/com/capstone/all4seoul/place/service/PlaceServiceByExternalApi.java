@@ -40,7 +40,7 @@ public class PlaceServiceByExternalApi {
                 "places.websiteUri," +
                 "places.reviews");
 
-        PlaceSearchRequestWithTextQueryByGoogle request = new PlaceSearchRequestWithTextQueryByGoogle(textQuery, "ko");
+        PlaceSearchRequestWithTextQueryByGoogle request = new PlaceSearchRequestWithTextQueryByGoogle(textQuery, "ko", 1);
         HttpEntity<PlaceSearchRequestWithTextQueryByGoogle> requestEntity = new HttpEntity<>(request, headers);
 
         // HTTP 요청 보내기
