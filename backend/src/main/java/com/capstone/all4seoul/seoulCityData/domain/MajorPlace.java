@@ -54,7 +54,7 @@ public class MajorPlace extends BaseTimeEntity {
 
     @OneToOne(mappedBy = "majorPlace")
     private Place place;
-
+  
     public MajorPlace (
             String areaName,
             String areaCode,
