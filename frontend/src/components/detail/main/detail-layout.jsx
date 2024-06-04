@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import propTypes from 'prop-types';
 import HandleBackButton from '../../button/handle-back-button';
 
-function DetailLayout({ children }) {
+function DetailLayout({ children, isLoading }) {
   const { ref, inView } = useInView({
     threshold: 0.5,
     triggerOnce: true,
@@ -13,7 +13,9 @@ function DetailLayout({ children }) {
 
   return (
     <div className="flex h-screen" ref={ref}>
-      <div className={`relative flex-grow ${inView ? 'animate-slidein' : ''}`}>
+      <div
+        className={`relative flex-grow ${!isLoading && inView ? 'animate-slidein' : ''}`}
+      >
         <HandleBackButton path="list" />
         {children}
       </div>
@@ -23,6 +25,7 @@ function DetailLayout({ children }) {
 
 DetailLayout.propTypes = {
   children: propTypes.node.isRequired,
+  isLoading: propTypes.bool.isRequired,
 };
 
 export default DetailLayout;

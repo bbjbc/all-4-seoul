@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import axios from 'axios';
+
 import MapCategory from './map-category';
 import PlaceOverlay from './place-overlay';
 import { fetchDataAndDisplayPolygons } from '../../lib/fetch-data';
@@ -26,6 +28,7 @@ const markerImages = {
 function KakaoMap() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [listSelectedPlace, setListSelectedPlace] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const mapOption = {
@@ -311,7 +314,79 @@ function KakaoMap() {
 
     // 마커 클릭 시 장소 정보를 표시하는 함수
     const displayPlaceInfo = (place) => {
+      setLoading(true);
       setSelectedPlace(place);
+      // 장소 이름을 통해 추가 정보를 요청
+      const placeName = decodeURIComponent(place.place_name);
+
+      axios
+        .get(`http://localhost:8080/api/places/google/${placeName}`)
+        .then((response) => {
+          setLoading(false);
+          const additionalInfo = response.data;
+          console.log(additionalInfo);
+
+          // places 배열의 첫 번째 항목의 displayName.text 값에 접근(장소 이름)
+          const displayNameText =
+            additionalInfo.places[0]?.displayName?.text || '';
+
+          // userRatingCount
+          const userRatingCount =
+            additionalInfo.places[0]?.userRatingCount || 0;
+
+          // formattedAddress
+          const formattedAddress =
+            additionalInfo.places[0]?.formattedAddress || '';
+
+          // nationalPhoneNumber
+          const nationalPhoneNumber =
+            additionalInfo.places[0]?.nationalPhoneNumber || '';
+
+          // 첫 번째 사진의 photoUri에 접근
+          const firstPhotoUri =
+            additionalInfo.places[0]?.photos?.[0]?.photoUri || '';
+
+          // rating 평균
+          const rating = additionalInfo.places[0]?.rating || 0;
+
+          // 사이트 uri
+          const websiteUri = additionalInfo.places[0]?.websiteUri || '';
+
+          // 리뷰 정보 가져오기
+          const reviews = additionalInfo.places[0]?.reviews || [];
+
+          // 리뷰 정보를 추출하여 updatedPlace에 추가
+          const extractedReviews = reviews.map((review) => ({
+            text: review.text?.text || '',
+            relativePublishTimeDescription:
+              review.relativePublishTimeDescription || '',
+            rating: review.rating || 0,
+            publishTime: review.publishTime || '',
+            displayName: review.authorAttribution?.displayName || '',
+          }));
+
+          // 응답 데이터를 포함하여 선택된 장소 정보를 업데이트
+          const updatedPlace = {
+            ...place,
+            ...additionalInfo,
+            displayNameText,
+            userRatingCount,
+            formattedAddress,
+            nationalPhoneNumber,
+            firstPhotoUri,
+            rating,
+            websiteUri,
+            reviews: extractedReviews,
+          };
+
+          // 업데이트된 정보를 설정
+          setSelectedPlace(updatedPlace);
+          console.log('장소 정보를 가져왔습니다.', updatedPlace);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.error('장소 정보를 가져오는 데 오류가 발생했습니다!', error);
+        });
     };
 
     // 카테고리 클릭 시 이벤트 추가 함수
@@ -353,6 +428,7 @@ function KakaoMap() {
         <PlaceOverlay
           place={selectedPlace}
           onClose={() => setSelectedPlace(null)}
+          loading={loading}
         />
       )}
       {listSelectedPlace && (

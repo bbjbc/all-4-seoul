@@ -1,11 +1,20 @@
 import React from 'react';
 
-function LoadingSpinner() {
+import propTypes from 'prop-types';
+
+function LoadingSpinner({ text, height, width }) {
+  text = text || 'text-4xl';
+  height = height || 'h-12';
+  width = width || 'w-12';
+
   return (
-    <div role="status" className="flex justify-center gap-8 p-20">
+    <div
+      role="status"
+      className="flex animate-bounce justify-center gap-8 p-20"
+    >
       <svg
         aria-hidden="true"
-        className="h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+        className={`${height} ${width} animate-spin fill-blue-600 text-gray-200 dark:text-gray-600`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -19,11 +28,17 @@ function LoadingSpinner() {
           fill="currentFill"
         />
       </svg>
-      <span className="text-4xl font-extrabold">
+      <span className={`${text} font-extrabold`}>
         데이터를 가져오는 중입니다...
       </span>
     </div>
   );
 }
+
+LoadingSpinner.propTypes = {
+  text: propTypes.string,
+  height: propTypes.string,
+  width: propTypes.string,
+};
 
 export default LoadingSpinner;
