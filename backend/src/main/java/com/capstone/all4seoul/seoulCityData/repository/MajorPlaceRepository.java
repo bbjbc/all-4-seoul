@@ -15,4 +15,7 @@ public interface MajorPlaceRepository extends JpaRepository<MajorPlace, Long> {
     @Modifying
     @Query("UPDATE MajorPlace m SET m.latest = FALSE WHERE m.latest = TRUE")
     void updateLatestFalseIfTrue();
+
+    // areaName이라는 문자열을 포함한 MajorPlace가 존재하는지 확인
+    boolean existsByAreaNameContains(String areaName);
 }

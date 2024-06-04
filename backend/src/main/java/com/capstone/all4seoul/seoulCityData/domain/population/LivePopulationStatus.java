@@ -4,7 +4,6 @@ import com.capstone.all4seoul.place.dto.response.externalApi.PlaceSearchResponse
 import com.capstone.all4seoul.seoulCityData.domain.MajorPlace;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -76,34 +75,40 @@ public class LivePopulationStatus {
     @OneToMany(mappedBy = "livePopulationStatus", cascade = CascadeType.ALL)
     private List<PopulationForecast> populationForecasts = new ArrayList<>();
 
-    public static LivePopulationStatus createLivePopulationStatus(
+    public LivePopulationStatus(
             PlaceSearchResponseBySeoulDataApi.CityData.LivePopulationStatus fetchedLivePopulationStatus,
             List<PopulationForecast> populationForecasts
     ) {
-        LivePopulationStatus livePopulationStatus = new LivePopulationStatus();
+        this.areaCongestLevel = fetchedLivePopulationStatus.getAreaCongestLevel();
+        this.areaCongestMessage = fetchedLivePopulationStatus.getAreaCongestMessage();
+        this.minimumAreaPopulation = fetchedLivePopulationStatus.getMinimumAreaPopulation();
+        this.maximumAreaPopulation = fetchedLivePopulationStatus.getMaximumAreaPopulation();
+        this.malePopulationRate = fetchedLivePopulationStatus.getMalePopulationRate();
+        this.femalePopulationRate = fetchedLivePopulationStatus.getFemalePopulationRate();
+        this.populationRate0 = fetchedLivePopulationStatus.getPopulationRate0();
+        this.populationRate10 = fetchedLivePopulationStatus.getPopulationRate10();
+        this.populationRate20 = fetchedLivePopulationStatus.getPopulationRate20();
+        this.populationRate30 = fetchedLivePopulationStatus.getPopulationRate30();
+        this.populationRate40 = fetchedLivePopulationStatus.getPopulationRate40();
+        this.populationRate50 = fetchedLivePopulationStatus.getPopulationRate50();
+        this.populationRate60 = fetchedLivePopulationStatus.getPopulationRate60();
+        this.populationRate70 = fetchedLivePopulationStatus.getPopulationRate70();
+        this.resentPopulationRate = fetchedLivePopulationStatus.getResentPopulationRate();
+        this.nonResentPopulationRate = fetchedLivePopulationStatus.getNonResentPopulationRate();
+        this.replaceYN = fetchedLivePopulationStatus.getReplaceYn();
+        this.populationTime = fetchedLivePopulationStatus.getPopulationTime();
+        this.forecastYN = fetchedLivePopulationStatus.getForecastYn();
+        setPopulationForecasts(populationForecasts);
+    }
 
-        livePopulationStatus.areaCongestLevel = fetchedLivePopulationStatus.getAreaCongestLevel();
-        livePopulationStatus.areaCongestMessage = fetchedLivePopulationStatus.getAreaCongestMessage();
-        livePopulationStatus.minimumAreaPopulation = fetchedLivePopulationStatus.getMinimumAreaPopulation();
-        livePopulationStatus.maximumAreaPopulation = fetchedLivePopulationStatus.getMaximumAreaPopulation();
-        livePopulationStatus.malePopulationRate = fetchedLivePopulationStatus.getMalePopulationRate();
-        livePopulationStatus.femalePopulationRate = fetchedLivePopulationStatus.getFemalePopulationRate();
-        livePopulationStatus.populationRate0 = fetchedLivePopulationStatus.getPopulationRate0();
-        livePopulationStatus.populationRate10 = fetchedLivePopulationStatus.getPopulationRate10();
-        livePopulationStatus.populationRate20 = fetchedLivePopulationStatus.getPopulationRate20();
-        livePopulationStatus.populationRate30 = fetchedLivePopulationStatus.getPopulationRate30();
-        livePopulationStatus.populationRate40 = fetchedLivePopulationStatus.getPopulationRate40();
-        livePopulationStatus.populationRate50 = fetchedLivePopulationStatus.getPopulationRate50();
-        livePopulationStatus.populationRate60 = fetchedLivePopulationStatus.getPopulationRate60();
-        livePopulationStatus.populationRate70 = fetchedLivePopulationStatus.getPopulationRate70();
-        livePopulationStatus.resentPopulationRate = fetchedLivePopulationStatus.getResentPopulationRate();
-        livePopulationStatus.nonResentPopulationRate = fetchedLivePopulationStatus.getNonResentPopulationRate();
-        livePopulationStatus.replaceYN = fetchedLivePopulationStatus.getReplaceYn();
-        livePopulationStatus.populationTime = fetchedLivePopulationStatus.getPopulationTime();
-        livePopulationStatus.forecastYN = fetchedLivePopulationStatus.getForecastYn();
-        livePopulationStatus.populationForecasts = populationForecasts;
+    public void setMajorPlace(MajorPlace majorPlace) {
+        this.majorPlace = majorPlace;
+        majorPlace.getLivePopulationStatuses().add(this);
+    }
 
-        return livePopulationStatus;
+    private void setPopulationForecasts(List<PopulationForecast> populationForecasts) {
+        populationForecasts.stream()
+                .forEach(populationForecast -> populationForecast.setLivePopulationStatus(this));
     }
 
     @Entity
@@ -139,6 +144,11 @@ public class LivePopulationStatus {
             populationForecast.maximumForecastPopulation = fetchedForecastPopulation.getMaximumForecastPopulation();
 
             return populationForecast;
+        }
+
+        private void setLivePopulationStatus(LivePopulationStatus livePopulationStatus) {
+            this.livePopulationStatus = livePopulationStatus;
+            livePopulationStatus.getPopulationForecasts().add(this);
         }
     }
 }

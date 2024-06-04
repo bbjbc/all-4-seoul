@@ -1,11 +1,11 @@
 package com.capstone.all4seoul.place.dto.response;
 
 import com.capstone.all4seoul.seoulCityData.domain.MajorPlace;
-import com.capstone.all4seoul.seoulCityData.domain.charger.ChargerStation;
-import com.capstone.all4seoul.seoulCityData.domain.event.AdjacentEvent;
-import com.capstone.all4seoul.seoulCityData.domain.parkingLot.ParkingLot;
-import com.capstone.all4seoul.seoulCityData.domain.population.LivePopulationStatus;
-import com.capstone.all4seoul.seoulCityData.domain.weather.WeatherStatus;
+import com.capstone.all4seoul.seoulCityData.dto.response.AdjacentEventResponse;
+import com.capstone.all4seoul.seoulCityData.dto.response.ChargerStationResponse;
+import com.capstone.all4seoul.seoulCityData.dto.response.LivePopulationStatusResponse;
+import com.capstone.all4seoul.seoulCityData.dto.response.ParkingLotResponse;
+import com.capstone.all4seoul.seoulCityData.dto.response.WeatherStatusResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,27 +19,41 @@ public class MajorPlaceResponse {
 
     private String areaCode;
 
-    private List<LivePopulationStatus> livePopulationStatus;
+    private List<LivePopulationStatusResponse> livePopulationStatuses;
 
-    private List<ParkingLot> parkingLot;
+    private List<ParkingLotResponse> parkingLots;
 
-    private List<ChargerStation> chargerStation;
+    private List<ChargerStationResponse> chargerStations;
 
-    private List<WeatherStatus> weatherStatus;
+    private List<WeatherStatusResponse> weatherStatuses;
 
-    private List<AdjacentEvent> adjacentEvent;
-
+    private List<AdjacentEventResponse> adjacentEvents;
 
     public static MajorPlaceResponse of(MajorPlace majorPlace) {
         MajorPlaceResponse majorPlaceResponse = new MajorPlaceResponse();
 
         majorPlaceResponse.areaName = majorPlace.getAreaName();
         majorPlaceResponse.areaCode = majorPlace.getAreaCode();
-        majorPlaceResponse.livePopulationStatus = majorPlace.getLivePopulationStatus();
-        majorPlaceResponse.parkingLot = majorPlace.getParkingLot();
-        majorPlaceResponse.chargerStation = majorPlace.getChargerStation();
-        majorPlaceResponse.weatherStatus = majorPlace.getWeatherStatus();
-        majorPlaceResponse.adjacentEvent = majorPlace.getAdjacentEvent();
+        majorPlaceResponse.livePopulationStatuses = majorPlace.getLivePopulationStatuses()
+                .stream()
+                .map(LivePopulationStatusResponse::of)
+                .toList();
+        majorPlaceResponse.parkingLots = majorPlace.getParkingLots()
+                .stream()
+                .map(ParkingLotResponse::of)
+                .toList();
+        majorPlaceResponse.chargerStations = majorPlace.getChargerStations()
+                .stream()
+                .map(ChargerStationResponse::of)
+                .toList();
+        majorPlaceResponse.weatherStatuses = majorPlace.getWeatherStatuses()
+                .stream()
+                .map(WeatherStatusResponse::of)
+                .toList();
+        majorPlaceResponse.adjacentEvents = majorPlace.getAdjacentEvents()
+                .stream()
+                .map(AdjacentEventResponse::of)
+                .toList();
 
         return majorPlaceResponse;
     }

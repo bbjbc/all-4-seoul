@@ -20,6 +20,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,42 +38,63 @@ public class MajorPlace extends BaseTimeEntity {
     private String areaCode;
 
     @OneToMany(mappedBy = "majorPlace", cascade = CascadeType.ALL)
-    private List<LivePopulationStatus> livePopulationStatus;
+    private List<LivePopulationStatus> livePopulationStatuses = new ArrayList<>();
 
     @OneToMany(mappedBy = "majorPlace", cascade = CascadeType.ALL)
-    private List<ParkingLot> parkingLot;
+    private List<ParkingLot> parkingLots = new ArrayList<>();
 
     @OneToMany(mappedBy = "majorPlace", cascade = CascadeType.ALL)
-    private List<ChargerStation> chargerStation;
+    private List<ChargerStation> chargerStations = new ArrayList<>();
 
     @OneToMany(mappedBy = "majorPlace", cascade = CascadeType.ALL)
-    private List<WeatherStatus> weatherStatus;
+    private List<WeatherStatus> weatherStatuses = new ArrayList<>();
 
     @OneToMany(mappedBy = "majorPlace", cascade = CascadeType.ALL)
-    private List<AdjacentEvent> adjacentEvent;
+    private List<AdjacentEvent> adjacentEvents = new ArrayList<>();
 
     @OneToOne(mappedBy = "majorPlace")
     private Place place;
-
-    public static MajorPlace createMajorPlace(
+  
+    public MajorPlace (
             String areaName,
             String areaCode,
-            List<LivePopulationStatus> livePopulationStatus,
-            List<ParkingLot> parkingLot,
-            List<ChargerStation> chargerStation,
-            List<WeatherStatus> weatherStatus,
-            List<AdjacentEvent> adjacentEvent
+            List<LivePopulationStatus> livePopulationStatuses,
+            List<ParkingLot> parkingLots,
+            List<ChargerStation> chargerStations,
+            List<WeatherStatus> weatherStatuses,
+            List<AdjacentEvent> adjacentEvents
     ) {
-        MajorPlace majorPlace = new MajorPlace();
+        this.areaName = areaName;
+        this.areaCode = areaCode;
+        setLivePopulationStatuses(livePopulationStatuses);
+        setParkingLots(parkingLots);
+        setChargerStations(chargerStations);
+        setWeatherStatuses(weatherStatuses);
+        setAdjacentEvents(adjacentEvents);
+    }
 
-        majorPlace.areaName = areaName;
-        majorPlace.areaCode = areaCode;
-        majorPlace.livePopulationStatus = livePopulationStatus;
-        majorPlace.parkingLot = parkingLot;
-        majorPlace.chargerStation = chargerStation;
-        majorPlace.weatherStatus = weatherStatus;
-        majorPlace.adjacentEvent = adjacentEvent;
+    private void setLivePopulationStatuses(List<LivePopulationStatus> livePopulationStatuses) {
+        livePopulationStatuses.stream()
+                .forEach(livePopulationStatus -> livePopulationStatus.setMajorPlace(this));
+    }
 
-        return majorPlace;
+    private void setParkingLots(List<ParkingLot> parkingLots) {
+        parkingLots.stream()
+                .forEach(parkingLot -> parkingLot.setMajorPlace(this));
+    }
+
+    private void setChargerStations(List<ChargerStation> chargerStations) {
+        chargerStations.stream()
+                .forEach(chargerStation -> chargerStation.setMajorPlace(this));
+    }
+
+    private void setWeatherStatuses(List<WeatherStatus> weatherStatuses) {
+        weatherStatuses.stream()
+                .forEach(weatherStatus -> weatherStatus.setMajorPlace(this));
+    }
+
+    private void setAdjacentEvents(List<AdjacentEvent> adjacentEvents) {
+        adjacentEvents.stream()
+                .forEach(adjacentEvent -> adjacentEvent.setMajorPlace(this));
     }
 }

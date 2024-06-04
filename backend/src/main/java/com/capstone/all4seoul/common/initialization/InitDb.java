@@ -5,7 +5,11 @@ import com.capstone.all4seoul.place.domain.Place;
 import com.capstone.all4seoul.place.repository.PlaceRepository;
 import com.capstone.all4seoul.seoulCityData.domain.MajorPlace;
 import com.capstone.all4seoul.seoulCityData.repository.MajorPlaceRepository;
+import com.capstone.all4seoul.user.domain.Gender;
+import com.capstone.all4seoul.user.domain.Mbti;
+import com.capstone.all4seoul.user.domain.User;
 import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -14,11 +18,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +36,9 @@ public class InitDb {
 
     @PostConstruct
     public void init() {
-        this.initService.saveCrawledPlaces();
+//        this.initService.saveCrawledPlaces();
 //        this.initService.saveMajorPlaces();
+        this.initService.createUsers();
     }
 
     @Component
@@ -39,6 +47,34 @@ public class InitDb {
         private static final Logger log = LoggerFactory.getLogger(InitDb.InitService.class);
         private final PlaceRepository placeRepository;
         private final MajorPlaceRepository majorPlaceRepository;
+        private final EntityManager em;
+
+        @Transactional
+        public void createUsers() {
+            User user = User.createUser(
+                    "admin",
+                    "admin",
+                    "pochetino",
+                    LocalDate.now(),
+                    Mbti.ESFJ,
+                    Gender.Male,
+                    "pochetino"
+            );
+            User user2 = User.createUser(
+                    "admin2",
+                    "admin2",
+                    "pochetino2",
+                    LocalDate.now(),
+                    Mbti.ISTP,
+                    Gender.Male,
+                    "pochetino2"
+            );
+
+            em.persist(user);
+            em.persist(user2);
+
+            em.flush();
+        }
 
         private final String[] categories = new String[]{
                 "관광명소", "맛집", "문화시설", "주유소", "주차장", "카페"
@@ -166,7 +202,7 @@ public class InitDb {
                         String areaName = csvRecord.get(3);
                         String areaEnglishName = csvRecord.get(4);
 
-                        MajorPlace majorPlace = MajorPlace.createMajorPlace(
+                        MajorPlace majorPlace = new MajorPlace(
                                 category,
                                 areaCode,
                                 null,
