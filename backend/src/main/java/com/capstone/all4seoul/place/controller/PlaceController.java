@@ -1,7 +1,7 @@
 package com.capstone.all4seoul.place.controller;
 
-import com.capstone.all4seoul.place.domain.Place;
 import com.capstone.all4seoul.place.dto.request.PlaceNearbySearchRequestByGoogle;
+import com.capstone.all4seoul.place.dto.response.MajorPlaceResponse;
 import com.capstone.all4seoul.place.dto.response.MultiPlaceResponse;
 import com.capstone.all4seoul.place.dto.response.PlaceResponse;
 import com.capstone.all4seoul.place.dto.response.externalApi.PlaceNearbySearchResponseByGoogle;
@@ -29,12 +29,17 @@ public class PlaceController {
     /**
      * 장소 단건 조회
      */
-    @GetMapping("/{placeId}")
-    public PlaceResponse getPlace(@PathVariable Long placeId) {
-        Place place = placeService.findById(placeId);
-        PlaceTextSearchResponseByGoogle googleInfo = placeServiceByExternalApi.searchPlacesByTextQuery(place.getName());
+    @GetMapping("/{placeName}")
+    public PlaceResponse findPlace(@PathVariable String placeName) {
+        PlaceTextSearchResponseByGoogle googleInfo = placeServiceByExternalApi.searchPlacesByTextQuery(placeName);
+        MajorPlaceResponse majorPlace;
+        try {
+             majorPlace = placeServiceByExternalApi.getMajorPlace(placeName);
+        } catch (IllegalArgumentException exception) {
+            majorPlace = null;
+        }
 
-        return PlaceResponse.of(place, googleInfo);
+        return PlaceResponse.of(googleInfo, majorPlace);
     }
 
     /**
