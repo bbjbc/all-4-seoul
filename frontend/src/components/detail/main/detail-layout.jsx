@@ -25,7 +25,7 @@ function DetailLayout({ children, isLoading }) {
 
 DetailLayout.propTypes = {
   children: propTypes.node.isRequired,
-  isLoading: propTypes.bool.isRequired,
+  isLoading: propTypes.bool,
 };
 
 export default DetailLayout;
