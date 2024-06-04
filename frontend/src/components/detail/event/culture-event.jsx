@@ -40,11 +40,13 @@ function CultureEvent({ cultureRef, name, data = [] }) {
               data.map((culture, index) => (
                 <div key={index} className="m-2">
                   <button
-                    className="flex w-full items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all duration-300"
+                    className="flex w-full items-center justify-between space-x-20 rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:bg-orange-100"
                     onClick={() => handleAccordion(index)}
                   >
-                    <h2 className="text-lg font-semibold">{culture.name}</h2>
-                    <span className="font-semibold text-blue-600">
+                    <h2 className="overflow-hidden text-ellipsis whitespace-nowrap text-left text-lg font-semibold">
+                      {culture.name}
+                    </h2>
+                    <span className="whitespace-nowrap font-semibold text-blue-600">
                       자세히 보기
                     </span>
                   </button>
@@ -78,7 +80,11 @@ function CultureEvent({ cultureRef, name, data = [] }) {
                           titleName="이용요금"
                           culture={culture.payYn}
                         />
-                        <EventInfo titleName="링크" culture={culture.url} />
+                        <EventInfo
+                          titleName="링크"
+                          culture={culture.url}
+                          className="text-blue-950 underline hover:text-blue-600"
+                        />
                       </div>
                     </div>
                   </div>
