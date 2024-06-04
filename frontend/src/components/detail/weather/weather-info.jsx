@@ -1,51 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import propTypes from 'prop-types';
 
-import { fetchWeatherData, fetchWeeklyWeatherData } from '../dummy-data';
 import LoadingSpinner from '../../button/loading-spinner';
 import weatherImage from '../../../assets/detail-background/weather.jpg';
 import WeatherTable from './weather-table';
 import CurrentWeather from './current-weather';
-import FilterButton from './filter-button';
 
-function WeatherInfo({ weatherRef, name }) {
-  const [weatherData, setWeatherData] = useState(null);
-  const [weeklyData, setWeeklyData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [activeFilter, setActiveFilter] = useState('hourly');
-
-  useEffect(() => {
-    fetchWeatherData()
-      .then((data) => {
-        setWeatherData(data);
-        setFilteredData(data.hourlyForecast);
-      })
-      .catch((error) => {
-        console.error('Error fetching weather data:', error);
-      });
-
-    fetchWeeklyWeatherData()
-      .then((data) => {
-        setWeeklyData(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching weekly weather data:', error);
-      });
-  }, []);
-
-  const handleFilterClick = (filterType) => {
-    setActiveFilter(filterType);
-    if (filterType === 'hourly') {
-      setFilteredData(weatherData.hourlyForecast);
-    } else if (filterType === 'weekly') {
-      setFilteredData(weeklyData);
-    }
-  };
-
-  if (!weatherData) {
+function WeatherInfo({ weatherRef, name, data = [] }) {
+  if (!data || data.length === 0) {
     return <LoadingSpinner />;
   }
+
+  const weatherData = data[data.length - 1];
+
+  const date = new Date(weatherData.time);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const formattedTime = `${year}년 ${month}월 ${day}일 ${hour}시`;
 
   return (
     <main ref={weatherRef} className="relative h-full">
@@ -58,9 +32,7 @@ function WeatherInfo({ weatherRef, name }) {
         <article className="z-10 w-3/5">
           <div className="mt-10 space-y-4 rounded-lg bg-white px-8 py-6 shadow-lg">
             <header className="space-y-4 border-b-2">
-              <h1 className="text-3xl font-bold">
-                {new Date().toLocaleTimeString()} 기준
-              </h1>
+              <h1 className="text-3xl font-bold">{formattedTime} 기준</h1>
               <p className="pb-4">
                 <span className="font-gmarketbold text-4xl text-lime-500">
                   {name}
@@ -69,23 +41,11 @@ function WeatherInfo({ weatherRef, name }) {
               </p>
             </header>
             <CurrentWeather weatherData={weatherData} />
-            <div className="grid grid-cols-2 space-x-4 rounded-md p-2 shadow-md">
-              <FilterButton
-                onClick={() => handleFilterClick('hourly')}
-                isActive={activeFilter === 'hourly'}
-                filteredName="시간대별"
-              />
-              <FilterButton
-                onClick={() => handleFilterClick('weekly')}
-                isActive={activeFilter === 'weekly'}
-                filteredName="일별"
-              />
-            </div>
-            <div className="mb-6 overflow-x-auto">
-              <WeatherTable
-                filteredData={filteredData}
-                weatherData={weatherData}
-              />
+            <h2 className="text-xl font-medium">
+              현재 시각 이후 12시간 날씨 정보입니다.
+            </h2>
+            <div className="mb-6">
+              <WeatherTable weatherData={weatherData} />
             </div>
           </div>
         </article>
@@ -97,6 +57,7 @@ function WeatherInfo({ weatherRef, name }) {
 WeatherInfo.propTypes = {
   weatherRef: propTypes.object.isRequired,
   name: propTypes.string.isRequired,
+  data: propTypes.array,
 };
 
 export default WeatherInfo;
