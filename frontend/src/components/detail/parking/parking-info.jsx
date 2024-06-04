@@ -41,10 +41,10 @@ function ParkingInfo({
 
           <article className="h-3/4 overflow-y-auto rounded-lg bg-zinc-100 p-2">
             {parkingLots.map((parking) => (
-              <div key={`parking-${parking.code}`} className="m-2">
+              <div key={`parking-${parking.id}`} className="m-2">
                 <button
                   className="flex w-full items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:bg-blue-100"
-                  onClick={() => handleAccordion(`parking-${parking.code}`)}
+                  onClick={() => handleAccordion(`parking-${parking.id}`)}
                 >
                   <h2 className="text-lg font-semibold">{parking.name}</h2>
                   <span className="font-semibold text-blue-600">주차장</span>
@@ -52,7 +52,7 @@ function ParkingInfo({
 
                 <div
                   className={`mt-2 overflow-hidden rounded-lg bg-white shadow-md ${
-                    expandedItems[`parking-${parking.code}`]
+                    expandedItems[`parking-${parking.id}`]
                       ? 'max-h-96 animate-expand'
                       : 'max-h-0 animate-collapse'
                   }`}
@@ -109,12 +109,10 @@ function ParkingInfo({
             ))}
 
             {chargerStations.map((charger) => (
-              <div key={`charger-${charger.stationId}`} className="m-2">
+              <div key={`charger-${charger.id}`} className="m-2">
                 <button
                   className="flex w-full items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:bg-green-100"
-                  onClick={() =>
-                    handleAccordion(`charger-${charger.stationId}`)
-                  }
+                  onClick={() => handleAccordion(`charger-${charger.id}`)}
                 >
                   <h2 className="text-lg font-semibold">{charger.name}</h2>
                   <span className="font-semibold text-green-600">충전소</span>
@@ -122,7 +120,7 @@ function ParkingInfo({
 
                 <div
                   className={`mt-2 overflow-hidden rounded-lg bg-white shadow-md ${
-                    expandedItems[`charger-${charger.stationId}`]
+                    expandedItems[`charger-${charger.id}`]
                       ? 'max-h-96 animate-expand'
                       : 'max-h-0 animate-collapse'
                   }`}
