@@ -39,7 +39,7 @@ public class ScheduledTasks {
     /**
      * 서울시 실시간 데이터 병렬 처리 관련 로직
      */
-    @Scheduled(fixedRate = 30, timeUnit = TimeUnit.SECONDS)
+    @Scheduled(fixedRate = 24, timeUnit = TimeUnit.HOURS)
     public void fetchAllData() {
         majorPlaceRepository.updateLatestFalseIfTrue();
 
