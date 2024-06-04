@@ -3,6 +3,7 @@ package com.capstone.all4seoul.place.domain;
 import com.capstone.all4seoul.bookmark.domain.Bookmark;
 import com.capstone.all4seoul.event.domain.Event;
 import com.capstone.all4seoul.review.domain.Review;
+import com.capstone.all4seoul.seoulCityData.domain.MajorPlace;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,7 +45,7 @@ public class Place {
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 
-    @Column(name = "phone_number", nullable = false, unique = true, length = 20)
+    @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
     @Column(name = "address", nullable = false)

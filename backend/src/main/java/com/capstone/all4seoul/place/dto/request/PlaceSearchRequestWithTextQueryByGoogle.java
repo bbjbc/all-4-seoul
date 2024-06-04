@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class PlaceSearchRequestWithTextQueryByGoogle {
     private String textQuery;
     private String languageCode;
+    private int pageSize;
 }

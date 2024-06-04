@@ -132,7 +132,7 @@ public class UserController {
         MultiPlaceResponse bookmarkedPlaces = userService.findBookmarkedPlaces(user);
 
         // 북마크된 장소 목록이 비어있는 경우
-        if (bookmarkedPlaces == null) {
+        if (bookmarkedPlaces.getPlaces().isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 

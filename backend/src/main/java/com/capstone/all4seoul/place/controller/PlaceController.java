@@ -1,7 +1,7 @@
 package com.capstone.all4seoul.place.controller;
 
-import com.capstone.all4seoul.place.domain.Place;
 import com.capstone.all4seoul.place.dto.request.PlaceNearbySearchRequestByGoogle;
+import com.capstone.all4seoul.place.dto.response.MajorPlaceResponse;
 import com.capstone.all4seoul.place.dto.response.MultiPlaceResponse;
 import com.capstone.all4seoul.place.dto.response.PlaceResponse;
 import com.capstone.all4seoul.place.dto.response.externalApi.PlaceNearbySearchResponseByGoogle;
@@ -9,7 +9,6 @@ import com.capstone.all4seoul.place.dto.response.externalApi.PlaceSearchResponse
 import com.capstone.all4seoul.place.dto.response.externalApi.PlaceTextSearchResponseByGoogle;
 import com.capstone.all4seoul.place.service.PlaceService;
 import com.capstone.all4seoul.place.service.PlaceServiceByExternalApi;
-import com.capstone.all4seoul.seoulCityData.event.repository.AdjacentEventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,17 +25,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlaceController {
     private final PlaceService placeService;
     private final PlaceServiceByExternalApi placeServiceByExternalApi;
-    private final AdjacentEventRepository adjacentEventRepository;
 
     /**
      * 장소 단건 조회
      */
-    @GetMapping("/{placeId}")
-    public PlaceResponse getPlace(@PathVariable Long placeId) {
-        Place place = placeService.findById(placeId);
-        PlaceTextSearchResponseByGoogle googleInfo = placeServiceByExternalApi.searchPlacesByTextQuery(place.getName());
+    @GetMapping("/{placeName}")
+    public PlaceResponse findPlace(@PathVariable String placeName) {
+        PlaceTextSearchResponseByGoogle googleInfo = placeServiceByExternalApi.searchPlacesByTextQuery(placeName);
+        MajorPlaceResponse majorPlace;
+        try {
+             majorPlace = placeServiceByExternalApi.getMajorPlace(placeName);
+        } catch (IllegalArgumentException exception) {
+            majorPlace = null;
+        }
 
-        return PlaceResponse.of(place, googleInfo);
+        return PlaceResponse.of(googleInfo, majorPlace);
     }
 
     /**
