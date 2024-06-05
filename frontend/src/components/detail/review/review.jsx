@@ -5,8 +5,10 @@ import { useForm } from 'react-hook-form';
 import propTypes from 'prop-types';
 import reviewImg from '../../../assets/detail-background/review.jpg';
 import SubmitButton from '../../button/submit-button';
+import { useAuthWithCookies } from '../../../hooks/use-auth-with-cookies';
 import { useReview } from '../../../state/review-context';
 import { virtualButtons } from '../dummy-data';
+import { getUserInfo } from '../../../lib/get-user-info';
 import { FaUserCircle } from 'react-icons/fa';
 
 function Review({ reviewRef, name }) {
@@ -18,6 +20,20 @@ function Review({ reviewRef, name }) {
   );
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [placeFilteredReviews, setPlaceFilteredReviews] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        const userInfo = await getUserInfo();
+        setCurrentUser(userInfo);
+      } catch (error) {
+        console.error('사용자 정보를 가져오는 데 실패했습니다.', error);
+      }
+    }
+    fetchUserInfo();
+  }, []);
+  const { isLoggedIn } = useAuthWithCookies();
 
   useEffect(() => {
     if (selectedButtons.length) {
@@ -43,12 +59,8 @@ function Review({ reviewRef, name }) {
     data.date = new Date().toLocaleString();
     console.log(data);
 
-    const isLoggedIn = () => {
-      return !!localStorage.getItem('id');
-    };
-
-    const authorName = isLoggedIn()
-      ? localStorage.getItem('id')
+    const authorName = isLoggedIn
+      ? currentUser.userName
       : `익명 ${reviews.length + 1}`;
 
     addReview({
