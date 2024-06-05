@@ -41,7 +41,7 @@ function PopulationInfo({ populationRef, data = [] }) {
         className="absolute z-0 h-full w-full object-cover opacity-65"
       />
       <section className="flex items-center justify-center gap-10 pl-40 pr-16">
-        <article className="relative top-32 z-10 h-auto w-2/3 rounded-lg bg-white p-5 shadow-lg">
+        <article className="relative top-28 z-10 h-auto w-2/3 rounded-lg bg-white p-5 shadow-lg">
           <p className="text-sm text-gray-700">※ {currentTime} 기준</p>
           <h3 className="my-5 p-2 text-2xl font-extrabold text-indigo-800">
             실시간 인구 및 혼잡도 추이 전망
@@ -49,7 +49,7 @@ function PopulationInfo({ populationRef, data = [] }) {
           <BarGraph data={timeData} />
         </article>
 
-        <article className="relative top-32 z-10 h-auto w-1/3 rounded-lg bg-white p-3 shadow-lg">
+        <article className="relative top-28 z-10 h-auto w-1/3 rounded-lg bg-white p-3 shadow-lg">
           <div className="rounded-t-lg border-b border-b-gray-500 p-3">
             <h1 className="mb-1 flex flex-row justify-center gap-3 text-xl font-bold text-gray-800">
               <IoMdTimer size={26} />
