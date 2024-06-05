@@ -9,46 +9,50 @@ export function generateTime(data) {
   if (!data || data.length === 0) return [];
 
   const currentHour = parseInt(extractHour(data[0].populationTime), 10);
-  console.log(currentHour);
 
-  const generateTimeData = () => {
-    const generatedData = [];
+  const forecasts = data[0].populationForecasts;
+  const maxPopulation = Math.max(
+    ...forecasts.map((f) => f.maximumForecastPopulation),
+  );
+  const minPopulation = Math.min(
+    ...forecasts.map((f) => f.maximumForecastPopulation),
+  );
 
-    // 현재 시간부터 시작하여 한 시간 간격으로 데이터 생성
-    data[0].populationForecasts.forEach((forecast, index) => {
-      const hour = (currentHour + index) % 24;
-      const time = index === 0 ? '현재' : `${hour}시`;
+  const generatedData = forecasts.map((forecast, index) => {
+    const hour = (currentHour + index) % 24;
+    const time = index === 0 ? '현재' : `${hour}시`;
 
-      generatedData.push({
-        time,
-        '예상 인구수': forecast.maximumForecastPopulation,
-        '최대 인구수': forecast.maximumForecastPopulation,
-        '최소 인구수': forecast.minimumForecastPopulation,
-      });
-    });
+    return {
+      time,
+      '예상 인구수': forecast.maximumForecastPopulation,
+      '최대 인구수': forecast.maximumForecastPopulation,
+      '최소 인구수': forecast.minimumForecastPopulation,
+      maxValue: maxPopulation,
+      minValue: minPopulation,
+    };
+  });
 
-    return generatedData;
-  };
-
-  return generateTimeData();
+  return generatedData;
 }
 
 // 최대 인구수가 있는 시간과 최대 인구수를 찾는 함수
 export function getMaxPopulationTimeAndMaxPopulation(data) {
   if (!data || data.length === 0) return null;
 
+  const currentHour = parseInt(extractHour(data[0].populationTime), 10); // 현재 시간 추출
   let maxPopulation = -1;
-  let maxPopulationTime = null;
+  let maxPopulationTimeIndex = null;
   let maxCongestLevel = '';
 
   data[0].populationForecasts.forEach((forecast, index) => {
     if (forecast.maximumForecastPopulation > maxPopulation) {
       maxPopulation = forecast.maximumForecastPopulation;
-      maxPopulationTime = index;
+      maxPopulationTimeIndex = index;
       maxCongestLevel = forecast.congestLevel;
     }
   });
 
+  const maxPopulationTime = (currentHour + maxPopulationTimeIndex) % 24;
   return { maxPopulationTime, maxPopulation, maxCongestLevel };
 }
 
@@ -57,13 +61,11 @@ export function getDifferenceWithCurrentHour(data) {
   if (!data || data.length === 0) return [];
 
   const currentHour = parseInt(extractHour(data[0].populationTime), 10);
-  const maxPopulationTimeIndex =
-    getMaxPopulationTimeAndMaxPopulation(data).maxPopulationTime;
+  const { maxPopulationTime } = getMaxPopulationTimeAndMaxPopulation(data);
 
-  if (maxPopulationTimeIndex === null) return null;
+  if (maxPopulationTime === null) return null;
 
-  const maxPopulationHour = (currentHour + maxPopulationTimeIndex) % 24;
-  const difference = maxPopulationHour - currentHour;
+  const difference = maxPopulationTime - currentHour;
 
   return difference;
 }
