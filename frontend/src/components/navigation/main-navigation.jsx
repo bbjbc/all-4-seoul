@@ -1,6 +1,10 @@
 import React from 'react';
+
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 import { NavLink, useNavigate } from 'react-router-dom';
+
 import logo from '../../assets/올포서울로고.jpg';
 import SearchButton from '../button/search-button';
 import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
@@ -15,9 +19,16 @@ function NavBar() {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response);
-        logout();
-        navigation('/home');
+        Swal.fire({
+          icon: 'success',
+          title: '로그아웃 성공',
+          text: '로그아웃 되었습니다.',
+          confirmButtonText: '확인',
+        }).then(() => {
+          console.log(response);
+          logout();
+          navigation('/home');
+        });
       })
       .catch((error) => {
         console.error('로그아웃 실패', error);

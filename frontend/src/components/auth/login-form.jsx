@@ -35,9 +35,16 @@ function LoginForm() {
         },
       );
       console.log(response);
-      const cookieString = document.cookie;
-      login(cookieString);
-      navigate('/home');
+      const sessionId = response.data.sessionId;
+      login(sessionId);
+      Swal.fire({
+        icon: 'success',
+        title: '로그인 성공',
+        text: '올포서울에 오신 것을 환영합니다!',
+        confirmButtonText: '확인',
+      }).then(() => {
+        navigate('/home');
+      });
     } catch (error) {
       console.error('로그인 실패', error);
       Swal.fire({
