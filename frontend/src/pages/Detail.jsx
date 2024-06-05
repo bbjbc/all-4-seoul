@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 import RealTimePopulation from '../components/detail/realtime/real-time-population';
 import CategorySection from '../components/detail/main/category-section';
@@ -15,12 +16,27 @@ import Review from '../components/detail/review/review';
 function PlaceDetailPage() {
   const [activeCategory, setActiveCategory] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [placeData, setPlaceData] = useState({});
 
   const { id } = useParams();
   const decodedName = decodeURIComponent(id);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/places/${decodedName}`,
+        );
+        console.log(response.data.majorPlace);
+        setPlaceData(response.data.majorPlace);
+      } catch (error) {
+        console.error('장소 데이터를 불러오는 중 오류가 발생했습니다:', error);
+      }
+    };
+
+    fetchData();
   }, [decodedName]);
 
   const realTimeRef = useRef(null);
@@ -58,21 +74,37 @@ function PlaceDetailPage() {
       <DetailLayout>
         <RealTimePopulation
           name={decodedName}
-          congestionLevel="보통"
           realtimeRef={realTimeRef}
+          data={placeData.livePopulationStatuses}
         />
       </DetailLayout>
       <DetailLayout>
-        <PopulationInfo populationRef={populationRef} />
+        <PopulationInfo
+          populationRef={populationRef}
+          data={placeData.livePopulationStatuses}
+        />
       </DetailLayout>
       <DetailLayout>
-        <CultureEvent cultureRef={cultureRef} name={decodedName} />
+        <CultureEvent
+          cultureRef={cultureRef}
+          name={decodedName}
+          data={placeData.adjacentEvents}
+        />
       </DetailLayout>
       <DetailLayout>
-        <WeatherInfo weatherRef={weatherRef} name={decodedName} />
+        <WeatherInfo
+          weatherRef={weatherRef}
+          name={decodedName}
+          data={placeData.weatherStatuses}
+        />
       </DetailLayout>
       <DetailLayout>
-        <ParkingInfo parkingRef={parkingRef} name={decodedName} />
+        <ParkingInfo
+          parkingRef={parkingRef}
+          name={decodedName}
+          parkingLots={placeData.parkingLots}
+          chargerStations={placeData.chargerStations}
+        />
       </DetailLayout>
       <DetailLayout>
         <Review reviewRef={reviewRef} name={decodedName} />
