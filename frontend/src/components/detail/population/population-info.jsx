@@ -25,6 +25,8 @@ function PopulationInfo({ populationRef, data = [] }) {
       ? data[0].populationTime
       : '데이터 없음';
 
+  const currentTimeHour = parseInt(currentTime.split(' ')[1].split(':')[0], 10);
+
   return (
     <main className="relative h-full w-full" ref={populationRef}>
       <img
@@ -49,8 +51,9 @@ function PopulationInfo({ populationRef, data = [] }) {
             </h1>
             <p className="text-left">
               <span className="text-lg text-blue-700">
-                {maxPopulationTime}시(
-                {getDifferenceWithCurrentHour(data)} 시간 후)
+                {maxPopulationTime === currentTimeHour
+                  ? '현재'
+                  : `${maxPopulationTime}시 (${getDifferenceWithCurrentHour(data)} 시간 후)`}
               </span>
               <span>
                 에 인구가 제일 많고 혼잡도도 가장 높을 것으로 예상돼요.
