@@ -10,6 +10,9 @@ import {
 } from './calc-func';
 import populationInfo from '../../../assets/detail-background/info.jpg';
 import { IoMdTimer } from 'react-icons/io';
+import { FaPerson } from 'react-icons/fa6';
+import PieGraph from './pie-graph';
+import { generatePieData } from './pie-data';
 
 function PopulationInfo({ populationRef, data = [] }) {
   const timeData = generateTime(data);
@@ -27,6 +30,9 @@ function PopulationInfo({ populationRef, data = [] }) {
 
   const currentTimeHour = parseInt(currentTime.split(' ')[1].split(':')[0], 10);
 
+  // 실시간 인구 나이 비율 데이터 생성
+  const pieData = generatePieData(data);
+
   return (
     <main className="relative h-full w-full" ref={populationRef}>
       <img
@@ -43,10 +49,10 @@ function PopulationInfo({ populationRef, data = [] }) {
           <BarGraph data={timeData} />
         </article>
 
-        <article className="relative top-32 z-10 h-auto w-1/3 rounded-lg bg-white p-5 shadow-lg">
-          <div className="mb-6 rounded-lg p-3 transition-all duration-200 ease-in-out hover:bg-blue-100">
-            <h1 className="mb-2 flex flex-row justify-center gap-3 text-2xl font-bold text-gray-800">
-              <IoMdTimer size={30} />
+        <article className="relative top-32 z-10 h-auto w-1/3 rounded-lg bg-white p-3 shadow-lg">
+          <div className="rounded-t-lg border-b border-b-gray-500 p-3">
+            <h1 className="mb-1 flex flex-row justify-center gap-3 text-xl font-bold text-gray-800">
+              <IoMdTimer size={26} />
               <span>향후 12시간 전망</span>
             </h1>
             <p className="text-left">
@@ -64,9 +70,16 @@ function PopulationInfo({ populationRef, data = [] }) {
                 일 것으로 예상돼요.
               </span>
             </p>
-            <p className="p-3 text-base text-gray-600">
+            <p className="pt-3 text-base text-gray-600">
               인구 수는 {maxPopulation}명으로 예측돼요.
             </p>
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="mb-1 flex flex-row justify-center gap-3 pt-4 text-xl font-bold text-gray-800">
+              <FaPerson size={26} />
+              <span>현재 인구 나이 별 비율</span>
+            </h1>
+            <PieGraph data={pieData} />
           </div>
         </article>
       </section>
