@@ -19,7 +19,7 @@ import '../../style/star.css';
 
 function PlaceOverlay({ place, onClose, loading }) {
   const navigation = useNavigate();
-  const { bookmarks, addBookmark, removeBookmark, images } = useBookmark();
+  const { bookmarks, addBookmark, removeBookmark } = useBookmark();
   const isBookmarked = bookmarks.some(
     (bookmark) => bookmark.id === place.id && bookmark.type === 'placeOverlay',
   );
@@ -47,8 +47,9 @@ function PlaceOverlay({ place, onClose, loading }) {
       place_name: place.place_name,
       id: place.id,
       type: 'placeOverlay',
-      image: image,
+      photoUri: place.firstPhotoUri,
     };
+
     if (isBookmarked) {
       removeBookmark(place.id);
       Swal.fire({
@@ -74,31 +75,6 @@ function PlaceOverlay({ place, onClose, loading }) {
       });
     }
   };
-
-  let image = null;
-  switch (place.category_group_name) {
-    case '카페':
-      image = images.cafe;
-      break;
-    case '주차장':
-      image = images.parking;
-      break;
-    case '주유소,충전소':
-      image = images.gas;
-      break;
-    case '음식점':
-      image = images.food;
-      break;
-    case '관광명소':
-      image = images.attractions;
-      break;
-    case '문화시설':
-      image = images.culture;
-      break;
-    default:
-      image = null;
-      break;
-  }
 
   // 별점 표시
   const getStarRating = (rating) => {

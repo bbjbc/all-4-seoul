@@ -107,7 +107,7 @@ function BookmarkedPage() {
                   {bookmark.type === 'placeOverlay' && (
                     <>
                       <img
-                        src={bookmark.image}
+                        src={bookmark.photoUri}
                         alt={bookmark.name}
                         className="h-36 w-auto rounded-t-xl object-cover"
                       />
