@@ -31,10 +31,10 @@ function WeatherInfo({ weatherRef, name, data = [] }) {
         />
         <article className="z-10 w-3/5">
           <div className="mt-10 space-y-4 rounded-lg bg-white px-8 py-6 shadow-lg">
-            <header className="space-y-4 border-b-2">
-              <h1 className="text-3xl font-bold">{formattedTime} 기준</h1>
+            <header className="flex flex-row justify-center gap-4 border-b-2">
+              <h1 className="text-2xl font-bold">{formattedTime} 기준</h1>
               <p className="pb-4">
-                <span className="font-gmarketbold text-4xl text-lime-500">
+                <span className="font-gmarketbold text-2xl text-lime-500">
                   {name}
                 </span>
                 <span className="text-xl">의 날씨 정보입니다.</span>

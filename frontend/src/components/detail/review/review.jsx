@@ -104,7 +104,7 @@ function Review({ reviewRef, name }) {
         <div className="absolute inset-0 bg-black opacity-40"></div>
 
         <article className="z-10 mt-10 flex h-auto w-4/6 rounded-lg bg-white p-6 shadow-lg">
-          <div className="max-h-[600px] w-4/6 overflow-y-auto p-3">
+          <div className="max-h-[550px] w-4/6 overflow-y-auto p-3">
             <h1 className="mb-2 font-gmarketbold text-3xl text-orange-600">
               이 곳이 마음에 든다면,
             </h1>
