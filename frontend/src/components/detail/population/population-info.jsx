@@ -11,7 +11,7 @@ import {
 import populationInfo from '../../../assets/detail-background/info.jpg';
 import { IoMdTimer } from 'react-icons/io';
 import { FaPerson } from 'react-icons/fa6';
-import PieGraph from './pie-graph';
+import PiePopulationGraph from './pie-population-graph';
 import { generatePieData } from './pie-data';
 
 function PopulationInfo({ populationRef, data = [] }) {
@@ -79,7 +79,7 @@ function PopulationInfo({ populationRef, data = [] }) {
               <FaPerson size={26} />
               <span>현재 인구 나이 별 비율</span>
             </h1>
-            <PieGraph data={pieData} />
+            <PiePopulationGraph data={pieData} />
           </div>
         </article>
       </section>

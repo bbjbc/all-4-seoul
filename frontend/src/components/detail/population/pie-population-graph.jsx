@@ -4,12 +4,12 @@ import { ResponsivePie } from '@nivo/pie';
 
 import propTypes from 'prop-types';
 
-function PieGraph({ data }) {
+function PiePopulationGraph({ data }) {
   return (
     <div className="h-80 w-80">
       <ResponsivePie
         data={data}
-        margin={{ top: 20, right: 60, bottom: 100, left: 60 }}
+        margin={{ top: 30, right: 60, bottom: 100, left: 60 }}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
@@ -128,7 +128,7 @@ function PieGraph({ data }) {
   );
 }
 
-PieGraph.propTypes = {
+PiePopulationGraph.propTypes = {
   data: propTypes.arrayOf(
     propTypes.shape({
       id: propTypes.string,
@@ -139,4 +139,4 @@ PieGraph.propTypes = {
   ).isRequired,
 };
 
-export default PieGraph;
+export default PiePopulationGraph;
