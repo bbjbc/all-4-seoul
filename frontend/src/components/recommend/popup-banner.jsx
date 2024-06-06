@@ -21,7 +21,7 @@ function PopupBanner({ onClose }) {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 z-20 w-[30%] rounded-t-xl bg-amber-600 p-4 text-white shadow-lg transition-transform duration-500 ease-in-out ${isShown ? 'animate-popupShow' : 'animate-popupHide'}`}
+      className={`fixed bottom-0 left-0 z-20 w-[25%] rounded-t-xl bg-green-600 p-4 text-white shadow-lg transition-transform duration-500 ease-in-out ${isShown ? 'animate-popupShow' : 'animate-popupHide'}`}
     >
       <div className="flex items-center justify-between border-b border-white p-2">
         <h2 className="text-xl">☆추천 팝업 지나갑니다☆</h2>
