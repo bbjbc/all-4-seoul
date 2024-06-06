@@ -26,9 +26,7 @@ function PlaceDetailPage() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/api/places/${decodedName}`,
-        );
+        const response = await axios.get(`/api/places/${decodedName}`);
         console.log(response.data.majorPlace);
         setPlaceData(response.data.majorPlace);
       } catch (error) {

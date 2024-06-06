@@ -25,7 +25,7 @@ function LoginForm() {
 
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/login',
+        '/api/login',
         {
           loginId: id,
           loginPassword: password,
@@ -35,8 +35,8 @@ function LoginForm() {
         },
       );
       console.log(response);
-      const sessionId = response.data.sessionId;
-      login(sessionId);
+      const cookieString = document.cookie;
+      login(cookieString);
       Swal.fire({
         icon: 'success',
         title: '로그인 성공',

@@ -320,7 +320,7 @@ function KakaoMap() {
       const placeName = decodeURIComponent(place.place_name);
 
       axios
-        .get(`http://localhost:8080/api/places/google/${placeName}`)
+        .get(`/api/places/google/${placeName}`)
         .then((response) => {
           setLoading(false);
           const additionalInfo = response.data;

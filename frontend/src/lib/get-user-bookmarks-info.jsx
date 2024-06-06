@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export async function getUserBookmarksInfo() {
   try {
-    const response = await axios.get('http://localhost:8080/users/bookmarks', {
+    const response = await axios.get('/users/bookmarks', {
       withCredentials: true, // 쿠키를 자동으로 포함하여 요청합니다.
     });
     return response.data;

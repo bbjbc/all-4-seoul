@@ -15,7 +15,7 @@ function NavBar() {
 
   const handleLogout = () => {
     axios
-      .post('http://localhost:8080/api/logout', null, {
+      .post('/api/logout', null, {
         withCredentials: true,
       })
       .then((response) => {
