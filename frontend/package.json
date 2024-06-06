@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "proxy": "http://118.67.128.223:8080",
   "private": true,
   "dependencies": {
     "@nivo/bar": "^0.87.0",
