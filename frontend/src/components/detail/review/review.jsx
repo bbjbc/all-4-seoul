@@ -5,8 +5,10 @@ import { useForm } from 'react-hook-form';
 import propTypes from 'prop-types';
 import reviewImg from '../../../assets/detail-background/review.jpg';
 import SubmitButton from '../../button/submit-button';
+import { useAuthWithCookies } from '../../../hooks/use-auth-with-cookies';
 import { useReview } from '../../../state/review-context';
 import { virtualButtons } from '../dummy-data';
+import { getUserInfo } from '../../../lib/get-user-info';
 import { FaUserCircle } from 'react-icons/fa';
 
 function Review({ reviewRef, name }) {
@@ -18,6 +20,20 @@ function Review({ reviewRef, name }) {
   );
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [placeFilteredReviews, setPlaceFilteredReviews] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        const userInfo = await getUserInfo();
+        setCurrentUser(userInfo);
+      } catch (error) {
+        console.error('사용자 정보를 가져오는 데 실패했습니다.', error);
+      }
+    }
+    fetchUserInfo();
+  }, []);
+  const { isLoggedIn } = useAuthWithCookies();
 
   useEffect(() => {
     if (selectedButtons.length) {
@@ -43,12 +59,8 @@ function Review({ reviewRef, name }) {
     data.date = new Date().toLocaleString();
     console.log(data);
 
-    const isLoggedIn = () => {
-      return !!localStorage.getItem('id');
-    };
-
-    const authorName = isLoggedIn()
-      ? localStorage.getItem('id')
+    const authorName = isLoggedIn
+      ? currentUser.userName
       : `익명 ${reviews.length + 1}`;
 
     addReview({
@@ -92,7 +104,7 @@ function Review({ reviewRef, name }) {
         <div className="absolute inset-0 bg-black opacity-40"></div>
 
         <article className="z-10 mt-10 flex h-auto w-4/6 rounded-lg bg-white p-6 shadow-lg">
-          <div className="max-h-[600px] w-4/6 overflow-y-auto p-3">
+          <div className="max-h-[550px] w-4/6 overflow-y-auto p-3">
             <h1 className="mb-2 font-gmarketbold text-3xl text-orange-600">
               이 곳이 마음에 든다면,
             </h1>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import propTypes from 'prop-types';
 
-function Option({ label, id, register, children }) {
+function Option({ label, id, register, children, disabled }) {
   return (
     <div className="mb-6">
       <label
@@ -15,6 +15,7 @@ function Option({ label, id, register, children }) {
         className="block w-full rounded-md border bg-gray-200 px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
         id={id}
         {...register(id)}
+        disabled={disabled}
       >
         {children}
       </select>
@@ -26,6 +27,7 @@ Option.propTypes = {
   label: propTypes.string.isRequired,
   id: propTypes.string.isRequired,
   register: propTypes.func.isRequired,
+  disabled: propTypes.bool,
   children: propTypes.node.isRequired,
 };
 

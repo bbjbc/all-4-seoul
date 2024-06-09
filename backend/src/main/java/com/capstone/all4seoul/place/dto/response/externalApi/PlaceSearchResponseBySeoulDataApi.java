@@ -1,4 +1,4 @@
-package com.capstone.all4seoul.place.dto.response;
+package com.capstone.all4seoul.place.dto.response.externalApi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class PlaceSearchResponseBySeoulDataApi {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    static class Result {
+    public static class Result {
         @JsonProperty("RESULT.CODE")
         private String resultCode;
         @JsonProperty("RESULT.MESSAGE")
@@ -31,17 +31,17 @@ public class PlaceSearchResponseBySeoulDataApi {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    static class CityData {
+    public static class CityData {
         @JsonProperty("AREA_NM")
         private String areaName;
         @JsonProperty("AREA_CD")
         private String areaCode;
         @JsonProperty("LIVE_PPLTN_STTS")
-        private List<LivePopulationStatus> livePopulation;
+        private List<LivePopulationStatus> livePopulationStatuses;
         @JsonProperty("ROAD_TRAFFIC_STTS")
         private RoadTrafficStatus roadTrafficStatus;
         @JsonProperty("PRK_STTS")
-        private List<ParkingStatus> parkingLotStatus;
+        private List<ParkingLot> adjacentParkingLots;
         @JsonProperty("SUB_STTS")
         private List<Sub> SUB_STTS;
         @JsonProperty("BUS_STN_STTS")
@@ -51,18 +51,18 @@ public class PlaceSearchResponseBySeoulDataApi {
         @JsonProperty("SBIKE_STTS")
         private List<Object> SBIKE_STTS;
         @JsonProperty("WEATHER_STTS")
-        private List<WeatherStatus> weatherStatus;
+        private List<WeatherStatus> weatherStatuses;
         @JsonProperty("CHARGER_STTS")
-        private List<ChargerStatus> chargerStatus;
+        private List<ChargerStation> adjacentChargerStations;
         @JsonProperty("EVENT_STTS")
-        private List<EventStatus> eventStatus;
+        private List<AdjacentEvent> adjacentEvents;
         @JsonProperty("COVID_19_STTS")
         private String COVID_19_STTS;
 
         @Getter
         @NoArgsConstructor
         @AllArgsConstructor
-        static class LivePopulationStatus {
+        public static class LivePopulationStatus {
             @JsonProperty("AREA_CONGEST_LVL")
             private String areaCongestLevel;
             @JsonProperty("AREA_CONGEST_MSG")
@@ -107,11 +107,11 @@ public class PlaceSearchResponseBySeoulDataApi {
             @Getter
             @NoArgsConstructor
             @AllArgsConstructor
-            static class ForecastPopulation {
+            public static class ForecastPopulation {
                 @JsonProperty("FCST_TIME")
-                private String forecastTime;
+                private String time;
                 @JsonProperty("FCST_CONGEST_LVL")
-                private String forecastCongestLevel;
+                private String congestLevel;
                 @JsonProperty("FCST_PPLTN_MIN")
                 private String minimumForecastPopulation;
                 @JsonProperty("FCST_PPLTN_MAX")
@@ -176,11 +176,11 @@ public class PlaceSearchResponseBySeoulDataApi {
         @Getter
         @NoArgsConstructor
         @AllArgsConstructor
-        static class ParkingStatus {
+        public static class ParkingLot {
             @JsonProperty("PRK_NM")
-            private String parkingName;
+            private String name;
             @JsonProperty("PRK_CD")
-            private String parkingCode;
+            private String code;
             @JsonProperty("CPCITY")
             private String capacity;
             @JsonProperty("CUR_PRK_CNT")
@@ -306,9 +306,9 @@ public class PlaceSearchResponseBySeoulDataApi {
         @Getter
         @NoArgsConstructor
         @AllArgsConstructor
-        static class WeatherStatus {
+        public static class WeatherStatus {
             @JsonProperty("WEATHER_TIME")
-            private String weatherTime;
+            private String time;
             @JsonProperty("TEMP")
             private String temperature;
             @JsonProperty("SENSIBLE_TEMP")
@@ -336,13 +336,13 @@ public class PlaceSearchResponseBySeoulDataApi {
             @JsonProperty("UV_MSG")
             private String uvMessage;
             @JsonProperty("PM25_INDEX")
-            private String particulateMatter25Index;
+            private String pm25Index;
             @JsonProperty("PM25")
-            private String particulateMatter25;
+            private String pm25;
             @JsonProperty("PM10_INDEX")
-            private String particulateMatter10Index;
+            private String pm10Index;
             @JsonProperty("PM10")
-            private String particulateMatter10;
+            private String pm10;
             @JsonProperty("AIR_IDX")
             private String airIndex;
             @JsonProperty("AIR_IDX_MVL")
@@ -352,18 +352,18 @@ public class PlaceSearchResponseBySeoulDataApi {
             @JsonProperty("AIR_MSG")
             private String airMessage;
             @JsonProperty("FCST24HOURS")
-            private List<Fcst24Hour> forecast24Hours;
+            private List<Forecast24Hour> weatherForecasts;
             @JsonProperty("NEWS_LIST")
             private List<Object> newsList;
 
             @Getter
             @NoArgsConstructor
             @AllArgsConstructor
-            static class Fcst24Hour {
+            public static class Forecast24Hour {
                 @JsonProperty("FCST_DT")
-                private String forecastDayTime;
+                private String dayTime;
                 @JsonProperty("TEMP")
-                private String forecast24Temperature;
+                private String temperature24Hour;
                 @JsonProperty("PRECIPITATION")
                 private String precipitation;
                 @JsonProperty("PRECPT_TYPE")
@@ -378,40 +378,40 @@ public class PlaceSearchResponseBySeoulDataApi {
         @Getter
         @NoArgsConstructor
         @AllArgsConstructor
-        static class ChargerStatus {
+        public static class ChargerStation {
             @JsonProperty("STAT_NM")
-            private String chargerName;
+            private String name;
             @JsonProperty("STAT_ID")
-            private String chargerID;
+            private String stationId;
             @JsonProperty("STAT_ADDR")
-            private String chargerAddress;
+            private String address;
             @JsonProperty("STAT_X")
-            private String chargerLongitude;
+            private String longitude;
             @JsonProperty("STAT_Y")
-            private String chargerLatitude;
+            private String latitude;
             @JsonProperty("STAT_USETIME")
-            private String chargerUseTime;
+            private String useTime;
             @JsonProperty("STAT_PARKPAY")
-            private String chargerParkPay;
+            private String parkPay;
             @JsonProperty("STAT_LIMITYN")
-            private String chargerLimitYn;
+            private String limitYn;
             @JsonProperty("STAT_LIMITDETAIL")
-            private String chargerLimitDetail;
+            private String limitDetail;
             @JsonProperty("STAT_KINDDETAIL")
-            private String chargerKindDetail; // 충전소 장소 유형 (ex. 사업장, 공영주차장)
+            private String kindDetail; // 충전소 장소 유형 (ex. 사업장, 공영주차장)
             @JsonProperty("CHARGER_DETAIL")
-            private List<ChargerDetail> chargerDetail;
+            private List<ChargerDetail> chargerDetails;
 
             @Getter
             @NoArgsConstructor
             @AllArgsConstructor
-            static class ChargerDetail {
+            public static class ChargerDetail {
                 @JsonProperty("CHARGER_ID")
-                private String chargerID;
+                private String chargerId;
                 @JsonProperty("CHARGER_TYPE")
-                private String chargerType;
+                private String type;
                 @JsonProperty("CHARGER_STAT")
-                private String chargerStatus;
+                private String status;
                 @JsonProperty("LASTTSDT")
                 private String LASTTSDT;
                 @JsonProperty("LASTTEDT")
@@ -428,17 +428,17 @@ public class PlaceSearchResponseBySeoulDataApi {
         @Getter
         @NoArgsConstructor
         @AllArgsConstructor
-        static class EventStatus {
+        public static class AdjacentEvent {
             @JsonProperty("EVENT_NM")
-            private String eventName;
+            private String name;
             @JsonProperty("EVENT_PERIOD")
-            private String eventPeriod;
+            private String period;
             @JsonProperty("EVENT_PLACE")
-            private String eventPlace;
+            private String place;
             @JsonProperty("EVENT_X")
-            private Double eventLongitude;
+            private String longitude;
             @JsonProperty("EVENT_Y")
-            private Double eventYLatitude;
+            private String latitude;
             @JsonProperty("PAY_YN")
             private String payYn;
             @JsonProperty("THUMBNAIL")
@@ -446,7 +446,7 @@ public class PlaceSearchResponseBySeoulDataApi {
             @JsonProperty("URL")
             private String url;
             @JsonProperty("EVENT_ETC_DETAIL")
-            private String eventEtcDetail;
+            private String etcDetail;
         }
     }
 }

@@ -19,6 +19,8 @@ function ListPage() {
   const [page, setPage] = useState(1);
   const [places, setPlaces] = useState([]);
   const pageSize = 10;
+  const [showScrollButton, setShowScrollButton] = useState(false); // 스크롤 버튼 보이는 여부의 상태 관리
+  const [scrollButtonVisible, setScrollButtonVisible] = useState(false); // 애니메이션을 넣기 위한 상태 관리
 
   const loadPlaces = useCallback(() => {
     setLoading(true);
@@ -57,6 +59,26 @@ function ListPage() {
     }
   }, [inView, loading]);
 
+  // 스크롤 이벤트 핸들러
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setShowScrollButton(true);
+        setScrollButtonVisible(true);
+      } else {
+        setScrollButtonVisible(false);
+        setTimeout(() => setShowScrollButton(false), 500);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // 이벤트 리스너 해제
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div className="px-14 py-32">
       <CategoryBar
@@ -68,7 +90,9 @@ function ListPage() {
       <PlaceGrid places={places} />
       {loading && <LoadingSpinner />}
       <div ref={ref}></div>
-      <ScrollToTopButton />
+      {showScrollButton && (
+        <ScrollToTopButton isVisible={scrollButtonVisible} />
+      )}
     </div>
   );
 }

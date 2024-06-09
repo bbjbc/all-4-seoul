@@ -20,28 +20,40 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { id, password } = data;
 
-    axios
-      .post('http://localhost:8080/api/login', {
-        loginId: id,
-        loginPassword: password,
-      })
-      .then((response) => {
-        console.log(response);
-        login(id);
+    try {
+      const response = await axios.post(
+        '/api/login',
+        {
+          loginId: id,
+          loginPassword: password,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+      console.log(response);
+      const cookieString = document.cookie;
+      login(cookieString);
+      Swal.fire({
+        icon: 'success',
+        title: '로그인 성공',
+        text: '올포서울에 오신 것을 환영합니다!',
+        confirmButtonText: '확인',
+      }).then(() => {
         navigate('/home');
-      })
-      .catch(() => {
-        console.error('어림도없지');
-        Swal.fire({
-          icon: 'error',
-          title: '로그인 실패',
-          text: '아이디 또는 비밀번호가 일치하지 않습니다.',
-          confirmButtonText: '확인',
-        });
       });
+    } catch (error) {
+      console.error('로그인 실패', error);
+      Swal.fire({
+        icon: 'error',
+        title: '로그인 실패',
+        text: '아이디 또는 비밀번호가 일치하지 않습니다.',
+        confirmButtonText: '확인',
+      });
+    }
   };
 
   return (

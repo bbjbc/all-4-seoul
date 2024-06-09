@@ -28,7 +28,7 @@ function SignupForm() {
   const onSubmit = async (data) => {
     const { id, password, name, birth, mbti, gender, nickname } = data;
     axios
-      .post('http://localhost:8080/users', {
+      .post('/api/users', {
         loginId: id,
         loginPassword: password,
         username: name,

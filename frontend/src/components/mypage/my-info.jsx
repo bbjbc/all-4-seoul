@@ -5,12 +5,14 @@ import { getUserInfo } from '../../lib/get-user-info';
 function MyInfoPage() {
   const [currentUser, setCurrentUser] = useState(null);
 
-  const userId = '1';
-
   useEffect(() => {
     async function fetchUserInfo() {
-      const userInfo = await getUserInfo(userId);
-      setCurrentUser(userInfo);
+      try {
+        const userInfo = await getUserInfo();
+        setCurrentUser(userInfo);
+      } catch (error) {
+        console.error('사용자 정보를 가져오는 데 실패했습니다.', error);
+      }
     }
     fetchUserInfo();
   }, []);

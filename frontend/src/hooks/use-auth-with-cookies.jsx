@@ -1,16 +1,18 @@
-import { useCookies } from 'react-cookie';
+import cookie from 'react-cookies';
 
 export function useAuthWithCookies() {
-  const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
+  const isLoggedIn = localStorage.getItem('login');
 
-  const isLoggedIn = !!cookies.authToken;
-
-  const login = (token) => {
-    setCookie('authToken', token);
+  const login = (sessionId) => {
+    cookie.save('loginUser', sessionId, { path: '/' });
+    localStorage.setItem('login', true);
+    console.log('로그인 성공');
   };
 
   const logout = () => {
-    removeCookie('authToken');
+    cookie.remove('loginUser', { path: '/' });
+    localStorage.removeItem('login');
+    console.log('로그아웃 성공');
   };
 
   return { isLoggedIn, login, logout };

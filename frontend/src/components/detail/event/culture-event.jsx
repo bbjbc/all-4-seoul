@@ -4,9 +4,8 @@ import propTypes from 'prop-types';
 
 import cultureImage from '../../../assets/detail-background/culture.jpg';
 import EventInfo from './event-info';
-import { dummyCultureEvents } from '../dummy-data';
 
-function CultureEvent({ cultureRef, name }) {
+function CultureEvent({ cultureRef, name, data = [] }) {
   const [expandedItems, setExpandedItems] = useState({});
 
   const handleAccordion = (id) => {
@@ -32,58 +31,72 @@ function CultureEvent({ cultureRef, name }) {
             <span className="font-semibold">문화 행사 정보</span>
           </header>
           <p className="mb-2 text-lg">
-            {new Date().toLocaleDateString()} 기준으로{' '}
-            {dummyCultureEvents.length}
+            {new Date().toLocaleDateString()} 기준으로 {data.length}
             건의 문화 행사 정보가 있습니다.
           </p>
 
           <div className="h-5/6 overflow-y-auto rounded-lg bg-zinc-100 p-2">
-            {dummyCultureEvents.map((culture) => (
-              <div key={culture.id} className="m-2">
-                <button
-                  className="flex w-full items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all duration-300"
-                  onClick={() => handleAccordion(culture.id)}
-                >
-                  <h2 className="text-lg font-semibold">{culture.title}</h2>
-                  <span className="font-semibold text-blue-600">
-                    자세히 보기
-                  </span>
-                </button>
+            {data.length > 0 ? (
+              data.map((culture, index) => (
+                <div key={index} className="m-2">
+                  <button
+                    className="flex w-full items-center justify-between space-x-20 rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:bg-orange-100"
+                    onClick={() => handleAccordion(index)}
+                  >
+                    <h2 className="overflow-hidden text-ellipsis whitespace-nowrap text-left text-lg font-semibold">
+                      {culture.name}
+                    </h2>
+                    <span className="whitespace-nowrap font-semibold text-blue-600">
+                      자세히 보기
+                    </span>
+                  </button>
 
-                <div
-                  className={`mt-2 overflow-hidden rounded-lg bg-white shadow-md ${
-                    expandedItems[culture.id]
-                      ? 'max-h-96 animate-expand'
-                      : 'max-h-0 animate-collapse'
-                  }`}
-                >
-                  <div className="grid w-full grid-cols-2 gap-4 p-2">
-                    <img
-                      src={culture.image}
-                      alt={culture.title}
-                      className="h-80 w-full rounded-lg shadow-md"
-                    />
-
-                    <div className="max-h-[350px] w-full overflow-y-auto p-2 text-left">
-                      <p className="text-md font-semibold">{culture.name}</p>
-                      <p className="text-xs text-gray-500">{culture.date}</p>
-
-                      <EventInfo
-                        titleName="소개"
-                        culture={culture.description}
+                  <div
+                    className={`mt-2 overflow-hidden rounded-lg bg-white shadow-md ${
+                      expandedItems[index]
+                        ? 'max-h-96 animate-expand'
+                        : 'max-h-0 animate-collapse'
+                    }`}
+                  >
+                    <div className="grid w-full grid-cols-2 gap-4 p-2">
+                      <img
+                        src={culture.thumbnail}
+                        alt={culture.name}
+                        className="h-80 w-full rounded-lg shadow-md"
                       />
-                      <EventInfo titleName="장소" culture={culture.location} />
-                      <EventInfo titleName="분류" culture={culture.category} />
-                      <EventInfo
-                        titleName="이용요금"
-                        culture={culture.charge}
-                      />
-                      <EventInfo titleName="기관" culture={culture.agency} />
+
+                      <div className="max-h-[350px] w-full overflow-y-auto p-2 text-left">
+                        <p className="text-md font-semibold">{culture.name}</p>
+                        <p className="text-xs text-gray-500">
+                          {culture.period}
+                        </p>
+
+                        <EventInfo titleName="장소" culture={culture.place} />
+                        <EventInfo
+                          titleName="세부사항"
+                          culture={culture.etcDetail}
+                        />
+                        <EventInfo
+                          titleName="이용요금"
+                          culture={culture.payYn}
+                        />
+                        <EventInfo
+                          titleName="링크"
+                          culture={culture.url}
+                          className="text-blue-950 underline hover:text-blue-600"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="m-2 flex h-full w-full items-center justify-center">
+                <p className="animate-bounce text-center text-xl font-semibold">
+                  주변 행사 정보가 없습니다.
+                </p>
               </div>
-            ))}
+            )}
           </div>
         </article>
       </section>
@@ -94,6 +107,7 @@ function CultureEvent({ cultureRef, name }) {
 CultureEvent.propTypes = {
   cultureRef: propTypes.object.isRequired,
   name: propTypes.string.isRequired,
+  data: propTypes.array,
 };
 
 export default CultureEvent;

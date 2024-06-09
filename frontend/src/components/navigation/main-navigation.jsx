@@ -1,23 +1,42 @@
 import React from 'react';
 
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 import logo from '../../assets/올포서울로고.jpg';
 import SearchButton from '../button/search-button';
+import { useAuthWithCookies } from '../../hooks/use-auth-with-cookies';
 
 function NavBar() {
   const { isLoggedIn, logout } = useAuthWithCookies();
-
   const navigation = useNavigate();
 
   const handleLogout = () => {
-    logout();
-    navigation('/home');
+    axios
+      .post('/api/logout', null, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        Swal.fire({
+          icon: 'success',
+          title: '로그아웃 성공',
+          text: '로그아웃 되었습니다.',
+          confirmButtonText: '확인',
+        }).then(() => {
+          console.log(response);
+          logout();
+          navigation('/home');
+        });
+      })
+      .catch((error) => {
+        console.error('로그아웃 실패', error);
+      });
   };
 
   return (
-    <nav className="text-md fixed left-0 top-0 z-50 w-full rounded-b-md bg-white bg-opacity-90 p-3 font-gmarketbold">
+    <nav className="text-md fixed left-0 top-0 z-50 w-full rounded-b-md bg-white bg-opacity-70 p-3 font-gmarketbold backdrop-blur">
       <ul className="mx-56 flex justify-between">
         <li className="flex items-center">
           <NavLink
@@ -61,13 +80,12 @@ function NavBar() {
               >
                 마이페이지
               </NavLink>
-              <NavLink
-                to="/home"
+              <button
                 onClick={handleLogout}
                 className="flex items-center rounded-lg px-2 text-black hover:text-cyan-900"
               >
                 로그아웃
-              </NavLink>
+              </button>
             </>
           ) : (
             <NavLink

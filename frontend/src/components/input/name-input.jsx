@@ -2,7 +2,7 @@ import React from 'react';
 
 import propTypes from 'prop-types';
 
-function NameInput({ register, errors }) {
+function NameInput({ register, errors, disabled }) {
   return (
     <div className="mb-6">
       <label
@@ -21,6 +21,7 @@ function NameInput({ register, errors }) {
           minLength: { value: 3, message: '이름은 3자 이상이어야 합니다.' },
           maxLength: { value: 20, message: '이름은 20자 이하여야 합니다.' },
         })}
+        disabled={disabled}
       />
       {errors.name && (
         <p className="mt-3 text-xs text-red-500">{errors.name.message}</p>
@@ -32,6 +33,7 @@ function NameInput({ register, errors }) {
 NameInput.propTypes = {
   register: propTypes.func.isRequired,
   errors: propTypes.object.isRequired,
+  disabled: propTypes.bool,
 };
 
 export default NameInput;

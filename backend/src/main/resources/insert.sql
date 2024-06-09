@@ -8,17 +8,26 @@ values (2, 'lbittany1@ftc.gov', 'jS1#`89eGg8%OesC', 'Thaddus McCullouch', '2023-
 insert into users (user_id, login_id, login_password, name, birth, mbti, gender, nickname)
 values (3, 'lbittany1@ftc.gov2', 'jS1#`89eGg8%OesC', 'Thaddus McCullouch', '2023-10-30 05:45:08', 'ISFP',
         'Male', 'Laurie Bittany2');
+insert into users (user_id, login_id, login_password, name, birth, mbti, gender, nickname)
+values (4, 'admin', 'admin', 'pochetino', '2023-10-30 05:45:08', 'ESFJ',
+        'Male', 'dd');
+insert into users (user_id, login_id, login_password, name, birth, mbti, gender, nickname)
+values (5, 'admin1', 'admin1', 'pochetino', '2023-10-30 05:45:08', 'ESFJ',
+        'Male', 'ddad');
 
 -- places 테이블에 더미 데이터 추가
-INSERT INTO places (place_id, name, phone_number, address, x, y, website_uri, category)
-VALUES (1, 'Place One', '01012345678', '광교산로 뭐시기', 127.002, 37.002, 'https://www.example.com/place1', 'PARKING_LOT'),
-       (2, 'Place Two', '01087654321', '보정로 30', 127.002, 37.003, 'https://www.example.com/place2', 'PARKING_LOT');
+INSERT INTO places (place_id, name, phone_number, address, x, y, rating, website_uri, category)
+VALUES (1, 'Place One', '01012345678', '광교산로 뭐시기', 127.002, 37.002, 4.0, 'https://www.example.com/place1', 'PARKING_LOT'),
+       (2, 'Place Two', '01087654321', '보정로 30', 127.002, 37.003, 4.8, 'https://www.example.com/place2', 'PARKING_LOT');
       
 -- bookmarks 테이블 더미 데이터 추가
 INSERT INTO bookmarks (user_id, place_id)
 VALUES (1, 1),
        (1, 2),
-       (2, 1);
+       (2, 1),
+       (4, 1),
+       (4, 2);
+
 
 -- events 테이블에 더미 데이터 추가
 INSERT INTO events (event_id, name, start_date, end_date, price, place_id, x, y)

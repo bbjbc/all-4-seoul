@@ -17,6 +17,12 @@ function BarGraph({ data }) {
     }
   };
 
+  const maxPower = data.map((d) => d.maxValue);
+  const minPower = data.map((d) => d.minValue);
+  const maxValue = +maxPower[0];
+  const minValue = +minPower[0];
+  console.log(maxValue, minValue);
+
   return (
     <div className="h-96 w-full">
       <ResponsiveBar
@@ -28,9 +34,9 @@ function BarGraph({ data }) {
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
         colors={({ id, data }) => {
-          if (data[id] >= 10000) {
+          if (+data[id] === maxValue) {
             return '#d15f4d';
-          } else if (data[id] >= 1000) {
+          } else if (+data[id] === minValue) {
             return '#dbb623';
           } else {
             return '#9aeda1';
